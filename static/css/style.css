@@ -1,0 +1,1231 @@
+@charset "utf-8";
+/* CSS Document */
+
+a{
+    color: white;
+}
+
+a:hover{
+    text-decoration: none;
+    color: grey;
+}
+
+.colorWhite{
+    color: white;
+}
+
+.hidden1{
+    display: none;
+}
+
+body {
+     background-image: url("../img/bg_texture.jpg");
+    min-height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+/* ------------------------------------------------------------------------------------------------------------------ */
+/* header logo, search, login */
+.logo{
+    margin-top: 15px;
+}
+
+.searchbox{
+    margin-top:15px;
+	min-height: 60px;
+	padding-left: 20px;
+	border-radius: 10px 0px 0px 10px;
+	background-color: transparent ;
+	font-size: 14px;
+	text-align: left;
+	font-style: italic;
+	color: white;
+	font-family: 'Cool jazz';
+	letter-spacing: 1px;
+	min-width: 340px;
+	float:right;
+	border-right:none;
+}
+
+::-webkit-input-placeholder { /* Edge */
+  color: white;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: white;
+}
+
+::placeholder {
+  color: white;
+}
+
+input:focus, textarea:focus, select:focus{
+    outline: none;
+    background-color:transparent;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active  {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: white;
+}
+
+
+
+.searchicon{
+    padding: 0px 5px;
+    font-size: 20px;
+    color:#ffffff;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.searchicon:hover{
+    color : grey;
+}
+
+
+.searchicon:active{
+    transform : scale(0.9);
+}
+
+.btnTransparent {
+    margin-top:15px;
+	min-height: 60px;
+	border-radius: 0px 10px 10px 0px;
+	background-color: transparent ;
+	float:right;
+	border-left:none;
+}
+
+button:focus{
+    outline : none;
+    }
+
+button {
+  border-style: inset;
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+  /* Remove default */
+  -webkit-appearance: none;
+  /*Your new styles */
+   height: 14px;
+   width: 14px;
+   display: block;
+   background-image: url(data:../img/bg_texture.png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAn0lEQVR42u3UMQrDMBBEUZ9WfQqDmm22EaTyjRMHAlM5K+Y7lb0wnUZPIKHlnutOa+25Z4D++MRBX98MD1V/trSppLKHqj9TTBWKcoUqffbUcbBBEhTjBOV4ja4l4OIAZThEOV6jHO8ARXD+gPPvKMABinGOrnu6gTNUawrcQKNCAQ7QeTxORzle3+sDfjJpPCqhJh7GixZq4rHcc9l5A9qZ+WeBhgEuAAAAAElFTkSuQmCC);
+  /* setup all the background tweaks for our custom icon */
+  background-repeat: no-repeat;
+
+  /* icon size */
+  background-size: 14px;
+}
+
+.btnLogin{
+    margin-top:15px;
+	min-height: 60px;
+	border-radius: 10px;
+	background-color: transparent ;
+	float:right;
+	width: 110px;
+	font-size: 24px;
+}
+
+.btnLogin:active{
+    transform : scale(0.97);
+}
+
+@media (max-width: 900px) {
+    .btnLogin{
+        min-height: 45px;
+        border-radius: 7.5px;
+        width: 82.7px;
+        font-size: 18px;
+    }
+
+    .searchbox{
+        min-height: 45px;
+        padding-left: 15px;
+        border-radius: 7.5px 0px 0px 7.5px;
+        font-size: 10px;
+        min-width: 256px;
+    }
+
+    .btnTransparent {
+        min-height: 45px;
+        border-radius: 0px 7.5px 7.5px 0px;
+    }
+
+    .searchicon{
+        padding:0px;
+        font-size: 15px;
+    }
+
+}
+
+@media (max-width: 715px) {
+    .btnLogin{
+        min-height: 30px;
+        border-radius: 5px;
+        width: 55px;
+        font-size: 12px;
+    }
+
+    .searchbox{
+        min-height: 30px;
+        padding-left: 10px;
+        border-radius: 5px 0px 0px 5px;
+        font-size:10px;
+        min-width: 170px;
+    }
+
+    .btnTransparent {
+        min-height: 30px;
+        border-radius: 0px 5px 5px 0px;
+    }
+
+}
+
+@media (max-width: 487px) {
+
+
+    .searchbox{
+        min-height: 30px;
+        padding-left: 10px;
+        border-radius: 5px 0px 0px 5px;
+        font-size:10px;
+        min-width: 170px;
+    }
+
+}
+
+@media (max-width: 368px) {
+    .searchbox{
+        min-height: 25px;
+        padding-left: 10px;
+        border-radius: 5px 0px 0px 5px;
+        font-size:10px;
+        min-width: 140px;
+    }
+
+    .btnTransparent {
+        min-height: 25px;
+    }
+
+    button, input, optgroup, select, textarea {
+        font-size: small;
+    }
+
+    .searchicon{
+        padding:0px;
+        font-size: 12px;
+    }
+
+}
+
+/* ----------------------------------------------------------------------------------------------------------------- */
+/* side nav */
+
+.activated{
+    color:#e5e5e5;
+}
+
+.deactivated{
+    color:#5e5e5e;
+}
+
+
+.wrapper {
+    display: flex;
+    align-items: stretch;
+}
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    transition: all 0.3s;
+    float: left;
+}
+
+/* Shrinking the sidebar from 250px to 80px and center aligining its content*/
+#sidebar.active {
+    min-width: 80px;
+    max-width: 80px;
+    text-align: center;
+}
+
+
+#sidebar ul li a {
+    text-align: center;
+}
+
+#sidebar.active ul li a {
+    padding: 20px 0px 20px 10px;
+    text-align: center;
+    font-size: 0.85em;
+     font-weight: bold;
+}
+
+#sidebar.active ul li a i {
+    margin-right:  0;
+    display: block;
+    font-size: 2em;
+    margin-bottom: 5px;
+    text-align: center;
+
+}
+
+/* Same dropdown links padding*/
+#sidebar.active ul ul a {
+    padding: 10px !important;
+
+}
+
+/* Changing the arrow position to bottom center position,
+   translateX(50%) works with right: 50%
+   to accurately  center the arrow */
+#sidebar.active .dropdown-toggle::before {
+    top: auto;
+    bottom: 10px;
+    right: 50%;
+    -webkit-transform: translateX(50%);
+    -ms-transform: translateX(50%);
+    transform: translateX(50%);
+}
+
+.deactivated:hover, .activated:hover{
+    color:#e5e5e5;
+}
+
+
+
+@media (max-width: 576px) {
+    /* 80px and its content aligned to centre. Pushing it off the screen with the
+       negative left margin
+    */
+    #sidebar.active {
+        min-width: 80px;
+        max-width: 80px;
+        text-align: center;
+        margin-left: -180px !important;
+    }
+
+
+    /* Reappearing the sidebar on toggle button click */
+    #sidebar {
+        margin-left: 0;
+    }
+
+
+    /* Toggling the sidebar header content,
+       hide the big heading [h3] and showing the small heading [strong] and vice versa
+    */
+
+
+    /* Downsize the navigation links font size */
+    #sidebar.active ul li a {
+        padding: 20px 10px;
+        font-size: 0.85em;
+    }
+}
+
+/* ------------------------------------------------------------------------------------------------------------------ */
+
+/* main content */
+.mainContent{
+    margin:30px 10px 0px 10px;
+    height: 80vh;
+    box-shadow: inset 0px 0px 5px 2px rgba(0,0,0,0.35);
+    padding: 20px;
+    transition: all 0.3s;
+    color: white;
+    float: left;
+    width: 90%;
+}
+
+@media (max-width: 1000px) {
+    .mainContent{
+        width: 80%;
+    }
+}
+
+@media (max-width: 667px) {
+    .mainContent{
+        width: 80%;
+    }
+}
+
+@media (max-width: 577px) {
+    .mainContent{
+        margin:10px 30px 0px 30px;
+        width: 90%;
+    }
+}
+
+@media (max-width: 496px) {
+    .mainContent{
+        margin:20px 0px 0px 0px;
+        width: 100%;
+    }
+}
+
+
+/* ------------------------------------------------------------------------------------------------------------------ */
+/* audio control*/
+#showControl{
+	display:none;
+}
+
+.showHideControl{
+    font-size: 22px;
+    color: #5e5e5e;
+    cursor: pointer;
+}
+
+.showHideControl:hover{
+    color:#e5e5e5;
+}
+
+.footerMargin{
+    padding-top:15px;
+     min-height:90px;
+    background-color:#2a2a2a;
+    color:white;
+}
+
+.songTitle p{
+    margin-top:10px;
+    font-size: 14px;
+}
+
+.songArtist p{
+    margin-top:-10px;
+    color: grey;
+    font-size: 12px;
+    font-family: 'Cool jazz';
+}
+
+.favourateIcon{
+    margin-top: 18px;
+}
+
+.playPause{
+    text-align:center;
+}
+
+.controlColor{
+    color: #636363;
+}
+
+.controlColor:hover{
+    transform:scale(1.07);
+    color: #c8c8c8;
+    cursor: pointer;
+}
+
+.playPause i{
+    margin-top: -10px;
+    border-radius: 50%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 2px solid #636363;
+}
+
+
+.seekTime p{
+    text-align:center;
+    color: grey;
+}
+
+#fill{
+    margin-top: -5px;
+    height: 5px;
+    background-color: #5e5e5e;
+    border-radius: 20px;
+    width: 100%;
+}
+
+
+#mute{
+    background: transparent;
+    border: none;
+    color: #5e5e5e;
+}
+
+#volume{
+    width: 70%;
+}
+
+input[type="range"] {
+	-webkit-appearance: none;
+	border: 1px solid #5e5e5e ;
+	height: 5px;
+	vertical-align: middle;
+	-webkit-border-radius: 20px;
+	   -moz-border-radius: 20px;
+	        border-radius: 20px;
+	background-color: #232323;
+	outline: none;
+}
+input::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	width: 20px;
+	height: 20px;
+	border: 1px solid  #000000;
+	-webkit-border-radius: 10px;
+	        border-radius: 10px;
+	background: #ffffff;
+}
+
+#seek {
+	display: block;
+	width: 100%;
+}
+@-webkit-keyframes animate {
+	0% {
+		background-position: 0 0;
+	}
+	50% {
+		background-position: 400% 0;
+	}
+	100% {
+		background-position: 0 0;
+	}
+}
+@-moz-keyframes animate {
+	0% {
+		background-position: 0 0;
+	}
+	50% {
+		background-position: 400% 0;
+	}
+	100% {
+		background-position: 0 0;
+	}
+}
+@-o-keyframes animate {
+	0% {
+		background-position: 0 0;
+	}
+	50% {
+		background-position: 400% 0;
+	}
+	100% {
+		background-position: 0 0;
+	}
+}
+@keyframes animate {
+	0% {
+		background-position: 0 0;
+	}
+	50% {
+		background-position: 400% 0;
+	}
+	100% {
+		background-position: 0 0;
+	}
+}
+
+.volumeSeek{
+    margin: -12px 0px 0px 25px;
+    height:3px;
+    width:70%;
+    background-color: grey;
+}
+
+.volumeSeek:hover{
+    background-color: #c8c8c8;
+}
+
+.controlLeft{
+    margin-top:12px;
+}
+
+.albumArtNowPlaying{
+    margin:auto;
+}
+
+@media (max-width: 767px) {
+    .songTitle p{
+        margin-top:5px;
+        font-size: 10px;
+    }
+
+    .songArtist p{
+        margin-top:-10px;
+        font-size: 9px;
+    }
+
+}
+
+/* ----------------------------------------------------------------------------------------------------------------- */
+/* SCROLL BAR */
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #5e5e5e;
+  border-radius: 5px 0px 0px 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #E5E5E5;
+}
+
+/* ----------------------------------------------------------------------------------------------------------------- */
+/* All view in main content */
+
+.mainDiv{
+    height: 75vh;
+    overflow: auto;
+    padding-bottom:8vh;
+    width: 100%;
+}
+
+/* ----------------------------------------------------------------------------------------------------------------- */
+/* for right click */
+#menu {
+   z-index: 2;
+  visibility: hidden;
+  opacity: 0;
+  position: fixed;
+  background: rgba(143, 144, 145, 1);
+  color: #555;
+  font-family: sans-serif;
+  font-size: 11px;
+  -webkit-transition: opacity .5s ease-in-out;
+  -moz-transition: opacity .5s ease-in-out;
+  -ms-transition: opacity .5s ease-in-out;
+  -o-transition: opacity .5s ease-in-out;
+  transition: opacity .5s ease-in-out;
+  -webkit-box-shadow: 2px 2px 2px 0px rgba(143, 144, 145, 1);
+  -moz-box-shadow: 2px 2px 2px 0px rgba(143, 144, 145, 1);
+  box-shadow: 2px 2px 2px 0px rgba(143, 144, 145, 1);
+  padding: 0px;
+  border: 1px solid #C6C6C6;
+}
+
+#menu a {
+  display: block;
+  color: #555;
+  text-decoration: none;
+  padding: 6px 8px 6px 30px;
+  width: 250px;
+  position: relative;
+}
+
+#menu a img,
+#menu a i.fa {
+  height: 20px;
+  font-size: 17px;
+  width: 20px;
+  position: absolute;
+  left: 5px;
+  top: 2px;
+}
+
+#menu a span {
+  color: #BCB1B3;
+  float: right;
+}
+
+#menu a:hover {
+  color: #fff;
+  background: #3879D9;
+}
+
+#menu hr {
+  border: 1px solid #EBEBEB;
+  border-bottom: 0;
+}
+
+/* ----------------------------------------------------------------------------------------------------------------- */
+/* home view */
+.feature{
+    margin-bottom: 15px;
+}
+
+.titleHome{
+    font-size: 24px;
+}
+
+.titleHomeMore{
+    font-size: 16px;
+    color : #5e5e5e;
+}
+
+.titleHomeMore:hover{
+    color: #e5e5e5;
+    cursor: pointer;
+}
+
+.songName{
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.artistName{
+    font-size: 12px;
+    font-family: 'Cool jazz';
+}
+
+.box-shadow{
+     box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.35);
+}
+
+
+.imageFeature:hover{
+    box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.95);
+    background: rgba(0,0,0,0.95);
+}
+
+.imageHover {
+    width:100%;
+    height:100%;
+    background:#ccc;
+    position:relative;
+}
+.imageHoverPlay {
+    width:100%;
+    height:100%;
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:1;
+    background:rgba(0,0,0,0.5);
+    transition:opacity 0.5s;
+    opacity:0;
+}
+.imageHover .image {
+    text-align:center;
+    position:relative;
+    top:0%;
+}
+.imageHover:hover .imageHoverPlay{
+    opacity:1;
+}
+
+.imageHoverPlay i{
+    color:#e5e5e5;font-size: 5vw;
+    margin-top: 30%;
+    opacity: 0.5;
+}
+
+.imageHoverPlay {
+    text-align: center;
+}
+
+@media only screen and (max-width: 4000px) and (min-width: 2570px)  {
+    .imageHover{
+        width: 65%;
+    }
+}
+
+@media only screen and (max-width: 2570px) and (min-width: 2200px)  {
+    .imageHover{
+        width: 87%;
+    }
+}
+
+/* ------------------------------------------------------------------------------------------------------------------ */
+/* TOP PAGE*/
+.imageHover1 {
+    width:100%;
+    height:100%;
+    position:relative;
+}
+.imageHoverPlay1 {
+    width:100%;
+    height:100%;
+    position:absolute;
+    top:0%;
+    left:0;
+    z-index:1;
+    text-align: center;
+    background:rgba(0,0,0,0.5);
+    transition:opacity 0.5s;
+    opacity:0;
+}
+
+.imageHover1:hover .imageHoverPlay1{
+    opacity:1;
+}
+
+.imageHoverPlay1 i{
+    color:#e5e5e5;
+    font-size: 2vw;
+    margin-top: 30%;
+    opacity: 0.5;
+    text-align: center;
+}
+
+.imageHoverPlay1 {
+    text-align: center;
+}
+
+.songNo{
+    margin: auto;
+    text-align: center;
+    font-weight: bolder;
+}
+
+.bgOnHover{
+    padding: 8px 0px;
+    border-radius : 10px;
+}
+
+.bgOnHover:hover{
+    background:rgba(0,0,0,0.3);
+}
+
+.artistsAlbum, .artistsName{
+    color: #eeeeee;
+    font-size: 12px;
+}
+
+.artistsAlbum:hover, .artistsName:hover{
+    color: #fff;
+}
+
+.imageHeight{
+    height: 60px;
+    width: 60px;
+}
+
+@media only screen and (max-width: 4000px)  {
+    .imageHeight{
+        height: 80px;
+        width: 80px;
+    }
+
+    .imageHoverPlay1 i {
+        font-size: 1.2vw;
+        margin-top: 30%;
+    }
+
+    .imageHover1 {
+        width: 80px;
+        height: 80px;
+    }
+
+    .artistsAlbum, .artistsName{
+        font-size: 20px;
+    }
+
+    .songName{
+        font-size: 20px;
+    }
+
+    .songLength, .songOption{
+        font-size: 25px;
+    }
+}
+
+@media only screen and (max-width: 2200px)  {
+    .imageHoverPlay1 i {
+        font-size: 1.7vw;
+        margin-top: 28%;
+    }
+}
+
+@media only screen and (max-width: 1850px)  {
+    .imageHoverPlay1 i {
+        font-size: 2.5vw;
+        margin-top: 20%;
+    }
+
+    .imageHeight{
+        height: 60px;
+        width: 60px;
+    }
+
+    .imageHover1 {
+        width: 60px;
+        height: 60px;
+    }
+
+}
+
+@media only screen and (max-width: 1400px)  {
+    .imageHoverPlay1 i {
+        font-size: 3vw;
+        margin-top: 25%;
+    }
+}
+
+@media only screen and (max-width: 1000px)  {
+    .hideOnMD{
+        display:none;
+    }
+}
+
+@media only screen and (max-width: 760px)  {
+    .songName{
+        font-size: 20px;
+    }
+
+    .artistsAlbum, .artistsName{
+        font-size: 15px;
+    }
+
+    .songLength, .songOption{
+        font-size: 15px;
+    }
+
+    .imageHoverPlay1 i {
+        font-size: 3vw;
+        margin-top: 25%;
+    }
+
+    .imageHeight{
+        height: 50px;
+        width: 50px;
+    }
+
+    .imageHover1 {
+        width: 50px;
+        height: 50px;
+    }
+
+    .hideOnXS{
+        display:none;
+    }
+}
+
+@media only screen and (max-width: 500px)  {
+    .imageHoverPlay1 i {
+        font-size: 5vw;
+        margin-top: 25%;
+    }
+
+    .songName{
+        font-size: 15px;
+    }
+
+    .artistsAlbum, .artistsName{
+        font-size: 10px;
+    }
+
+    .songLength, .songOption{
+       font-size: 10px;
+    }
+}
+
+@media only screen and (max-width: 410px)  {
+    .marginLeftXS{
+        margin-left : 20px;
+    }
+
+    .imageHoverPlay1 i {
+        font-size: 8vw;
+        margin-top: 25%;
+    }
+
+    .songName{
+        font-size: 10px;
+    }
+
+    .artistsAlbum, .artistsName{
+        font-size: 8px;
+    }
+
+    .songLength, .songOption{
+       font-size: 12px;
+    }
+
+    .optionOnXS{
+        margin-right: 15px;
+    }
+}
+
+.bgOnHover hr {
+     display: block;
+     height: 2px;
+     border: 0;
+     border-top: 1px solid #ccc;
+     margin:0px 0px 0px 18px;
+     padding: 0;
+}
+
+/* ------------------------------------------------------------------------------------------------------------------ */
+/* LIBRARY */
+
+/* header */
+
+.header {
+    background-color: #5e5e5e;
+  position: fixed;
+  width: 85%;
+  z-index: 3;
+  height: 63px;
+}
+
+#header{
+    display:block;
+}
+
+.header ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow: hidden;
+}
+
+.header li a {
+  display: block;
+  padding: 20px 20px;
+  text-decoration: none;
+}
+
+.header li a:hover,
+.header .menu-btn:hover {
+  background-color: rgba(0,0,0,0.5);
+}
+
+.header .logo1 {
+  display: block;
+  float: left;
+  font-size: 2em;
+  padding: 10px 20px;
+  font-weight: bolder;
+  text-decoration: none;
+}
+
+/* menu */
+
+.header .menu {
+    background-color: #5e5e5e;
+  clear: both;
+  max-height: 0;
+  transition: max-height .2s ease-out;
+}
+
+/* menu icon */
+
+.header .menu-icon {
+  cursor: pointer;
+  display: inline-block;
+  float: right;
+  padding: 28px 20px;
+  position: relative;
+  user-select: none;
+}
+
+.header .menu-icon .navicon {
+  background: #fff;
+  display: block;
+  height: 2px;
+  position: relative;
+  transition: background .2s ease-out;
+  width: 18px;
+}
+
+.header .menu-icon .navicon:before,
+.header .menu-icon .navicon:after {
+  background: #fff;
+  content: '';
+  display: block;
+  height: 100%;
+  position: absolute;
+  transition: all .2s ease-out;
+  width: 100%;
+}
+
+.header .menu-icon .navicon:before {
+  top: 5px;
+}
+
+.header .menu-icon .navicon:after {
+  top: -5px;
+}
+
+/* menu btn */
+
+.header .menu-btn {
+  display: none;
+}
+
+.header .menu-btn:checked ~ .menu {
+  max-height: 240px;
+}
+
+.header .menu-btn:checked ~ .menu-icon .navicon {
+  background: transparent;
+}
+
+.header .menu-btn:checked ~ .menu-icon .navicon:before {
+  transform: rotate(-45deg);
+}
+
+.header .menu-btn:checked ~ .menu-icon .navicon:after {
+  transform: rotate(45deg);
+}
+
+.header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:before,
+.header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:after {
+  top: 0;
+}
+
+/* 48em = 768px */
+
+@media (min-width: 976px) {
+  .header li {
+    float: left;
+  }
+  .header li a {
+    padding: 20px 30px;
+  }
+  .header .menu {
+    clear: none;
+    float: right;
+    max-height: none;
+  }
+  .header .menu-icon {
+    display: none;
+  }
+}
+
+.navicon1{
+    color: white;
+}
+
+.libraryNavActive{
+    background-color: rgba(0,0,0,0.5);
+}
+
+.libraryNavActive a:hover, navicon1:hover{
+    color: #ffffff;
+}
+
+@media only screen and (max-width: 1700px)  {
+    .header {
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width: 1000px)  {
+    .header {
+        width: 70%;
+    }
+}
+
+@media only screen and (max-width: 500px)  {
+    .header {
+        width: 80%;
+    }
+}
+
+.library{
+    margin-top: 70px;
+}
+
+/* ------------------------------------------------------------------------------------------------------------------ */
+/* SIGNIN */
+.signinDiv{
+    top:50%;
+}
+
+.searchbox1{
+    margin-top:15px;
+	min-height: 60px;
+	padding-left: 20px;
+	border-radius: 10px;
+	background-color: transparent ;
+	font-size: 14px;
+	text-align: left;
+	font-style: italic;
+	color: white;
+	font-family: 'Cool jazz';
+	letter-spacing: 1px;
+	width: 100%;
+	text-align:center;
+}
+
+.btnLogin1{
+    margin-top:15px;
+	min-height: 60px;
+	border-radius: 10px;
+	background-color: rgba(0,0,0,0.1) ;
+	font-size: 24px;
+	color: #e5e5e5;letter-spacing: 1px;
+	width: 100%;
+	text-align:center;
+}
+
+.btnLogin1:active{
+    transform : scale(0.97);
+}
+
+/* ------------------------------------------------------------------------------------------------------------------ */
+/* SIGNUP */
+input[type="radio"] {
+  display: none;
+}
+
+input[type="radio"] + label {
+  z-index: 10;
+  margin: 0 10px 10px 0;
+  position: relative;
+  color: #e5e5e5;
+  text-shadow: 0 1px 0 #e5e5e5;
+  font-weight: bold;
+  background-color: transparent;
+  border: 2px solid #ced4da;
+  cursor: pointer;
+  transition: all 200ms ease;
+}
+
+input[type="radio"]:checked + label {
+  color: transparent;
+  background-color: rgba(0,0,0,0.25);
+}
+
+input[type="radio"] + label {
+  padding: 5px 20px;
+  border-radius: 10px;
+}
+
+.searchbox1 h4{
+font-size: inherit;
+}
+
+/* CREATE PLAYLIST */
+input[type=checkbox]
+{
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(2); /* IE */
+  -moz-transform: scale(2); /* FF */
+  -webkit-transform: scale(2); /* Safari and Chrome */
+  -o-transform: scale(2); /* Opera */
+  transform: scale(2);
+  padding: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

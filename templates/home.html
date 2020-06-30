@@ -1,0 +1,361 @@
+<Section class="mainDiv container-fluid"> <!-- DO NOT REMOVE THIS Section -->
+
+<!-- new and trending -->
+    <div class="feature">
+        <div class="row">
+        <div class="col-8">
+            <h1 class="titleHome float-left">New & Trending</h1>
+        </div>
+        <div class="col-4">
+            <h1 class="titleHomeMore float-right">SEE ALL</h1>
+        </div>
+    </div>
+        <div class="row">
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row ">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#" >
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                            <img src="static/img/thumbnails/control.jpg" alt="Playlist by Control" class="img-fluid image box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName"><a href="#" >Weekly Top 15</a></div>
+                <div class="col-12 artistName"><a href="#" >by Control</a></div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row ">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#"  onclick='albumSongPlay({{albumsongsname.0}})' >
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                        <img src="static/thumbnails/{{newandtrending.0.artwork_name}}" alt="Playlist by Control" class="img-fluid  box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName"><a href="#">{{newandtrending.0.album}}</a></div>
+                <div class="col-12 artistName"><a href="#" >{{newandtrending.0.album_artist}}</a></div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row ">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#" onclick='albumSongPlay({{albumsongsname.1}})'>
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                        <img src="static/thumbnails/{{newandtrending.1.artwork_name}}" alt="Playlist by Control" class="img-fluid  box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName"><a href="#">{{newandtrending.1.album}}</a></div>
+                <div class="col-12 artistName"><a href="#">{{newandtrending.1.album_artist}}</a></div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row ">
+                <div class="col-12">
+                   <div class="imageHover"><a href="#" onclick='albumSongPlay({{albumsongsname.2}})'>
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                        <img src="static/thumbnails/{{newandtrending.2.artwork_name}}" alt="Playlist by Control" class="img-fluid  box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName"><a href="#">{{newandtrending.2.album}}</a></div>
+                <div class="col-12 artistName"><a href="#">{{newandtrending.2.album_artist}}</a></div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-none d-md-none d-lg-block d-xl-block">
+            <div class="row">
+                <div class="col-12 ">
+                    <div class="imageHover"><a href="#" onclick='albumSongPlay({{albumsongsname.3}})'>
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                        <img src="static/thumbnails/{{newandtrending.3.artwork_name}}" alt="Playlist by Control" class="img-fluid  box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName"><a href="#">{{newandtrending.3.album}}</a></div>
+                <div class="col-12 artistName"><a href="#">{{newandtrending.3.album_artist}}</a></div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-xs-none d-sm-none d-md-none d-lg-block d-xl-block">
+            <div class="row">
+                <div class="col-12 ">
+                   <div class="imageHover"><a href="#" onclick='albumSongPlay({{albumsongsname.4}})'>
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                        <img src="static/thumbnails/{{newandtrending.4.artwork_name}}" alt="Playlist by Control" class="img-fluid  box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName"><a href="#">{{newandtrending.4.album}}</a></div>
+                <div class="col-12 artistName"><a href="#">{{newandtrending.4.album_artist}}</a></div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+<!--    you might also like -->
+    <div class="feature">
+        <div class="row">
+        <div class="col-8">
+            <h1 class="titleHome float-left">You Might Also Like</h1>
+        </div>
+        <div class="col-4">
+            <h1 class="titleHomeMore float-right">SEE ALL</h1>
+        </div>
+    </div>
+        <div class="row">
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row ">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#" onclick='singleSongPlay("{{youmightalsolike.0.file}},{{youmightalsolike.0.artwork_name}},{{youmightalsolike.0.title}},{{youmightalsolike.0.album_artist}}")' >
+<!--                        file,image,title,artist-->
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                        <img src="static/thumbnails/{{youmightalsolike.0.artwork_name}}" alt="Playlist by Control" id="SinglePlayArtwork" class="img-fluid  box-shadow "></a>
+                    </div>
+                </div>
+                <div class="col-12 songName"><a href="#" id="SinglePlayTitle">{{youmightalsolike.0.title}}</a></div>
+                <div class="col-12 artistName"><a href="#" id="SinglePlayArtist">{{youmightalsolike.0.album_artist}}</a></div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row ">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#" onclick='singleSongPlay("{{youmightalsolike.1.file}},{{youmightalsolike.1.artwork_name}},{{youmightalsolike.1.title}},{{youmightalsolike.1.album_artist}}")' >
+<!--                        file,image,title,artist-->
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                        <img src="static/thumbnails/{{youmightalsolike.1.artwork_name}}" alt="Playlist by Control" class="img-fluid  box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName"><a href="#">{{youmightalsolike.1.title}}</a></div>
+                <div class="col-12 artistName"><a href="#">{{youmightalsolike.1.album_artist}}</a></div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row ">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#"onclick='singleSongPlay("{{youmightalsolike.2.file}},{{youmightalsolike.2.artwork_name}},{{youmightalsolike.2.title}},{{youmightalsolike.2.album_artist}}")' >
+<!--                        file,image,title,artist-->
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                        <img src="static/thumbnails/{{youmightalsolike.2.artwork_name}}" alt="Playlist by Control" class="img-fluid  box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName"><a href="#">{{youmightalsolike.2.title}}</a></div>
+                <div class="col-12 artistName"><a href="#">{{youmightalsolike.2.album_artist}}</a></div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row ">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#" onclick='singleSongPlay("{{youmightalsolike.3.file}},{{youmightalsolike.3.artwork_name}},{{youmightalsolike.3.title}},{{youmightalsolike.3.album_artist}}")' >
+<!--                        file,image,title,artist-->
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                        <img src="static/thumbnails/{{youmightalsolike.3.artwork_name}}" alt="Playlist by Control" class="img-fluid  box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName"><a href="#">{{youmightalsolike.3.title}}</a></div>
+                <div class="col-12 artistName"><a href="#">{{youmightalsolike.3.album_artist}}</a></div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-none d-md-none d-lg-block d-xl-block">
+            <div class="row">
+                <div class="col-12 ">
+                    <div class="imageHover"><a href="#" onclick='singleSongPlay("{{youmightalsolike.4.file}},{{youmightalsolike.4.artwork_name}},{{youmightalsolike.4.title}},{{youmightalsolike.4.album_artist}}")' >
+<!--                        file,image,title,artist-->
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                        <img src="static/thumbnails/{{youmightalsolike.4.artwork_name}}" alt="Playlist by Control" class="img-fluid  box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName"><a href="#">{{youmightalsolike.4.title}}</a></div>
+                <div class="col-12 artistName"><a href="#">{{youmightalsolike.4.album_artist}}</a></div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-none d-md-none d-lg-block d-xl-block">
+            <div class="row">
+                <div class="col-12 ">
+                    <div class="imageHover"><a href="#" onclick='singleSongPlay("{{youmightalsolike.5.file}},{{youmightalsolike.5.artwork_name}},{{youmightalsolike.5.title}},{{youmightalsolike.5.album_artist}}")' >
+<!--                        file,image,title,artist-->
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                        <img src="static/thumbnails/{{youmightalsolike.5.artwork_name}}" alt="Playlist by Control" class="img-fluid  box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName"><a href="#">{{youmightalsolike.5.title}}</a></div>
+                <div class="col-12 artistName"><a href="#">{{youmightalsolike.5.album_artist}}</a></div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+<!-- Popular Playlists -->
+    <div class="feature">
+        <div class="row">
+        <div class="col-8">
+            <h1 class="titleHome float-left">Popular Playlists</h1>
+        </div>
+        <div class="col-4">
+            <h1 class="titleHomeMore float-right">SEE ALL</h1>
+        </div>
+    </div>
+        <div class="row">
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row ">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#" >
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                        <img src="static/img/thumbnails/a_head_full_of_dreams.jpg" alt="Playlist by Control" class="img-fluid  box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName"><a href="#">New Singles</a></div>
+                <div class="col-12 artistName"><a href="#">Artist Name</a></div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row ">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#" >
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                        <img src="static/img/thumbnails/a_head_full_of_dreams.jpg" alt="Playlist by Control" class="img-fluid  box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName"><a href="#">New Singles</a></div>
+                <div class="col-12 artistName"><a href="#">Artist Name</a></div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row ">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#" >
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                        <img src="static/img/thumbnails/a_head_full_of_dreams.jpg" alt="Playlist by Control" class="img-fluid  box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName"><a href="#">New Singles</a></div>
+                <div class="col-12 artistName"><a href="#">Artist Name</a></div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row ">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#" >
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                        <img src="static/img/thumbnails/a_head_full_of_dreams.jpg" alt="Playlist by Control" class="img-fluid  box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName"><a href="#">New Singles</a></div>
+                <div class="col-12 artistName"><a href="#">Artist Name</a></div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-none d-md-none d-lg-block d-xl-block">
+            <div class="row ">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#" >
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                        <img src="static/img/thumbnails/a_head_full_of_dreams.jpg" alt="Playlist by Control" class="img-fluid  box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName"><a href="#">New Singles</a></div>
+                <div class="col-12 artistName"><a href="#">Artist Name</a></div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-none d-md-none d-lg-block d-xl-block">
+            <div class="row ">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#" >
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                        <img src="static/img/thumbnails/a_head_full_of_dreams.jpg" alt="Playlist by Control" class="img-fluid  box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName"><a href="#">New Singles</a></div>
+                <div class="col-12 artistName"><a href="#">Artist Name</a></div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+<!-- Best of Artists -->
+    <div class="feature">
+        <div class="row">
+        <div class="col-8">
+            <h1 class="titleHome float-left">Best of Artists</h1>
+        </div>
+        <div class="col-4">
+            <h1 class="titleHomeMore float-right">SEE ALL</h1>
+        </div>
+    </div>
+        <div class="row ">
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#" >
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                        <img src="static/artist_image/{{bestofartists.0.artist_img_original}}" alt="Playlist by Control" class="img-fluid  box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName"><a href="#">{{bestofartists.0.artist_name}}</a></div>
+                <div class="col-12 artistName"><a href="#">{{bestofartists.0.total_album}} Albums</a></div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row ">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#" >
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                        <img src="static/artist_image/{{bestofartists.1.artist_img_original}}" alt="Playlist by Control" class="img-fluid  box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName"><a href="#">{{bestofartists.1.artist_name}}</a></div>
+                <div class="col-12 artistName"><a href="#">{{bestofartists.1.total_album}} Albums</a></div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row ">
+                <div class="col-12">
+                   <div class="imageHover"><a href="#" >
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                        <img src="static/artist_image/{{bestofartists.2.artist_img_original}}" alt="Playlist by Control" class="img-fluid  box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName"><a href="#">{{bestofartists.2.artist_name}}</a></div>
+                <div class="col-12 artistName"><a href="#">{{bestofartists.2.total_album}} Albums</a></div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row ">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#" >
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                        <img src="static/artist_image/{{bestofartists.3.artist_img_original}}" alt="Playlist by Control" class="img-fluid  box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName"><a href="#">{{bestofartists.3.artist_name}}</a></div>
+                <div class="col-12 artistName"><a href="#">{{bestofartists.3.total_album}} Albums</a></div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-none d-md-none d-lg-block d-xl-block">
+            <div class="row">
+                <div class="col-12 ">
+                    <div class="imageHover"><a href="#" >
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                        <img src="static/artist_image/{{bestofartists.4.artist_img_original}}" alt="Playlist by Control" class="img-fluid  box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName"><a href="#">{{bestofartists.4.artist_name}}</a></div>
+                <div class="col-12 artistName"><a href="#">{{bestofartists.4.total_album}} Albums</a></div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-none d-md-none d-lg-block d-xl-block">
+            <div class="row">
+                <div class="col-12 ">
+                    <div class="imageHover"><a href="#" >
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                        <img src="static/artist_image/{{bestofartists.5.artist_img_original}}" alt="Playlist by Control" class="img-fluid  box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName"><a href="#">{{bestofartists.5.artist_name}}</a></div>
+                <div class="col-12 artistName"><a href="#">{{bestofartists.5.total_album}} Albums</a></div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+
+</Section>
+<!--for notification type error notice warning-->
+  <script type="text/javascript">
+  {% for message in messages %}
+    $.growl.{{notitype}} ({ message: " {{message}}  "});
+  {% endfor %}
+</script>
