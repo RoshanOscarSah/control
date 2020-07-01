@@ -1,0 +1,110 @@
+ <Section class="mainDiv container-fluid"> <!-- DO NOT REMOVE THIS Section -->
+
+<!--          LOGIN TO VIEW YOUR RECENTLY PLAYED SONGS, ARTISTS AND PLAYLISTS.-->
+
+     <!-- Recently played or Added -->
+    <div class="feature">
+<!--        for songs-->
+        <div class="row">
+        <div class="col-8">
+            <h1 class="titleHome float-left">Songs</h1>
+        </div>
+        <div class="col-4">
+            <h1 class="titleHomeMore float-right">SEE ALL</h1>
+        </div>
+        </div>
+
+        {% for recentdata in recentdata|slice:":12" %}
+        <div class="row bgOnHover">
+            <div class="col-12 ">
+                <div class="row ">
+                    <div class="col-1 d-xs-none col-sm-1 col-md-1 col-lg-1 col-xl-1 songNo hideOnXS">{{ forloop.counter }}</div>
+                    <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-1 " >
+                        <div class="imageHover1"><a href="#" onclick='singleSongPlay("{{recentdata.metadata.file}},{{recentdata.metadata.artwork_name}},{{recentdata.metadata.title}},{{recentdata.metadata.album_artist}}")' >
+                            <div class="imageHoverPlay1"><i class="far fa-play-circle"></i></div>
+                            <img src="static/thumbnails/{{recentdata.metadata.artwork_name}}" alt="Playlist by Control" class="img-fluid  box-shadow imageHeight"></a>
+                        </div>
+                    </div>
+                    <div class="col-7 col-sm-7 col-md-6 col-lg-6 col-xl-8 marginLeftXS">
+                        <div class="row">
+                            <div class="col-12 "><a href="#" class="songName" onclick='singleSongPlay("{{recentdata.metadata.file}},{{recentdata.metadata.artwork_name}},{{recentdata.metadata.title}},{{recentdata.metadata.album_artist}}")'>{{recentdata.metadata.title}}</a> </div>
+                            <div class="col-12 "><a href="#" class="artistsName">{{recentdata.metadata.album_artist}}</a>  · <a href="#" class="artistsAlbum">{{recentdata.metadata.album}}</a> </div>
+                        </div>
+                    </div>
+                    <div class="col-1 col-sm-1 col-md-2 col-lg-2 col-xl-1 text-right songOption"><a href="#"> <i class="fas fa-ellipsis-h float-left mt-1 optionOnXS"></i> </a>
+                    {% if recentdata.metadata.explicit == 'True' %}🅴{% else %}{% endif %}</div>
+                    <div class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 songLength hideOnMD">{{recentdata.metadata.length}}</div>
+                </div>
+            </div>
+            <div class="col-12 m-0 p-0">
+                <div class="row m-0 p-0">
+                    <div class="col-2 m-0 p-0"></div>
+                    <div class="col-10 m-0 p-0"><hr></div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+<!--for albums-->
+        <div class="row">
+        <div class="col-8">
+            <h1 class="titleHome float-left">Albums</h1>
+        </div>
+        <div class="col-4">
+            <h1 class="titleHomeMore float-right">SEE ALL</h1>
+        </div>
+        </div>
+        <div class="row">
+{% for recentdata in recentdata|slice:":12" %}
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row pb-4">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#" >
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                            <img src="static/thumbnails/{{recentdata.metadata.artwork_name}}" alt="Playlist by Control" class="img-fluid image box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName"><a href="#" >{{recentdata.metadata.album}}</a></div>
+                <div class="col-12 artistName"><a href="#" >{{recentdata.metadata.album_artist}}</a></div>
+            </div>
+        </div>
+{% endfor %}
+
+        </div>
+
+<!--        for artists-->
+         <div class="row">
+        <div class="col-8">
+            <h1 class="titleHome float-left">Artists</h1>
+        </div>
+        <div class="col-4">
+            <h1 class="titleHomeMore float-right">SEE ALL</h1>
+        </div>
+        </div>
+        <div class="row">
+    {% for recentdata in recentdata|slice:":12" %}
+            <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+                <div class="row pb-4">
+                    <div class="col-12">
+                        <div class="imageHover"><a href="#" >
+                            <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                                <img src="static/artist_image/{{recentdata.artist.artist_img_original}}" alt="Playlist by Control" class="img-fluid image box-shadow"></a>
+                        </div>
+                    </div>
+                    <div class="col-12 songName"><a href="#" >{{recentdata.artist.artist_name}}</a></div>
+                    <div class="col-12 artistName"><a href="#" >{{recentdata.artist.total_album}} Albums</a></div>
+                </div>
+            </div>
+    {% endfor %}
+
+</div>
+
+
+
+
+
+
+
+    </div>
+
+ </Section>
