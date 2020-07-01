@@ -1,0 +1,529 @@
+<!doctype html>
+{%load static%}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="icon" href="{% static 'img/favicon.png'%}" type="image/png" sizes="16x16">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/jquery.growl.css'%}">
+    <link rel="stylesheet" href="{% static 'fonts/fontawesome-free-5.13.0-web/css/all.min.css'%}">
+    <link rel="stylesheet" href="{% static 'fonts/cooljazz.css'%}">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+
+    <title>Control</title>
+  </head>
+  <body>
+<!--  header-->
+    <section class="container-fluid">
+      <div class="row">
+        <div class="col-4 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+          <img id="sidebarCollapse" src="{% static 'img/logo.png'%}" alt="Control" class="img-fluid logo" height="75px" width="220px" >
+        </div>
+        <div class="col-8 col-sm-9 col-md-9 col-lg-9 col-xl-9">
+          <div class="row">
+             <div class="col-12 col-sm-10 col-md-9 col-lg-10 col-xl-10">
+                <form method="post" id="searchedByForm" class="searchsm" autocomplete="off">
+                    {% csrf_token %}
+                    <button type="submit" class="btnTransparent"><i class="fa fa-search searchicon"></i></button>
+                    <input type="search" id="search" name="search" placeholder="Search for an Artist, Song, Album or Playlist" class="searchbox" required>
+                </form>
+             </div>
+              <div class="col-12 col-sm-2 col-md-3 col-lg-2 col-xl-2">
+                {% if user.is_authenticated %}
+                <button class="btnLogin" id="signout"><a href="#" id="replaceSignout">Sign Out</a></button>
+                {% else %}
+                <button class="btnLogin" id="signin"><a href="#" id="replaceSignin">Sign In</a></button>
+                {% endif %}
+              </div>
+
+
+          </div>
+
+        </div>
+
+        </div>
+    </section>
+
+<!-- Sidebar  -->
+    <nav id="sidebar" class="active">
+            <ul class="list-unstyled">
+                <li>
+                    <a href="#" class="activated" id="home" >
+                        <i class="fas fa-home"></i>
+                        HOME
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="deactivated" id="top">
+                        <i class="fas fa-chart-line"></i>
+                        TOP
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="deactivated" id="new">
+                        <i class="fas fa-gift"></i>
+                        NEW
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="deactivated" id="recent">
+                        <i class="fas fa-history"></i>
+                        RECENT
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="deactivated" id="library">
+                        <i class="fas fa-stream"></i>
+                        Library
+                    </a>
+                </li>
+            </ul>
+
+        </nav>
+
+<!-- Content -->
+    <section class="mainContent">
+        <div id="displayInMainContent">
+            {% include "home.html" %}
+    </div>
+    </section>
+
+
+
+<!--for right click / menu  -->
+<div id="menu">
+  <a href="#">
+    <i class=" fa fas fa-random"></i> Shuffle Songs <span>Ctrl + S</span>
+  </a>
+  <a href="#">
+    <i class="fa fas fa-retweet"></i>Loop Song <span>Ctrl + L</span>
+  </a>
+  <hr />
+  <a href="#">
+    <i class="fa fa-plus"></i> Help <span>Ctrl + ?</span>
+  </a>
+  <a href="#">
+    <i class="fa fa-flag"></i> Report <span>Ctrl + R</span>
+  </a>
+</div>
+
+
+
+
+
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="{% static 'js/jquery-3.4.1.min.js'%}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="{% static 'js/jquery.growl.js'%}"></script>
+    <script src="{% static 'js/bootstrap.min.js'%}"></script>
+
+
+
+<!--for notification type error, notice, warning-->
+  <script type="text/javascript">
+  {% if messages %}
+  {% for message in messages %}
+   {% if notitype %}
+    $.growl.{{notitype}} ({ message: " {{message}}  "});
+    {% else %}
+
+    $.growl.notice ({ message: " {{message}}  "});
+    {% endif %}
+  {% endfor %}
+  {% endif %}
+</script>
+
+<!--script for side nav maximize and minimize-->
+    <script>
+        $(document).ready(function () {
+                 var w = window.outerWidth;
+                 console.log(w);
+                 if (w < 578) {
+
+                    $('#sidebarCollapse').on('click', function () {
+                        $('#sidebar').toggleClass('active');
+                    });
+                 };
+
+
+        });
+    </script>
+
+<!--script for music control maximize and minimize-->
+<script>
+$(document).ready(function(){
+  $("#hideControl").click(function(){
+    $("#hideControl").hide();
+    $("#CCmusic").hide();
+    $("#showControl").show();
+  });
+  $("#showControl").click(function(){
+    $("#hideControl").show();
+    $("#CCmusic").show();
+    $("#showControl").hide()
+  });
+});
+</script>
+
+<!--  script of opening nav in same page-->
+  <script>
+      $(document).ready(function(){
+        $("#home").click(function(){
+        document.getElementById("home").classList.remove('deactivated');
+        document.getElementById("home").classList.add('activated');
+        document.getElementById("top").classList.remove('activated');
+        document.getElementById("top").classList.add('deactivated');
+        document.getElementById("new").classList.remove('activated');
+        document.getElementById("new").classList.add('deactivated');
+        document.getElementById("recent").classList.remove('activated');
+        document.getElementById("recent").classList.add('deactivated');
+        document.getElementById("library").classList.remove('activated');
+        document.getElementById("library").classList.add('deactivated');
+        document.getElementById("changeColor").classList.remove('colorWhite');
+        document.getElementById("changeColor").classList.add('controlColor');
+           $.ajax({
+            url: "../home",
+            success: function(result){
+                $("#displayInMainContent").html(result);
+                }
+            });
+        });
+
+        $("#top").click(function(){
+        document.getElementById("home").classList.remove('activated');
+        document.getElementById("home").classList.add('deactivated');
+        document.getElementById("top").classList.remove('deactivated');
+        document.getElementById("top").classList.add('activated');
+        document.getElementById("new").classList.remove('activated');
+        document.getElementById("new").classList.add('deactivated');
+        document.getElementById("recent").classList.remove('activated');
+        document.getElementById("recent").classList.add('deactivated');
+        document.getElementById("library").classList.remove('activated');
+        document.getElementById("library").classList.add('deactivated');
+        document.getElementById("changeColor").classList.remove('colorWhite');
+        document.getElementById("changeColor").classList.add('controlColor');
+           $.ajax({
+            url: "../top",
+            success: function(result){
+                $("#displayInMainContent").html(result);
+                }
+            });
+        });
+
+        $("#new").click(function(){
+        document.getElementById("home").classList.remove('activated');
+        document.getElementById("home").classList.add('deactivated');
+        document.getElementById("top").classList.remove('activated');
+        document.getElementById("top").classList.add('deactivated');
+        document.getElementById("new").classList.remove('deactivated');
+        document.getElementById("new").classList.add('activated');
+        document.getElementById("recent").classList.remove('activated');
+        document.getElementById("recent").classList.add('deactivated');
+        document.getElementById("library").classList.remove('activated');
+        document.getElementById("library").classList.add('deactivated');
+        document.getElementById("changeColor").classList.remove('colorWhite');
+        document.getElementById("changeColor").classList.add('controlColor');
+           $.ajax({
+            url: "../new",
+            success: function(result){
+                $("#displayInMainContent").html(result);
+                }
+            });
+        });
+
+        $("#recent").click(function(){
+        document.getElementById("home").classList.remove('activated');
+        document.getElementById("home").classList.add('deactivated');
+        document.getElementById("top").classList.remove('activated');
+        document.getElementById("top").classList.add('deactivated');
+        document.getElementById("new").classList.remove('activated');
+        document.getElementById("new").classList.add('deactivated');
+        document.getElementById("recent").classList.remove('deactivated');
+        document.getElementById("recent").classList.add('activated');
+        document.getElementById("library").classList.remove('activated');
+        document.getElementById("library").classList.add('deactivated');
+        document.getElementById("changeColor").classList.remove('colorWhite');
+        document.getElementById("changeColor").classList.add('controlColor');
+           $.ajax({
+            url: "../recent",
+            success: function(result){
+                $("#displayInMainContent").html(result);
+                }
+            });
+        });
+
+        $("#library").click(function(){
+        document.getElementById("home").classList.remove('activated');
+        document.getElementById("home").classList.add('deactivated');
+        document.getElementById("top").classList.remove('activated');
+        document.getElementById("top").classList.add('deactivated');
+        document.getElementById("new").classList.remove('activated');
+        document.getElementById("new").classList.add('deactivated');
+        document.getElementById("recent").classList.remove('activated');
+        document.getElementById("recent").classList.add('deactivated');
+        document.getElementById("library").classList.remove('deactivated');
+        document.getElementById("library").classList.add('activated');
+        document.getElementById("changeColor").classList.remove('colorWhite');
+        document.getElementById("changeColor").classList.add('controlColor');
+           $.ajax({
+            url: "../library",
+            success: function(result){
+                $("#displayInMainContent").html(result);
+                }
+            });
+        });
+
+        $("#queue").click(function(){
+        document.getElementById("home").classList.remove('activated');
+        document.getElementById("home").classList.add('deactivated');
+        document.getElementById("top").classList.remove('activated');
+        document.getElementById("top").classList.add('deactivated');
+        document.getElementById("new").classList.remove('activated');
+        document.getElementById("new").classList.add('deactivated');
+        document.getElementById("recent").classList.remove('activated');
+        document.getElementById("recent").classList.add('deactivated');
+        document.getElementById("library").classList.remove('activated');
+        document.getElementById("library").classList.add('deactivated');
+        document.getElementById("changeColor").classList.remove('controlColor');
+        document.getElementById("changeColor").classList.add('colorWhite');
+           $.ajax({
+            url: "../queue",
+            success: function(result){
+                $("#displayInMainContent").html(result);
+                }
+            });
+        });
+
+        $("#signin").click(function(){
+        document.getElementById("home").classList.remove('activated');
+        document.getElementById("home").classList.add('deactivated');
+        document.getElementById("top").classList.remove('activated');
+        document.getElementById("top").classList.add('deactivated');
+        document.getElementById("new").classList.remove('activated');
+        document.getElementById("new").classList.add('deactivated');
+        document.getElementById("recent").classList.remove('activated');
+        document.getElementById("recent").classList.add('deactivated');
+        document.getElementById("library").classList.remove('activated');
+        document.getElementById("library").classList.add('deactivated');
+        document.getElementById("changeColor").classList.remove('colorWhite');
+        document.getElementById("changeColor").classList.add('controlColor');
+           $.ajax({
+            url: "../signin",
+            success: function(result){
+                $("#displayInMainContent").html(result);
+                }
+            });
+        });
+
+        $("#signout").click(function(){
+        document.getElementById("home").classList.remove('activated');
+        document.getElementById("home").classList.add('deactivated');
+        document.getElementById("top").classList.remove('activated');
+        document.getElementById("top").classList.add('deactivated');
+        document.getElementById("new").classList.remove('activated');
+        document.getElementById("new").classList.add('deactivated');
+        document.getElementById("recent").classList.remove('activated');
+        document.getElementById("recent").classList.add('deactivated');
+        document.getElementById("library").classList.remove('activated');
+        document.getElementById("library").classList.add('deactivated');
+        document.getElementById("changeColor").classList.remove('colorWhite');
+        document.getElementById("changeColor").classList.add('controlColor');
+           $.ajax({
+            url: "../signout",
+            success: function(result){
+                $("#displayInMainContent").html(result);
+                }
+            });
+        });
+
+
+
+
+      });
+  </script>
+
+<!--  script for right click-->
+  <script>
+      var i = document.getElementById("menu").style;
+if (document.addEventListener) {
+  document.addEventListener('contextmenu', function(e) {
+    var posX = e.clientX;
+    var posY = e.clientY;
+    menu(posX, posY);
+    e.preventDefault();
+  }, false);
+  document.addEventListener('click', function(e) {
+    i.opacity = "0";
+    setTimeout(function() {
+      i.visibility = "hidden";
+    }, 501);
+  }, false);
+} else {
+  document.attachEvent('oncontextmenu', function(e) {
+    var posX = e.clientX;
+    var posY = e.clientY;
+    menu(posX, posY);
+    e.preventDefault();
+  });
+  document.attachEvent('onclick', function(e) {
+    i.opacity = "0";
+    setTimeout(function() {
+      i.visibility = "hidden";
+    }, 501);
+  });
+}
+
+function menu(x, y) {
+  i.top = y + "px";
+  i.left = x + "px";
+  i.visibility = "visible";
+  i.opacity = "1";
+}
+  </script>
+
+<!--  for sign in-->
+<script type="text/javascript">
+    function signin()
+{
+  var username = document.getElementById("username").value;
+  var password = document.getElementById("password").value;
+  if(username && password)
+  {
+    $.ajax
+    ({
+      type: 'post',
+      url: '../signindata',
+      data:
+      {
+         username:username,
+		 password:password,
+		 csrfmiddlewaretoken: '{{ csrf_token }}'
+      },
+      success: function (response)
+      {
+	    $("#displayInMainContent").html(response);
+      }
+    });
+  }
+
+  return false;
+}
+</script>
+
+<!--  for sign up-->
+<script type="text/javascript">
+    function signup()
+{
+  var username = document.getElementById("username").value;
+  var password = document.getElementById("password").value;
+  var email = document.getElementById("email").value;
+  var fname = document.getElementById("fname").value;
+  var lname = document.getElementById("lname").value;
+  var bday = document.getElementById("bday").value;
+
+  if (document.getElementById('male').checked) {
+      gender = document.getElementById('male').value;
+    }else if (document.getElementById('female').checked) {
+      gender = document.getElementById('female').value;
+    }else{
+      gender = document.getElementById('other').value;
+    }
+
+  if(username && password && email && fname && lname && bday && gender)
+  {
+    $.ajax
+    ({
+      type: 'post',
+      url: '../signupdata',
+      data:
+      {
+         username:username,
+		 password:password,
+		 email:email,
+		 fname:fname,
+		 lname:lname,
+		 bday:bday,
+		 gender:gender,
+		 csrfmiddlewaretoken: '{{ csrf_token }}'
+      },
+      success: function (response)
+      {
+	    $("#displayInMainContent").html(response);
+      }
+    });
+  }
+
+  return false;
+}
+</script>
+
+<!--  for sending mail - forgot password -->
+<script type="text/javascript">
+    function forgetsendmail()
+{
+  var email = document.getElementById("email").value;
+  if(email)
+  {
+    $.ajax
+    ({
+      type: 'post',
+      url: '../forgotpasswordwerifyemail',
+      data:
+      {
+		 email:email,
+		 csrfmiddlewaretoken: '{{ csrf_token }}'
+      },
+      success: function (response)
+      {
+	    $("#displayInMainContent").html(response);
+      }
+    });
+  }
+
+  return false;
+}
+</script>
+
+<!--  for searches-->
+<script type="text/javascript">
+    $(function(){
+        $('#search').keyup(function(){
+
+            $.ajax({
+                type:"POST",
+                url: "/search_data",
+                data:{
+                    'search_text' : $('#search').val(),
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function (response){
+                    $("#displayInMainContent").html(response);
+                }
+            });
+        });
+
+
+        $('#searchedByForm').keyup(function(){
+            $.ajax({
+                type:"POST",
+                url: "/search_data",
+                data:{
+                    'search_text' : $('#search').val(),
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function (response){
+                    $("#displayInMainContent").html(response);
+                }
+            });
+        });
+    });
+
+
+</script>
+
+
+  </body>
+</html>
