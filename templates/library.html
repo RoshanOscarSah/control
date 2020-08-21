@@ -1,0 +1,90 @@
+ <Section class="mainDiv container-fluid"> <!-- DO NOT REMOVE THIS Section -->
+
+<!--     LOGIN TO VIEW YOUR MUSIC LIBRARY.-->
+    <header class="header" id="header">
+        <div class="logo1" id="logo1">SONGS</div>
+      <input class="menu-btn" type="checkbox" id="menu-btn" />
+      <label class="menu-icon navicon1" for="menu-btn"><span class="navicon "></span></label>
+      <ul class="menu">
+        <li class="libraryNavActive" id="songs"><a href="#">Song</a></li>
+        <li id="artists"><a href="#">Artists</a></li>
+        <li id="albums"><a href="#">Albums</a></li>
+        <li id="playlists"><a href="#">Playlists</a></li>
+      </ul>
+    </header>
+
+     <!-- Content -->
+    <section class="libraryContent">
+        <div id="displayInMainContent1">
+            {% include "librarysongs.html" %}
+    </div>
+    </section>
+
+
+
+ </Section>
+
+
+<!-- switching nav -->
+ <script>
+      $(document).ready(function(){
+      $("#songs").click(function(){
+        document.getElementById("songs").classList.add('libraryNavActive');
+        document.getElementById("artists").classList.remove('libraryNavActive');
+        document.getElementById("albums").classList.remove('libraryNavActive');
+        document.getElementById("playlists").classList.remove('libraryNavActive');
+        document.getElementById("logo1").innerHTML = "SONGS";
+           $.ajax({
+            url: "../songs",
+            success: function(result){
+                $("#displayInMainContent1").html(result);
+                }
+            });
+        });
+        $("#artists").click(function(){
+        document.getElementById("songs").classList.remove('libraryNavActive');
+        document.getElementById("artists").classList.add('libraryNavActive');
+        document.getElementById("albums").classList.remove('libraryNavActive');
+        document.getElementById("playlists").classList.remove('libraryNavActive');
+        document.getElementById("logo1").innerHTML = "ARTISTS";
+           $.ajax({
+            url: "../artists",
+            success: function(result){
+                $("#displayInMainContent1").html(result);
+                }
+            });
+        });
+        $("#albums").click(function(){
+        document.getElementById("songs").classList.remove('libraryNavActive');
+        document.getElementById("artists").classList.remove('libraryNavActive');
+        document.getElementById("albums").classList.add('libraryNavActive');
+        document.getElementById("playlists").classList.remove('libraryNavActive');
+        document.getElementById("logo1").innerHTML = "ALBUMS";
+           $.ajax({
+            url: "../albums",
+            success: function(result){
+                $("#displayInMainContent1").html(result);
+                }
+            });
+        });
+        $("#playlists").click(function(){
+        document.getElementById("songs").classList.remove('libraryNavActive');
+        document.getElementById("artists").classList.remove('libraryNavActive');
+        document.getElementById("albums").classList.remove('libraryNavActive');
+        document.getElementById("playlists").classList.add('libraryNavActive');
+        document.getElementById("logo1").innerHTML = "PLAYLISTS";
+           $.ajax({
+            url: "../playlists",
+            success: function(result){
+                $("#displayInMainContent1").html(result);
+                }
+            });
+        });
+
+
+
+
+});
+</script>
+
+
