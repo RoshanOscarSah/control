@@ -1,0 +1,22 @@
+<div class="library">
+
+
+<div class="row">
+    {% for library in mysongs %}
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row pb-4">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#" >
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                            <img src="static/thumbnails/{{library.metadata.artwork_name}}" alt="Playlist by Control" class="img-fluid image box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName" onclick='GoToView("{{library.metadata.album}}")'><a href="#" >{{library.metadata.album}}</a></div>
+                <div class="col-12 artistName" onclick='ArtistView("{{library.metadata.album_artist}}")'><a href="#" >{{library.metadata.album_artist}}</a></div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+
+</div>
