@@ -1,0 +1,469 @@
+<Section class="mainDiv container-fluid"> <!-- DO NOT REMOVE THIS Section -->
+
+    <!-- Top songs -->
+    <div class="feature">
+        <div class="row">
+        <div class="col-8">
+            <h1 class="titleHome float-left">Top Songs</h1>
+        </div>
+        <div class="col-4">
+            <h1 class="titleHomeMore float-right">SEE ALL</h1>
+        </div>
+    </div>
+
+        <div class="row bgOnHover">
+            <div class="col-12 ">
+                <div class="row ">
+                    <div class="col-1 d-xs-none col-sm-1 col-md-1 col-lg-1 col-xl-1 songNo hideOnXS">1</div>
+                    <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-1 " >
+                        <div class="imageHover1"><a href="#" onclick='singleSongPlay("{{topsong.0.file}},,{{topsong.0.artwork_name}},,{{topsong.0.title}},,{{topsong.0.album_artist}}")' >
+<!--                        file,image,title,artist-->
+                            <div class="imageHoverPlay1"><i class="far fa-play-circle"></i></div>
+                            <img src="static/thumbnails/{{topsong.0.artwork_name}}" alt="Playlist by Control" class="img-fluid  box-shadow imageHeight"></a>
+                        </div>
+                    </div>
+                    <div class="col-7 col-sm-7 col-md-6 col-lg-6 col-xl-8 marginLeftXS">
+                        <div class="row">
+                            <div class="col-12 "><a href="#" class="songName" onclick='singleSongPlay("{{topsong.0.file}},,{{topsong.0.artwork_name}},,{{topsong.0.title}},,{{topsong.0.album_artist}}")' >{{topsong.0.title}}</a> </div>
+                            <div class="col-12 "><a href="#" class="artistsName" onclick='ArtistView("{{topsong.0.album_artist}}")'>{{topsong.0.album_artist}}</a>  · <a href="#" class="artistsAlbum" onclick='GoToView("{{topsong.0.album}}")'>{{topsong.0.album}}</a> </div>
+                        </div>
+                    </div>
+                    <div class="col-1 col-sm-1 col-md-2 col-lg-2 col-xl-1 text-right songOption"><a href="#"> <i class="fas fa-ellipsis-h float-left mt-1 optionOnXS"></i> </a>
+                    {% if topsong.0.explicit == 'True' %}🅴{% else %}{% endif %}</div>
+                    <div class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 songLength hideOnMD">{{topsong.0.length}}</div>
+                </div>
+            </div>
+            <div class="col-12 m-0 p-0">
+                <div class="row m-0 p-0">
+                    <div class="col-2 m-0 p-0"></div>
+                    <div class="col-10 m-0 p-0"><hr></div>
+                </div>
+            </div>
+        </div>
+        <div class="row bgOnHover">
+            <div class="col-12 ">
+                <div class="row ">
+                    <div class="col-1 d-xs-none col-sm-1 col-md-1 col-lg-1 col-xl-1 songNo hideOnXS">2</div>
+                    <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-1 " >
+                        <div class="imageHover1"><a href="#" onclick='singleSongPlay("{{topsong.1.file}},,{{topsong.1.artwork_name}},,{{topsong.1.title}},,{{topsong.1.album_artist}}")' >
+<!--                        file,image,title,artist-->
+                            <div class="imageHoverPlay1"><i class="far fa-play-circle"></i></div>
+                            <img src="static/thumbnails/{{topsong.1.artwork_name}}" alt="Playlist by Control" class="img-fluid  box-shadow imageHeight"></a>
+                        </div>
+                    </div>
+                    <div class="col-7 col-sm-7 col-md-6 col-lg-6 col-xl-8 marginLeftXS">
+                        <div class="row">
+                            <div class="col-12 "><a href="#" class="songName" onclick='singleSongPlay("{{topsong.1.file}},,{{topsong.1.artwork_name}},,{{topsong.1.title}},,{{topsong.1.album_artist}}")' >{{topsong.1.title}}</a> </div>
+                            <div class="col-12 "><a href="#" class="artistsName" onclick='ArtistView("{{topsong.1.album_artist}}")'>{{topsong.1.album_artist}}</a>  · <a href="#" class="artistsAlbum" onclick='GoToView("{{topsong.1.album}}")'>{{topsong.1.album}}</a> </div>
+                        </div>
+                    </div>
+                    <div class="col-1 col-sm-1 col-md-2 col-lg-2 col-xl-1 text-right songOption"><a href="#"> <i class="fas fa-ellipsis-h float-left mt-1 optionOnXS"></i> </a>
+                    {% if topsong.1.explicit == 'True' %}🅴{% else %}{% endif %}</div>
+                    <div class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 songLength hideOnMD">{{topsong.1.length}}</div>
+                </div>
+            </div>
+            <div class="col-12 m-0 p-0">
+                <div class="row m-0 p-0">
+                    <div class="col-2 m-0 p-0"></div>
+                    <div class="col-10 m-0 p-0"><hr></div>
+                </div>
+            </div>
+        </div>
+        <div class="row bgOnHover">
+            <div class="col-12 ">
+                <div class="row ">
+                    <div class="col-1 d-xs-none col-sm-1 col-md-1 col-lg-1 col-xl-1 songNo hideOnXS">3</div>
+                    <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-1 " >
+                        <div class="imageHover1"><a href="#" onclick='singleSongPlay("{{topsong.2.file}},,{{topsong.2.artwork_name}},,{{topsong.2.title}},,{{topsong.2.album_artist}}")' >
+<!--                        file,image,title,artist-->
+                            <div class="imageHoverPlay1"><i class="far fa-play-circle"></i></div>
+                            <img src="static/thumbnails/{{topsong.2.artwork_name}}" alt="Playlist by Control" class="img-fluid  box-shadow imageHeight"></a>
+                        </div>
+                    </div>
+                    <div class="col-7 col-sm-7 col-md-6 col-lg-6 col-xl-8 marginLeftXS">
+                        <div class="row">
+                            <div class="col-12 "><a href="#" class="songName" onclick='singleSongPlay("{{topsong.2.file}},,{{topsong.2.artwork_name}},,{{topsong.2.title}},,{{topsong.2.album_artist}}")' >{{topsong.2.title}}</a> </div>
+                            <div class="col-12 "><a href="#" class="artistsName" onclick='ArtistView("{{topsong.2.album_artist}}")'>{{topsong.2.album_artist}}</a>  · <a href="#" class="artistsAlbum" onclick='GoToView("{{topsong.2.album}}")'>{{topsong.2.album}}</a> </div>
+                        </div>
+                    </div>
+                    <div class="col-1 col-sm-1 col-md-2 col-lg-2 col-xl-1 text-right songOption"><a href="#"> <i class="fas fa-ellipsis-h float-left mt-1 optionOnXS"></i> </a>
+                    {% if topsong.2.explicit == 'True' %}🅴{% else %}{% endif %}</div>
+                    <div class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 songLength hideOnMD">{{topsong.2.length}}</div>
+                </div>
+            </div>
+            <div class="col-12 m-0 p-0">
+                <div class="row m-0 p-0">
+                    <div class="col-2 m-0 p-0"></div>
+                    <div class="col-10 m-0 p-0"><hr></div>
+                </div>
+            </div>
+        </div>
+        <div class="row bgOnHover">
+            <div class="col-12 ">
+                <div class="row ">
+                    <div class="col-1 d-xs-none col-sm-1 col-md-1 col-lg-1 col-xl-1 songNo hideOnXS">4</div>
+                    <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-1 " >
+                        <div class="imageHover1"><a href="#" onclick='singleSongPlay("{{topsong.3.file}},,{{topsong.3.artwork_name}},,{{topsong.3.title}},,{{topsong.3.album_artist}}")' >
+<!--                        file,image,title,artist-->
+                            <div class="imageHoverPlay1"><i class="far fa-play-circle"></i></div>
+                           <img src="static/thumbnails/{{topsong.3.artwork_name}}" alt="Playlist by Control" class="img-fluid  box-shadow imageHeight"></a>
+                        </div>
+                    </div>
+                    <div class="col-7 col-sm-7 col-md-6 col-lg-6 col-xl-8 marginLeftXS">
+                        <div class="row">
+                            <div class="col-12 "><a href="#" class="songName" onclick='singleSongPlay("{{topsong.3.file}},,{{topsong.3.artwork_name}},,{{topsong.3.title}},,{{topsong.3.album_artist}}")' >{{topsong.3.title}}</a> </div>
+                            <div class="col-12 "><a href="#" class="artistsName" onclick='ArtistView("{{topsong.3.album_artist}}")'>{{topsong.3.album_artist}}</a>  · <a href="#" class="artistsAlbum" onclick='GoToView("{{topsong.3.album}}")'>{{topsong.3.album}}</a> </div>
+                        </div>
+                    </div>
+                    <div class="col-1 col-sm-1 col-md-2 col-lg-2 col-xl-1 text-right songOption"><a href="#"> <i class="fas fa-ellipsis-h float-left mt-1 optionOnXS"></i> </a>
+                    {% if topsong.3.explicit == 'True' %}🅴{% else %}{% endif %}</div>
+                    <div class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 songLength hideOnMD">{{topsong.3.length}}</div>
+                </div>
+            </div>
+            <div class="col-12 m-0 p-0">
+                <div class="row m-0 p-0">
+                    <div class="col-2 m-0 p-0"></div>
+                    <div class="col-10 m-0 p-0"><hr></div>
+                </div>
+            </div>
+        </div>
+        <div class="row bgOnHover">
+            <div class="col-12 ">
+                <div class="row ">
+                    <div class="col-1 d-xs-none col-sm-1 col-md-1 col-lg-1 col-xl-1 songNo hideOnXS">5</div>
+                    <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-1 " >
+                        <div class="imageHover1"><a href="#" onclick='singleSongPlay("{{topsong.4.file}},,{{topsong.4.artwork_name}},,{{topsong.4.title}},,{{topsong.4.album_artist}}")' >
+<!--                        file,image,title,artist-->
+                            <div class="imageHoverPlay1"><i class="far fa-play-circle"></i></div>
+                            <img src="static/thumbnails/{{topsong.4.artwork_name}}" alt="Playlist by Control" class="img-fluid  box-shadow imageHeight"></a>
+                        </div>
+                    </div>
+                    <div class="col-7 col-sm-7 col-md-6 col-lg-6 col-xl-8 marginLeftXS">
+                        <div class="row">
+                            <div class="col-12 "><a href="#" class="songName" onclick='singleSongPlay("{{topsong.4.file}},,{{topsong.4.artwork_name}},,{{topsong.4.title}},,{{topsong.4.album_artist}}")'>{{topsong.4.title}}</a> </div>
+                            <div class="col-12 "><a href="#" class="artistsName" onclick='ArtistView("{{topsong.4.album_artist}}")'>{{topsong.4.album_artist}}</a>  · <a href="#" class="artistsAlbum" onclick='GoToView("{{topsong.4.album}}")'>{{topsong.4.album}}</a> </div>
+                        </div>
+                    </div>
+                    <div class="col-1 col-sm-1 col-md-2 col-lg-2 col-xl-1 text-right songOption"><a href="#"> <i class="fas fa-ellipsis-h float-left mt-1 optionOnXS"></i> </a>
+                    {% if topsong.4.explicit == 'True' %}🅴{% else %}{% endif %}</div>
+                    <div class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 songLength hideOnMD">{{topsong.4.length}}</div>
+                </div>
+            </div>
+            <div class="col-12 m-0 p-0">
+                <div class="row m-0 p-0">
+                    <div class="col-2 m-0 p-0"></div>
+                    <div class="col-10 m-0 p-0"><hr></div>
+                </div>
+            </div>
+        </div>
+        <div class="row bgOnHover">
+            <div class="col-12 ">
+                <div class="row ">
+                    <div class="col-1 d-xs-none col-sm-1 col-md-1 col-lg-1 col-xl-1 songNo hideOnXS">6</div>
+                    <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-1 " >
+                        <div class="imageHover1"><a href="#" onclick='singleSongPlay("{{topsong.5.file}},,{{topsong.5.artwork_name}},,{{topsong.5.title}},,{{topsong.5.album_artist}}")' >
+<!--                        file,image,title,artist-->
+                            <div class="imageHoverPlay1"><i class="far fa-play-circle"></i></div>
+                            <img src="static/thumbnails/{{topsong.5.artwork_name}}" alt="Playlist by Control" class="img-fluid  box-shadow imageHeight"></a>
+                        </div>
+                    </div>
+                    <div class="col-7 col-sm-7 col-md-6 col-lg-6 col-xl-8 marginLeftXS">
+                        <div class="row">
+                            <div class="col-12 "><a href="#" class="songName" onclick='singleSongPlay("{{topsong.5.file}},,{{topsong.5.artwork_name}},,{{topsong.5.title}},,{{topsong.5.album_artist}}")'>{{topsong.5.title}}</a> </div>
+                            <div class="col-12 "><a href="#" class="artistsName" onclick='ArtistView("{{topsong.5.album_artist}}")'>{{topsong.5.album_artist}}</a>  · <a href="#" class="artistsAlbum" onclick='GoToView("{{topsong.5.album}}")'>{{topsong.5.album}}</a> </div>
+                        </div>
+                    </div>
+                    <div class="col-1 col-sm-1 col-md-2 col-lg-2 col-xl-1 text-right songOption"><a href="#"> <i class="fas fa-ellipsis-h float-left mt-1 optionOnXS"></i> </a>
+                    {% if topsong.5.explicit == 'True' %}🅴{% else %}{% endif %}</div>
+                    <div class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 songLength hideOnMD">{{topsong.5.length}}</div>
+                </div>
+            </div>
+            <div class="col-12 m-0 p-0">
+                <div class="row m-0 p-0">
+                    <div class="col-2 m-0 p-0"></div>
+                    <div class="col-10 m-0 p-0"><hr></div>
+                </div>
+            </div>
+        </div>
+        <div class="row bgOnHover">
+            <div class="col-12 ">
+                <div class="row ">
+                    <div class="col-1 d-xs-none col-sm-1 col-md-1 col-lg-1 col-xl-1 songNo hideOnXS">7</div>
+                    <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-1 " >
+                        <div class="imageHover1"><a href="#" onclick='singleSongPlay("{{topsong.6.file}},,{{topsong.6.artwork_name}},,{{topsong.6.title}},,{{topsong.6.album_artist}}")' >
+<!--                        file,image,title,artist-->
+                            <div class="imageHoverPlay1"><i class="far fa-play-circle"></i></div>
+                            <img src="static/thumbnails/{{topsong.6.artwork_name}}" alt="Playlist by Control" class="img-fluid  box-shadow imageHeight"></a>
+                        </div>
+                    </div>
+                    <div class="col-7 col-sm-7 col-md-6 col-lg-6 col-xl-8 marginLeftXS">
+                        <div class="row">
+                            <div class="col-12 "><a href="#" class="songName" onclick='singleSongPlay("{{topsong.6.file}},,{{topsong.6.artwork_name}},,{{topsong.6.title}},,{{topsong.6.album_artist}}")'>{{topsong.6.title}}</a> </div>
+                            <div class="col-12 "><a href="#" class="artistsName" onclick='ArtistView("{{topsong.6.album_artist}}")'>{{topsong.6.album_artist}}</a>  · <a href="#" class="artistsAlbum" onclick='GoToView("{{topsong.6.album}}")'>{{topsong.6.album}}</a> </div>
+                        </div>
+                    </div>
+                    <div class="col-1 col-sm-1 col-md-2 col-lg-2 col-xl-1 text-right songOption"><a href="#"> <i class="fas fa-ellipsis-h float-left mt-1 optionOnXS"></i> </a>
+                    {% if topsong.6.explicit == 'True' %}🅴{% else %}{% endif %}</div>
+                    <div class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 songLength hideOnMD">{{topsong.6.length}}</div>
+                </div>
+            </div>
+            <div class="col-12 m-0 p-0">
+                <div class="row m-0 p-0">
+                    <div class="col-2 m-0 p-0"></div>
+                    <div class="col-10 m-0 p-0"><hr></div>
+                </div>
+            </div>
+        </div>
+        <div class="row bgOnHover">
+            <div class="col-12 ">
+                <div class="row ">
+                    <div class="col-1 d-xs-none col-sm-1 col-md-1 col-lg-1 col-xl-1 songNo hideOnXS">8</div>
+                    <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-1 " >
+                        <div class="imageHover1"><a href="#" onclick='singleSongPlay("{{topsong.7.file}},,{{topsong.7.artwork_name}},,{{topsong.7.title}},,{{topsong.7.album_artist}}")' >
+<!--                        file,image,title,artist-->
+                            <div class="imageHoverPlay1"><i class="far fa-play-circle"></i></div>
+                            <img src="static/thumbnails/{{topsong.7.artwork_name}}" alt="Playlist by Control" class="img-fluid  box-shadow imageHeight"></a>
+                        </div>
+                    </div>
+                    <div class="col-7 col-sm-7 col-md-6 col-lg-6 col-xl-8 marginLeftXS">
+                        <div class="row">
+                            <div class="col-12 "><a href="#" class="songName"  onclick='singleSongPlay("{{topsong.7.file}},,{{topsong.7.artwork_name}},,{{topsong.7.title}},,{{topsong.7.album_artist}}")' >{{topsong.7.title}}</a> </div>
+                            <div class="col-12 "><a href="#" class="artistsName" onclick='ArtistView("{{topsong.7.album_artist}}")'>{{topsong.7.album_artist}}</a>  · <a href="#" class="artistsAlbum" onclick='GoToView("{{topsong.7.album}}")'>{{topsong.7.album}}</a> </div>
+                        </div>
+                    </div>
+                    <div class="col-1 col-sm-1 col-md-2 col-lg-2 col-xl-1 text-right songOption"><a href="#"> <i class="fas fa-ellipsis-h float-left mt-1 optionOnXS"></i> </a>
+                    {% if topsong.7.explicit == 'True' %}🅴{% else %}{% endif %}</div>
+                    <div class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 songLength hideOnMD">{{topsong.7.length}}</div>
+                </div>
+            </div>
+            <div class="col-12 m-0 p-0">
+                <div class="row m-0 p-0">
+                    <div class="col-2 m-0 p-0"></div>
+                    <div class="col-10 m-0 p-0"><hr></div>
+                </div>
+            </div>
+        </div>
+        <div class="row bgOnHover">
+            <div class="col-12 ">
+                <div class="row ">
+                    <div class="col-1 d-xs-none col-sm-1 col-md-1 col-lg-1 col-xl-1 songNo hideOnXS">9</div>
+                    <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-1 " >
+                        <div class="imageHover1"><a href="#" onclick='singleSongPlay("{{topsong.8.file}},,{{topsong.8.artwork_name}},,{{topsong.8.title}},,{{topsong.8.album_artist}}")' >
+<!--                        file,image,title,artist-->
+                            <div class="imageHoverPlay1"><i class="far fa-play-circle"></i></div>
+                            <img src="static/thumbnails/{{topsong.8.artwork_name}}" alt="Playlist by Control" class="img-fluid  box-shadow imageHeight"></a>
+                        </div>
+                    </div>
+                    <div class="col-7 col-sm-7 col-md-6 col-lg-6 col-xl-8 marginLeftXS">
+                        <div class="row">
+                            <div class="col-12 "><a href="#" class="songName" onclick='singleSongPlay("{{topsong.8.file}},,{{topsong.8.artwork_name}},,{{topsong.8.title}},,{{topsong.8.album_artist}}")' >{{topsong.8.title}}</a> </div>
+                            <div class="col-12 "><a href="#" class="artistsName" onclick='ArtistView("{{topsong.8.album_artist}}")'>{{topsong.8.album_artist}}</a>  · <a href="#" class="artistsAlbum" onclick='GoToView("{{topsong.8.album}}")'>{{topsong.8.album}}</a> </div>
+                        </div>
+                    </div>
+                    <div class="col-1 col-sm-1 col-md-2 col-lg-2 col-xl-1 text-right songOption"><a href="#"> <i class="fas fa-ellipsis-h float-left mt-1 optionOnXS"></i> </a>
+                    {% if topsong.8.explicit == 'True' %}🅴{% else %}{% endif %}</div>
+                    <div class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 songLength hideOnMD">{{topsong.8.length}}</div>
+                </div>
+            </div>
+            <div class="col-12 m-0 p-0">
+                <div class="row m-0 p-0">
+                    <div class="col-2 m-0 p-0"></div>
+                    <div class="col-10 m-0 p-0"><hr></div>
+                </div>
+            </div>
+        </div>
+        <div class="row bgOnHover">
+            <div class="col-12 ">
+                <div class="row ">
+                    <div class="col-1 d-xs-none col-sm-1 col-md-1 col-lg-1 col-xl-1 songNo hideOnXS">10</div>
+                    <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-1 " >
+                        <div class="imageHover1"><a href="#" onclick='singleSongPlay("{{topsong.9.file}},,{{topsong.9.artwork_name}},,{{topsong.9.title}},,{{topsong.9.album_artist}}")' >
+<!--                        file,image,title,artist-->
+                            <div class="imageHoverPlay1"><i class="far fa-play-circle"></i></div>
+                            <img src="static/thumbnails/{{topsong.9.artwork_name}}" alt="Playlist by Control" class="img-fluid  box-shadow imageHeight"></a>
+                        </div>
+                    </div>
+                    <div class="col-7 col-sm-7 col-md-6 col-lg-6 col-xl-8 marginLeftXS">
+                        <div class="row">
+                            <div class="col-12 "><a href="#" class="songName" onclick='singleSongPlay("{{topsong.9.file}},,{{topsong.9.artwork_name}},,{{topsong.9.title}},,{{topsong.9.album_artist}}")' >
+<!--                        file,image,title,artist-->{{topsong.9.title}}</a> </div>
+                            <div class="col-12 "><a href="#" class="artistsName" onclick='ArtistView("{{topsong.9.album_artist}}")'>{{topsong.9.album_artist}}</a>  · <a href="#" class="artistsAlbum" onclick='GoToView("{{topsong.9.album}}")'>{{topsong.9.album}}</a> </div>
+                        </div>
+                    </div>
+                    <div class="col-1 col-sm-1 col-md-2 col-lg-2 col-xl-1 text-right songOption"><a href="#"> <i class="fas fa-ellipsis-h float-left mt-1 optionOnXS"></i> </a>
+                        {% if topsong.9.explicit == 'True' %}🅴{% else %}{% endif %}</div>
+                    <div class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 songLength hideOnMD">{{topsong.9.length}}</div>
+                </div>
+            </div>
+            <div class="col-12 m-0 p-0">
+                <div class="row m-0 p-0">
+                    <div class="col-2 m-0 p-0"></div>
+                    <div class="col-10 m-0 p-0"><hr></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Top albums -->
+    <div class="feature">
+        <div class="row">
+        <div class="col-8">
+            <h1 class="titleHome float-left">Top Albums</h1>
+        </div>
+        <div class="col-4">
+            <h1 class="titleHomeMore float-right">SEE ALL</h1>
+        </div>
+    </div>
+        <div class="row">
+
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row pb-4">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#" >
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                            <img src="static/img/thumbnails/control.jpg" alt="Playlist by Control" class="img-fluid image box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName" onclick="GoToView('Weekly Top 15')"><a href="#" >Weekly Top 15</a></div>
+                <div class="col-12 artistName">by Control</div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row pb-4">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#" >
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                        <img src="static/thumbnails/{{topalbum.0.artwork_name}}" alt="Playlist by Control" class="img-fluid  box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName" onclick='GoToView("{{topalbum.0.album}}")'><a href="#">{{topalbum.0.album}}</a></div>
+                <div class="col-12 artistName"  onclick='ArtistView("{{topalbum.0.album_artist}}")'><a href="#" >{{topalbum.0.album_artist}}</a></div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row pb-4">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#" >
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                        <img src="static/thumbnails/{{topalbum.1.artwork_name}}" alt="Playlist by Control" class="img-fluid  box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName" onclick='GoToView("{{topalbum.1.album}}")'><a href="#">{{topalbum.1.album}}</a></div>
+                <div class="col-12 artistName" onclick='ArtistView("{{topalbum.1.album_artist}}")'><a href="#">{{topalbum.1.album_artist}}</a></div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row pb-4">
+                <div class="col-12">
+                   <div class="imageHover"><a href="#" >
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                        <img src="static/thumbnails/{{topalbum.2.artwork_name}}" alt="Playlist by Control" class="img-fluid  box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName" onclick='GoToView("{{topalbum.2.album}}")'><a href="#">{{topalbum.2.album}}</a></div>
+                <div class="col-12 artistName" onclick='ArtistView("{{topalbum.2.album_artist}}")'><a href="#">{{topalbum.2.album_artist}}</a></div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row pb-4">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#" >
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                        <img src="static/thumbnails/{{topalbum.3.artwork_name}}" alt="Playlist by Control" class="img-fluid  box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName" onclick='GoToView("{{topalbum.3.album}}")'><a href="#">{{topalbum.3.album}}</a></div>
+                <div class="col-12 artistName" onclick='ArtistView("{{topalbum.3.album_artist}}")'><a href="#">{{topalbum.3.album_artist}}</a></div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3-md-4 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row pb-4">
+                <div class="col-12">
+                   <div class="imageHover"><a href="#" >
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                        <img src="static/thumbnails/{{topalbum.4.artwork_name}}" alt="Playlist by Control" class="img-fluid  box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName" onclick='GoToView("{{topalbum.4.album}}")'><a href="#">{{topalbum.4.album}}</a></div>
+                <div class="col-12 artistName" onclick='ArtistView("{{topalbum.4.album_artist}}")'><a href="#">{{topalbum.4.album_artist}}</a></div>
+            </div>
+        </div>
+
+
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row pb-4">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#" >
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                        <img src="static/thumbnails/{{topalbum.5.artwork_name}}" alt="Playlist by Control" class="img-fluid  box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName" onclick='GoToView("{{topalbum.5.album}}")'><a href="#">{{topalbum.5.album}}</a></div>
+                <div class="col-12 artistName" onclick='ArtistView("{{topalbum.5.album_artist}}")'><a href="#">{{topalbum.5.album_artist}}</a></div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row pb-4">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#" >
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                        <img src="static/thumbnails/{{topalbum.6.artwork_name}}" alt="Playlist by Control" class="img-fluid  box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName" onclick='GoToView("{{topalbum.6.album}}")'><a href="#">{{topalbum.6.album}}</a></div>
+                <div class="col-12 artistName" onclick='ArtistView("{{topalbum.6.album_artist}}")'><a href="#">{{topalbum.6.album_artist}}</a></div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row pb-4">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#" >
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                        <img src="static/thumbnails/{{topalbum.7.artwork_name}}" alt="Playlist by Control" class="img-fluid  box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName" onclick='GoToView("{{topalbum.7.album}}")'><a href="#">{{topalbum.7.album}}</a></div>
+                <div class="col-12 artistName" onclick='ArtistView("{{topalbum.7.album_artist}}")'><a href="#">{{topalbum.7.album_artist}}</a></div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row pb-4">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#" >
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                        <img src="static/thumbnails/{{topalbum.8.artwork_name}}" alt="Playlist by Control" class="img-fluid  box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName" onclick='GoToView("{{topalbum.8.album}}")'><a href="#">{{topalbum.8.album}}</a></div>
+                <div class="col-12 artistName" onclick='ArtistView("{{topalbum.8.album_artist}}")'><a href="#">{{topalbum.8.album_artist}}</a></div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row pb-4">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#" >
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                        <img src="static/thumbnails/{{topalbum.9.artwork_name}}" alt="Playlist by Control" class="img-fluid  box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName" onclick='GoToView("{{topalbum.9.album}}")'><a href="#">{{topalbum.9.album}}</a></div>
+                <div class="col-12 artistName" onclick='ArtistView("{{topalbum.9.album_artist}}")'><a href="#">{{topalbum.9.album_artist}}</a></div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row pb-4">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#" >
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                        <img src="static/thumbnails/{{topalbum.10.artwork_name}}" alt="Playlist by Control" class="img-fluid  box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName" onclick='GoToView("{{topalbum.10.album}}")'><a href="#">{{topalbum.10.album}}</a></div>
+                <div class="col-12 artistName" onclick='ArtistView("{{topalbum.10.album_artist}}")'><a href="#">{{topalbum.10.album_artist}}</a></div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+</Section>
