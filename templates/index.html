@@ -200,7 +200,7 @@
     var artistName = ["{{youmightalsolike.1.album_artist}}","{{youmightalsolike.2.album_artist}}","{{youmightalsolike.3.album_artist}}","{{youmightalsolike.4.album_artist}}"];
     var totalLength = ["{{youmightalsolike.1.length}}","{{youmightalsolike.2.length}}","{{youmightalsolike.3.length}}","{{youmightalsolike.4.length}}"];
 
-    
+    favouriteView(0)
 
     var songTitle = document.getElementById("songTitle");
     var fillBar = document.getElementById("fill");
@@ -298,7 +298,7 @@
         document.getElementById("playpau").classList.add('fa-pause');
         $("#CtrlImage img").attr("src",'static/thumbnails/'+artwork_name[currentSong]);
 
-      
+        favouriteView(currentSong)
     }
 
 
@@ -312,10 +312,30 @@
         document.getElementById("playpau").classList.add('fa-pause');
         $("#CtrlImage img").attr("src",'static/thumbnails/'+artwork_name[currentSong]);
 
-         
+         favouriteView(currentSong)
     }
 
-  
+    function favouriteView(currentSong){
+        artworkPath = artwork_name[currentSong]
+        tempArtwork = artworkPath.split("/");
+        ArtworkName= tempArtwork.slice(-1)[0]
+        $.ajax({
+            url: "../favyesorno/" + ArtworkName,
+            success: function(result){
+                if (result == 'yes'){
+                    document.getElementById("favheart").classList.remove('far');
+                    document.getElementById("favheart").classList.add('fas');
+                    onclickdata = 'favourite("fas")';
+                    document.getElementById("favheartmain").setAttribute( "onClick",  onclickdata);
+                }else if (result == 'no'){
+                    document.getElementById("favheart").classList.remove('fas');
+                    document.getElementById("favheart").classList.add('far');
+                    onclickdata = 'favourite("far")';
+                    document.getElementById("favheartmain").setAttribute( "onClick",  onclickdata);
+                }
+            }
+        });
+    }
 
 </script>
 
@@ -346,7 +366,27 @@
             song.play(); // play the song
 
 
-      
+        artworkPath = artwork_name[0]
+        tempArtwork = artworkPath.split("/");
+        ArtworkName= tempArtwork.slice(-1)[0]
+        $.ajax({
+            url: "../favyesorno/" + ArtworkName,
+            success: function(result){
+                if (result == 'yes'){
+                    document.getElementById("favheart").classList.remove('far');
+                    document.getElementById("favheart").classList.add('fas');
+                    onclickdata = 'favourite("fas")';
+                    document.getElementById("favheartmain").setAttribute( "onClick",  onclickdata);
+                }else if (result == 'no'){
+                    document.getElementById("favheart").classList.remove('fas');
+                    document.getElementById("favheart").classList.add('far');
+                    onclickdata = 'favourite("far")';
+                    document.getElementById("favheartmain").setAttribute( "onClick",  onclickdata);
+                }
+            }
+        });
+
+    }
 </script>
 
 
@@ -874,7 +914,26 @@ function menu(x, y) {
                 $("#displayInMainContent").html(response);
                 document.getElementById("replace").textContent = "Sign Out";
 
-                    
+                    //to refresh favourite
+                    var artworkPath = document.getElementById("ControlArtwork").src;
+                    tempArtwork = artworkPath.split("/");
+                    ArtworkName= tempArtwork.slice(-1)[0];
+                        $.ajax({
+                            url: "../favyesorno/" + ArtworkName,
+                            success: function(result){
+                                if (result == 'yes'){
+                                    document.getElementById("favheart").classList.remove('far');
+                                    document.getElementById("favheart").classList.add('fas');
+                                    onclickdata = 'favourite("fas")';
+                                    document.getElementById("favheartmain").setAttribute( "onClick",  onclickdata);
+                                }else if (result == 'no'){
+                                    document.getElementById("favheart").classList.remove('fas');
+                                    document.getElementById("favheart").classList.add('far');
+                                    onclickdata = 'favourite("far")';
+                                    document.getElementById("favheartmain").setAttribute( "onClick",  onclickdata);
+                                }
+                            }
+                        });
 
               }
             });
@@ -1061,7 +1120,36 @@ function menu(x, y) {
     }
 </script>
 
+<!--for favourite-->
+<script>
+    function favourite(favclick){
+    var artworkPath = document.getElementById("ControlArtwork").src;
+    tempArtwork = artworkPath.split("/");
+    ArtworkName= tempArtwork.slice(-1)[0]
 
+        $.ajax({
+            url: "../favourite/" + ArtworkName,
+            success: function(result){
+            console.log(result)
+                if (result=="Added to favourite"){
+                    document.getElementById("favheart").classList.remove('far');
+                    document.getElementById("favheart").classList.add('fas');
+                    onclickdata = 'favourite("fas")';
+                    document.getElementById("favheartmain").setAttribute( "onClick",  onclickdata);
+                 }else if (result=="Removed from favourite"){
+                    document.getElementById("favheart").classList.remove('fas');
+                    document.getElementById("favheart").classList.add('far');
+                    onclickdata = 'favourite("far")';
+                    document.getElementById("favheartmain").setAttribute( "onClick",  onclickdata);
+                 }
+                 else{
+                     $("#displayInMainContent").html(result);
+                 }
+             }
+         });
+    }
+
+</script>
 
 <!--  go to playlist view-->
 
