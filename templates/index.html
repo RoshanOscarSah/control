@@ -23,6 +23,7 @@
           <img id="sidebarCollapse" src="{% static 'img/logo.png'%}" alt="Control" class="img-fluid logo" height="75px" width="220px" >
         </div>
         <div class="col-8 col-sm-9 col-md-9 col-lg-9 col-xl-9">
+
           <div class="row">
              <div class="col-12 col-sm-10 col-md-9 col-lg-10 col-xl-10">
                 <form method="post" id="searchedByForm" class="searchsm" autocomplete="off">
@@ -41,6 +42,7 @@
 
 
           </div>
+
 
         </div>
 
@@ -537,12 +539,6 @@
 
 
 
-
-
-
-
-
-
 <!-- till here   -->
 <!--            $("#CtrlImage img").attr("src",artwork_name[currentSong]);-->
 
@@ -869,6 +865,7 @@ function menu(x, y) {
 }
   </script>
 
+
 <!--  for sign in-->
 <script type="text/javascript">
 
@@ -945,24 +942,8 @@ function menu(x, y) {
 }
 </script>
 
-<!--  for sign up-->
-<script type="text/javascript">
-    function signup()
-{
-  var username = document.getElementById("username").value;
-  var password = document.getElementById("password").value;
-  var email = document.getElementById("email").value;
-  var fname = document.getElementById("fname").value;
-  var lname = document.getElementById("lname").value;
-  var bday = document.getElementById("bday").value;
 
-  if (document.getElementById('male').checked) {
-      gender = document.getElementById('male').value;
-    }else if (document.getElementById('female').checked) {
-      gender = document.getElementById('female').value;
-    }else{
-      gender = document.getElementById('other').value;
-    }
+
 
   if(username && password && email && fname && lname && bday && gender)
   {
@@ -1019,6 +1000,7 @@ function menu(x, y) {
   return false;
 }
 </script>
+
 
 <!--  for searches-->
 <script type="text/javascript">
@@ -1120,36 +1102,7 @@ function menu(x, y) {
     }
 </script>
 
-<!--for favourite-->
-<script>
-    function favourite(favclick){
-    var artworkPath = document.getElementById("ControlArtwork").src;
-    tempArtwork = artworkPath.split("/");
-    ArtworkName= tempArtwork.slice(-1)[0]
 
-        $.ajax({
-            url: "../favourite/" + ArtworkName,
-            success: function(result){
-            console.log(result)
-                if (result=="Added to favourite"){
-                    document.getElementById("favheart").classList.remove('far');
-                    document.getElementById("favheart").classList.add('fas');
-                    onclickdata = 'favourite("fas")';
-                    document.getElementById("favheartmain").setAttribute( "onClick",  onclickdata);
-                 }else if (result=="Removed from favourite"){
-                    document.getElementById("favheart").classList.remove('fas');
-                    document.getElementById("favheart").classList.add('far');
-                    onclickdata = 'favourite("far")';
-                    document.getElementById("favheartmain").setAttribute( "onClick",  onclickdata);
-                 }
-                 else{
-                     $("#displayInMainContent").html(result);
-                 }
-             }
-         });
-    }
-
-</script>
 
 <!--  go to playlist view-->
 
