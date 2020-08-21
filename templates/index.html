@@ -24,6 +24,25 @@
         </div>
         <div class="col-8 col-sm-9 col-md-9 col-lg-9 col-xl-9">
 
+          <div class="row">
+             <div class="col-12 col-sm-10 col-md-9 col-lg-10 col-xl-10">
+                <form method="post" id="searchedByForm" class="searchsm" autocomplete="off">
+                    {% csrf_token %}
+<!--                    <button type="submit" class="btnTransparent"><i class="fa fa-search searchicon"></i></button>-->
+                    <input type="search" id="search" name="search" placeholder="Search for an Artist, Song, Album or Playlist" class="searchbox" required>
+                </form>
+             </div>
+              <div class="col-12 col-sm-2 col-md-3 col-lg-2 col-xl-2">
+                  <button class="btnLogin" onclick='loguser("")'>
+                    <a href="#" id="replace">{% if user.is_authenticated %}Sign Out{% else %}Sign In{% endif %}</a>
+                </button>
+
+              </div>
+
+
+
+          </div>
+
 
         </div>
 
@@ -520,12 +539,6 @@
 
 
 
-
-
-
-
-
-
 <!-- till here   -->
 <!--            $("#CtrlImage img").attr("src",artwork_name[currentSong]);-->
 
@@ -853,6 +866,140 @@ function menu(x, y) {
   </script>
 
 
+<!--  for sign in-->
+<script type="text/javascript">
+
+
+    function signin(){
+          var username = document.getElementById("username").value;
+          var password = document.getElementById("password").value;
+
+          function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        const_csrftoken = getCookie('csrftoken');
+
+
+
+          if(username && password)
+          {
+
+            $.ajax
+            ({
+              type: 'post',
+              url: '../signindata',
+              data:
+              {
+                 username:username,
+                 password:password,
+                 csrfmiddlewaretoken: const_csrftoken,
+              },
+              success: function (response)
+              {
+                $("#displayInMainContent").html(response);
+                document.getElementById("replace").textContent = "Sign Out";
+
+                    //to refresh favourite
+                    var artworkPath = document.getElementById("ControlArtwork").src;
+                    tempArtwork = artworkPath.split("/");
+                    ArtworkName= tempArtwork.slice(-1)[0];
+                        $.ajax({
+                            url: "../favyesorno/" + ArtworkName,
+                            success: function(result){
+                                if (result == 'yes'){
+                                    document.getElementById("favheart").classList.remove('far');
+                                    document.getElementById("favheart").classList.add('fas');
+                                    onclickdata = 'favourite("fas")';
+                                    document.getElementById("favheartmain").setAttribute( "onClick",  onclickdata);
+                                }else if (result == 'no'){
+                                    document.getElementById("favheart").classList.remove('fas');
+                                    document.getElementById("favheart").classList.add('far');
+                                    onclickdata = 'favourite("far")';
+                                    document.getElementById("favheartmain").setAttribute( "onClick",  onclickdata);
+                                }
+                            }
+                        });
+
+              }
+            });
+
+
+          }
+
+          return false;
+}
+</script>
+
+
+
+
+  if(username && password && email && fname && lname && bday && gender)
+  {
+    $.ajax
+    ({
+      type: 'post',
+      url: '../signupdata',
+      data:
+      {
+         username:username,
+		 password:password,
+		 email:email,
+		 fname:fname,
+		 lname:lname,
+		 bday:bday,
+		 gender:gender,
+		 csrfmiddlewaretoken: '{{ csrf_token }}'
+      },
+      success: function (response)
+      {
+	    $("#displayInMainContent").html(response);
+
+      }
+    });
+  }
+
+  return false;
+}
+</script>
+
+<!--  for sending mail - forgot password -->
+<script type="text/javascript">
+    function forgetsendmail()
+{
+  var email = document.getElementById("email").value;
+  if(email)
+  {
+    $.ajax
+    ({
+      type: 'post',
+      url: '../forgotpasswordwerifyemail',
+      data:
+      {
+		 email:email,
+		 csrfmiddlewaretoken: '{{ csrf_token }}'
+      },
+      success: function (response)
+      {
+	    $("#displayInMainContent").html(response);
+      }
+    });
+  }
+
+  return false;
+}
+</script>
 
 
 <!--  for searches-->

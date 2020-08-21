@@ -1,0 +1,51 @@
+<Section class="mainDiv container-fluid"> <!-- DO NOT REMOVE THIS Section -->
+
+    <!-- Signin -->
+   <div class="row signinDiv">
+       <div class="col-3 d-sm-none d-md-none d-lg-block d-xl-block hideOnXS"></div>
+       <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+           <form method='post' action="" onsubmit="return signin();" autocomplete="off">
+               {% csrf_token %}
+               <div class="row"><div class="col-12"><H1 class="text-center"> Sign In</H1></div></div>
+               <div class="row"><div class="col-12"><input type="text" name="username" id="username" placeholder="USERNAME" class="searchbox1" required></div></div>
+               <div class="row"><div class="col-12"><input type="password" name="password" id="password" placeholder="PASSWORD" class="searchbox1" required></div></div>
+               <div class="row">
+                   <div class="col-12"><button type="submit" class="btnLogin1" id="submit">Sign In</button></div>
+               </div>
+
+                    <a href="#" id="forgotpassword">{{fgtpass}} </a>
+           </form>
+       </div>
+       <div class="col-3 d-sm-none d-md-none d-lg-block d-xl-block hideOnXS"></div>
+   </div>
+
+
+
+
+</Section>
+
+<!--if forgot password is clicked-->
+<script>
+    $("#forgotpassword").click(function(){
+           $.ajax({
+            url: "../forgotpassword",
+            success: function(result){
+                $("#displayInMainContent").html(result);
+                }
+            });
+        });
+</script>
+
+<!--for notification-->
+  <script type="text/javascript">
+  {% for message in messages %}
+    $.growl.{{notitype}} ({ message: " {{message}}  "});
+  {% endfor %}
+</script>
+
+<!--making signout to signin-->
+<script>
+$(document).ready(function(){
+    document.getElementById("replace").textContent = "Sign In";
+});
+</script>
