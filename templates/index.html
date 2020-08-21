@@ -27,16 +27,11 @@
              <div class="col-12 col-sm-10 col-md-9 col-lg-10 col-xl-10">
                 <form method="post" id="searchedByForm" class="searchsm" autocomplete="off">
                     {% csrf_token %}
-<<<<<<< HEAD
 <!--                    <button type="submit" class="btnTransparent"><i class="fa fa-search searchicon"></i></button>-->
-=======
-                    <button type="submit" class="btnTransparent"><i class="fa fa-search searchicon"></i></button>
->>>>>>> c6c3608c04083eb61ee07b458030c3652f5d1362
                     <input type="search" id="search" name="search" placeholder="Search for an Artist, Song, Album or Playlist" class="searchbox" required>
                 </form>
              </div>
               <div class="col-12 col-sm-2 col-md-3 col-lg-2 col-xl-2">
-<<<<<<< HEAD
                   <button class="btnLogin" onclick='loguser("")'>
                     <a href="#" id="replace">{% if user.is_authenticated %}Sign Out{% else %}Sign In{% endif %}</a>
                 </button>
@@ -45,16 +40,6 @@
 
 
 
-=======
-                {% if user.is_authenticated %}
-                <button class="btnLogin" id="signout"><a href="#" id="replaceSignout">Sign Out</a></button>
-                {% else %}
-                <button class="btnLogin" id="signin"><a href="#" id="replaceSignin">Sign In</a></button>
-                {% endif %}
-              </div>
-
-
->>>>>>> c6c3608c04083eb61ee07b458030c3652f5d1362
           </div>
 
         </div>
@@ -114,11 +99,7 @@
             <div class="col-12 col-sm-5 col-md-3 col-lg-3 col-xl-3">
                 <div class="row">
                     <div class="col-4 col-sm-3 col-md-4 col-lg-3 col-xl-3">
-<<<<<<< HEAD
                         <a href="#" id="CtrlImage" ><img src="{% static 'img/thumbnails/artwork.jpg'%}" id="ControlArtwork" alt="Album Art" class="img-fluid albumArtNowPlaying" height="60px" width="60px"></a>
-=======
-                        <a href="#" id="CtrlImage" ><img src="{% static 'img/thumbnails/artwork.jpg'%}" alt="Album Art" class="img-fluid albumArtNowPlaying" height="60px" width="60px"></a>
->>>>>>> c6c3608c04083eb61ee07b458030c3652f5d1362
                     </div>
                     <div class="col-6 songDiscription">
                         <div class="row">
@@ -131,11 +112,7 @@
                         </div>
                     </div>
                     <div class="col-1">
-<<<<<<< HEAD
                         <a href="#" id="favheartmain" onclick='favourite("far")'><i id="favheart" class="far fa-heart favourateIcon"></i></a>
-=======
-                        <a href="#" id="favourate"><i class="far fa-heart favourateIcon"></i></a>
->>>>>>> c6c3608c04083eb61ee07b458030c3652f5d1362
                     </div>
                 </div>
             </div>
@@ -223,10 +200,7 @@
     var artistName = ["{{youmightalsolike.1.album_artist}}","{{youmightalsolike.2.album_artist}}","{{youmightalsolike.3.album_artist}}","{{youmightalsolike.4.album_artist}}"];
     var totalLength = ["{{youmightalsolike.1.length}}","{{youmightalsolike.2.length}}","{{youmightalsolike.3.length}}","{{youmightalsolike.4.length}}"];
 
-<<<<<<< HEAD
-    favouriteView(0)
-=======
->>>>>>> c6c3608c04083eb61ee07b458030c3652f5d1362
+    
 
     var songTitle = document.getElementById("songTitle");
     var fillBar = document.getElementById("fill");
@@ -323,16 +297,11 @@
         document.getElementById("playpau").classList.remove('fa-play');
         document.getElementById("playpau").classList.add('fa-pause');
         $("#CtrlImage img").attr("src",'static/thumbnails/'+artwork_name[currentSong]);
-<<<<<<< HEAD
 
-        favouriteView(currentSong)
+      
     }
 
 
-=======
-    }
-
->>>>>>> c6c3608c04083eb61ee07b458030c3652f5d1362
     function pre(){
         currentSong--;
         if(currentSong < 0){
@@ -342,51 +311,23 @@
         document.getElementById("playpau").classList.remove('fa-play');
         document.getElementById("playpau").classList.add('fa-pause');
         $("#CtrlImage img").attr("src",'static/thumbnails/'+artwork_name[currentSong]);
-<<<<<<< HEAD
 
-         favouriteView(currentSong)
+         
     }
 
-    function favouriteView(currentSong){
-        artworkPath = artwork_name[currentSong]
-        tempArtwork = artworkPath.split("/");
-        ArtworkName= tempArtwork.slice(-1)[0]
-        $.ajax({
-            url: "../favyesorno/" + ArtworkName,
-            success: function(result){
-                if (result == 'yes'){
-                    document.getElementById("favheart").classList.remove('far');
-                    document.getElementById("favheart").classList.add('fas');
-                    onclickdata = 'favourite("fas")';
-                    document.getElementById("favheartmain").setAttribute( "onClick",  onclickdata);
-                }else if (result == 'no'){
-                    document.getElementById("favheart").classList.remove('fas');
-                    document.getElementById("favheart").classList.add('far');
-                    onclickdata = 'favourite("far")';
-                    document.getElementById("favheartmain").setAttribute( "onClick",  onclickdata);
-                }
-            }
-        });
-=======
->>>>>>> c6c3608c04083eb61ee07b458030c3652f5d1362
-    }
+  
 
 </script>
 
 <!--for click to play Single song-->
 <script type="text/javascript">
     function singleSongPlay(clickedSongData){
-<<<<<<< HEAD
 
      //clear searches
   document.getElementById('search').value = '';
 
 
             var clickedSongDataSplit = clickedSongData.split(",,");
-=======
-    console.log(clickedSongData);
-            var clickedSongDataSplit = clickedSongData.split(",");
->>>>>>> c6c3608c04083eb61ee07b458030c3652f5d1362
 
             var file = ['static/musics/'+clickedSongDataSplit[0]];
             var artwork_name =  ['static/thumbnails/'+clickedSongDataSplit[1]]
@@ -402,39 +343,14 @@
             document.getElementById("playpau").classList.remove('fa-play');
             document.getElementById("playpau").classList.add('fa-pause');
 
-<<<<<<< HEAD
             song.play(); // play the song
 
 
-        artworkPath = artwork_name[0]
-        tempArtwork = artworkPath.split("/");
-        ArtworkName= tempArtwork.slice(-1)[0]
-        $.ajax({
-            url: "../favyesorno/" + ArtworkName,
-            success: function(result){
-                if (result == 'yes'){
-                    document.getElementById("favheart").classList.remove('far');
-                    document.getElementById("favheart").classList.add('fas');
-                    onclickdata = 'favourite("fas")';
-                    document.getElementById("favheartmain").setAttribute( "onClick",  onclickdata);
-                }else if (result == 'no'){
-                    document.getElementById("favheart").classList.remove('fas');
-                    document.getElementById("favheart").classList.add('far');
-                    onclickdata = 'favourite("far")';
-                    document.getElementById("favheartmain").setAttribute( "onClick",  onclickdata);
-                }
-            }
-        });
-=======
-        song.play(); // play the song
->>>>>>> c6c3608c04083eb61ee07b458030c3652f5d1362
-
-    }
+      
 </script>
 
 
 <!--for click to play Album song-->
-<<<<<<< HEAD
 <script type="text/javascript">
     function albumSongPlay(clickedAlbumData){
     var totsong =Object.keys(clickedAlbumData).length;
@@ -569,144 +485,6 @@
         document.getElementById("playpau").classList.add('fa-pause');
         $("#CtrlImage img").attr("src",artwork_name[currentSong]);
     }
-=======
-<!--<script type="text/javascript">-->
-<!--    function albumSongPlay(clickedAlbumData){-->
-<!--    var totsong =Object.keys(clickedAlbumData).length;-->
-
-<!--    var file=[];  //all file here-->
-<!--    var artwork_name=[];  //all artwork_name here-->
-<!--    var songName=[];  //all songName here-->
-<!--    var artistName=[];  //all artistName here-->
-<!--    var totalLength=[];  //all totalLength here-->
-<!--    for (i = 0; i < totsong; i++) {-->
-<!--        var filedest = ["static/musics/"+clickedAlbumData[i][1]] ;-->
-<!--        file.push(filedest);-->
-<!--        var artwork_namedest =  ['static/thumbnails/'+clickedAlbumData[i][3]];-->
-<!--        artwork_name.push(artwork_namedest);-->
-<!--        var songNamedest = [clickedAlbumData[i][0]];-->
-<!--        songName.push(songNamedest);-->
-<!--        var artistNamedest = [clickedAlbumData[i][2]];-->
-<!--        artistName.push(artistNamedest);-->
-<!--        var totalLengthdest = [clickedAlbumData[i][4]];-->
-<!--        totalLength.push(totalLengthdest);-->
-
-<!--    }-->
-<!--    console.log(file);-->
-<!--    console.log(artwork_name);-->
-<!--    console.log(songName);-->
-<!--    console.log(artistName);-->
-<!--    console.log(totalLength);-->
-<!--&lt;!&ndash;copied&ndash;&gt;-->
-<!--    var songTitle = document.getElementById("songTitle");-->
-<!--    var fillBar = document.getElementById("fill");-->
-<!--    var muted = false;-->
-<!--    var vol = 1;-->
-<!--    var song = new Audio();-->
-<!--    var currentSong = 0; // it point to current song-->
-
-<!--    $("#CtrlImage img").attr("src",artwork_name[currentSong]);-->
-<!--    window.onload = playPause();  // it will call the function playSong when window is load-->
-
-<!--    function playPause(){-->
-<!--        song.src = file[currentSong]; //set the source of 0th song-->
-<!--            songTitle.textContent = songName[currentSong]; //sets the title of song-->
-<!--            songArtist.textContent = artistName[currentSong]; //sets the title of song-->
-
-<!--        song.pause(); // play the song-->
-<!--    }-->
-
-<!--    function playSong(){-->
-<!--        song.src = file[currentSong]; //set the source of 0th song-->
-<!--            songTitle.textContent = songName[currentSong]; //sets the title of song-->
-<!--            songArtist.textContent = artistName[currentSong]; //sets the title of song-->
-<!--            songLength.textContent = totalLength[currentSong];-->
-
-<!--        song.play(); // play the song-->
-<!--    }-->
-<!--    function playOrPauseSong(){-->
-<!--        if(song.paused){-->
-<!--            song.play();-->
-<!--            document.getElementById("playpau").classList.remove('fa-play');-->
-<!--            document.getElementById("playpau").classList.add('fa-pause');-->
-<!--        }-->
-<!--        else{-->
-<!--            song.pause();-->
-<!--            document.getElementById("playpau").classList.remove('fa-pause');-->
-<!--            document.getElementById("playpau").classList.add('fa-play');-->
-<!--        }-->
-<!--    }-->
-
-<!--    function setPos(pos) {-->
-<!--        song.currentTime = pos;-->
-<!--    }-->
-
-<!--    function mute() {-->
-<!--        if (muted) {-->
-<!--            song.volume = vol;-->
-<!--            muted = false;-->
-<!--            document.getElementById('mute').innerHTML = '<i class="fa fa-volume-up"></i>';-->
-<!--        } else {-->
-<!--            song.volume = 0;-->
-<!--            muted = true;-->
-<!--            document.getElementById('mute').innerHTML = '<i class="fa fa-volume-off"></i>';-->
-<!--        }-->
-<!--    }-->
-<!--    function setVolume(volume) {-->
-<!--        song.volume = volume;-->
-<!--        vol = volume;-->
-<!--    }-->
-
-<!--    song.addEventListener('timeupdate', function(){-->
-<!--       curtime = parseInt(song.currentTime,10);-->
-<!--        document.getElementById('seek').max = song.duration;-->
-<!--        document.getElementById('seek').value = curtime;-->
-<!--        var position = song.currentTime / song.duration;-->
-<!--            fillBar.style.width = position * 100 +'%';-->
-
-<!--    &lt;!&ndash;for timer&ndash;&gt;-->
-<!--            var seconds = song.currentTime;-->
-<!--            // multiply by 1000 because Date() requires miliseconds-->
-<!--            var date = new Date(seconds * 1000);-->
-<!--            //var hh = date.getUTCHours();-->
-<!--            var mm = date.getUTCMinutes();-->
-<!--            var ss = date.getSeconds();-->
-<!--            // If you were building a timestamp instead of a duration, you would uncomment the following line to get 12-hour (not 24) time-->
-<!--            // if (hh > 12) {hh = hh % 12;}-->
-<!--            // These lines ensure you have two-digits-->
-<!--            //if (hh < 10) {hh = "0"+hh;}-->
-<!--            if (mm < 10) {mm = "0"+mm;}-->
-<!--            if (ss < 10) {ss = "0"+ss;}-->
-<!--            // This formats your string to HH:MM:SS-->
-<!--            var t = mm+":"+ss;-->
-<!--              timer.textContent = t;-->
-<!--    });-->
-
-<!--    function next(){-->
-<!--        currentSong++;-->
-<!--        if(currentSong >= 4){  // here 4 is total songs change it later to loop out total song-->
-<!--            currentSong = 0;-->
-<!--        }-->
-<!--        playSong();-->
-<!--        document.getElementById("playpau").classList.remove('fa-play');-->
-<!--        document.getElementById("playpau").classList.add('fa-pause');-->
-<!--        $("#CtrlImage img").attr("src",artwork_name[currentSong]);-->
-<!--    }-->
-
-<!--    function pre(){-->
-<!--        currentSong&#45;&#45;;-->
-<!--        if(currentSong < 0){-->
-<!--            currentSong = 3; //  =4-1 here 4 is total songs change it later to loop out total song-->
-<!--        }-->
-<!--        playSong();-->
-<!--        document.getElementById("playpau").classList.remove('fa-play');-->
-<!--        document.getElementById("playpau").classList.add('fa-pause');-->
-<!--        $("#CtrlImage img").attr("src",artwork_name[currentSong]);-->
-<!--    }-->
-
-
-
->>>>>>> c6c3608c04083eb61ee07b458030c3652f5d1362
 
 
 
@@ -722,7 +500,6 @@
 
 
 
-<<<<<<< HEAD
 
 
 
@@ -740,112 +517,6 @@
 
     }
 </script>
-=======
-<!--&lt;!&ndash; till here   &ndash;&gt;-->
-<!--&lt;!&ndash;            $("#CtrlImage img").attr("src",artwork_name[currentSong]);&ndash;&gt;-->
-
-<!--&lt;!&ndash;            song.src = file[currentSong]; //set the source of 0th song&ndash;&gt;-->
-<!--&lt;!&ndash;            songTitle.textContent = songName[currentSong]; //sets the title of song&ndash;&gt;-->
-<!--&lt;!&ndash;            songArtist.textContent = artistName[currentSong]; //sets the title of song&ndash;&gt;-->
-
-<!--&lt;!&ndash;            document.getElementById("playpau").classList.remove('fa-play');&ndash;&gt;-->
-<!--&lt;!&ndash;            document.getElementById("playpau").classList.add('fa-pause');&ndash;&gt;-->
-
-<!--&lt;!&ndash;        song.play(); // play the song&ndash;&gt;-->
-
-<!--    }-->
-<!--</script>-->
-
-
-
-<!--<script type="text/javascript">-->
-
-<!--     $(document).ready(function(){-->
-<!--        $("#SinglePlayFile").click(function(){-->
-<!--            if(window.audio) {-->
-<!--               audio.pause();-->
-<!--            }-->
-<!--            var getfile = document.getElementById("SinglePlayFile").getAttribute("value");-->
-<!--            var file = ['static/musics/'+getfile];-->
-<!--            var getartwork_name =  document.getElementById("SinglePlayArtwork").getAttribute("src")-->
-<!--            var artwork_name =  [getartwork_name]-->
-<!--            var getsongName = document.getElementById("SinglePlayTitle").innerHTML;-->
-<!--            var songName = [getsongName];-->
-<!--            var getartistName = document.getElementById("SinglePlayArtist").innerHTML;-->
-<!--            var artistName = [getartistName];-->
-
-<!--            var songTitle = document.getElementById("songTitle");-->
-<!--            var fillBar = document.getElementById("fill");-->
-<!--            var song = new Audio();-->
-<!--            var currentSong = 0; // it point to current song-->
-
-
-<!--            window.onload = playSong();  // it will call the function playSong when window is load-->
-
-<!--        function pauseSong(){-->
-<!--                song.src = file[currentSong]; //set the source of 0th song-->
-<!--                songTitle.textContent = file[currentSong]; //sets the title of song-->
-
-<!--                song.pause(); // pause the song-->
-<!--        }-->
-
-<!--        function playSong(){-->
-<!--            $("#CtrlImage img").attr("src",artwork_name[currentSong]);-->
-<!--            song.src = file[currentSong]; //set the source of 0th song-->
-<!--            songTitle.textContent = songName[currentSong]; //sets the title of song-->
-<!--            songArtist.textContent = artistName[currentSong]; //sets the title of song-->
-<!--            document.getElementById("playpau").classList.remove('fa-play');-->
-<!--            document.getElementById("playpau").classList.add('fa-pause');-->
-
-
-<!--            song.play(); // play the song-->
-<!--        }-->
-
-<!--        function playOrPauseSong(){-->
-<!--            if(song.paused){-->
-<!--                song.play();-->
-<!--                document.getElementById("playpau").classList.remove('fa-play');-->
-<!--                document.getElementById("playpau").classList.add('fa-pause');-->
-<!--            }-->
-<!--            else{-->
-<!--                song.pause();-->
-<!--                document.getElementById("playpau").classList.remove('fa-pause');-->
-<!--                document.getElementById("playpau").classList.add('fa-play');-->
-<!--            }-->
-<!--        }-->
-
-<!--        song.addEventListener('timeupdate', function(){-->
-<!--            var position = song.currentTime / song.duration;-->
-<!--            fillBar.style.width = position * 100 +'%';-->
-<!--        });-->
-
-<!--        function next(){-->
-<!--            currentSong++;-->
-<!--            if(currentSong >= 4){  // here 4 is total songs change it later to loop out total song-->
-<!--                currentSong = 0;-->
-<!--            }-->
-<!--            playSong();-->
-<!--            document.getElementById("playpau").classList.remove('fa-play');-->
-<!--            document.getElementById("playpau").classList.add('fa-pause');-->
-<!--            $("#CtrlImage img").attr("src",'static/thumbnails/'+artwork_name[currentSong]);-->
-<!--        }-->
-
-<!--        function pre(){-->
-<!--            currentSong&#45;&#45;;-->
-<!--            if(currentSong < 0){-->
-<!--                currentSong = 3; //  =4-1 here 4 is total songs change it later to loop out total song-->
-<!--            }-->
-<!--            playSong();-->
-<!--            document.getElementById("playpau").classList.remove('fa-play');-->
-<!--            document.getElementById("playpau").classList.add('fa-pause');-->
-<!--            $("#CtrlImage img").attr("src",'static/thumbnails/'+artwork_name[currentSong]);-->
-<!--        }-->
-
-<!--        });-->
-<!--     });-->
-
-<!--</script>-->
->>>>>>> c6c3608c04083eb61ee07b458030c3652f5d1362
 
 
 
@@ -855,11 +526,7 @@
   {% if messages %}
   {% for message in messages %}
    {% if notitype %}
-<<<<<<< HEAD
     $.growl.{{notitype}}({message:" {{message}}  "});
-=======
-    $.growl.{{notitype}} ({ message: " {{message}}  "});
->>>>>>> c6c3608c04083eb61ee07b458030c3652f5d1362
     {% else %}
 
     $.growl.notice ({ message: " {{message}}  "});
@@ -871,24 +538,16 @@
 <!--script for side nav maximize and minimize-->
     <script>
         $(document).ready(function () {
-<<<<<<< HEAD
            window.browserSize = "big"
                  var w = window.outerWidth;
                  if (w < 578) {
                     window.browserSize = "small"
-=======
-                 var w = window.outerWidth;
-                 console.log(w);
-                 if (w < 578) {
-
->>>>>>> c6c3608c04083eb61ee07b458030c3652f5d1362
                     $('#sidebarCollapse').on('click', function () {
                         $('#sidebar').toggleClass('active');
                     });
                  };
 
 
-<<<<<<< HEAD
 
             var onresize = function(e) {
                //note i need to pass the event as an argument to the function
@@ -919,9 +578,6 @@ window.addEventListener("resize", onresize);
         });
 
 
-=======
-        });
->>>>>>> c6c3608c04083eb61ee07b458030c3652f5d1362
     </script>
 
 <!--script for music control maximize and minimize-->
@@ -1069,51 +725,7 @@ $(document).ready(function(){
             });
         });
 
-<<<<<<< HEAD
 
-=======
-        $("#signin").click(function(){
-        document.getElementById("home").classList.remove('activated');
-        document.getElementById("home").classList.add('deactivated');
-        document.getElementById("top").classList.remove('activated');
-        document.getElementById("top").classList.add('deactivated');
-        document.getElementById("new").classList.remove('activated');
-        document.getElementById("new").classList.add('deactivated');
-        document.getElementById("recent").classList.remove('activated');
-        document.getElementById("recent").classList.add('deactivated');
-        document.getElementById("library").classList.remove('activated');
-        document.getElementById("library").classList.add('deactivated');
-        document.getElementById("changeColor").classList.remove('colorWhite');
-        document.getElementById("changeColor").classList.add('controlColor');
-           $.ajax({
-            url: "../signin",
-            success: function(result){
-                $("#displayInMainContent").html(result);
-                }
-            });
-        });
-
-        $("#signout").click(function(){
-        document.getElementById("home").classList.remove('activated');
-        document.getElementById("home").classList.add('deactivated');
-        document.getElementById("top").classList.remove('activated');
-        document.getElementById("top").classList.add('deactivated');
-        document.getElementById("new").classList.remove('activated');
-        document.getElementById("new").classList.add('deactivated');
-        document.getElementById("recent").classList.remove('activated');
-        document.getElementById("recent").classList.add('deactivated');
-        document.getElementById("library").classList.remove('activated');
-        document.getElementById("library").classList.add('deactivated');
-        document.getElementById("changeColor").classList.remove('colorWhite');
-        document.getElementById("changeColor").classList.add('controlColor');
-           $.ajax({
-            url: "../signout",
-            success: function(result){
-                $("#displayInMainContent").html(result);
-                }
-            });
-        });
->>>>>>> c6c3608c04083eb61ee07b458030c3652f5d1362
 
 
 
@@ -1121,7 +733,6 @@ $(document).ready(function(){
       });
   </script>
 
-<<<<<<< HEAD
 <!--for log-->
 <script type="text/javascript">
     function loguser(){
@@ -1179,8 +790,6 @@ $(document).ready(function(){
 
     </script>
 
-=======
->>>>>>> c6c3608c04083eb61ee07b458030c3652f5d1362
 <!--  script for right click-->
   <script>
       var i = document.getElementById("menu").style;
@@ -1222,7 +831,6 @@ function menu(x, y) {
 
 <!--  for sign in-->
 <script type="text/javascript">
-<<<<<<< HEAD
 
 
     function signin(){
@@ -1266,26 +874,7 @@ function menu(x, y) {
                 $("#displayInMainContent").html(response);
                 document.getElementById("replace").textContent = "Sign Out";
 
-                    //to refresh favourite
-                    var artworkPath = document.getElementById("ControlArtwork").src;
-                    tempArtwork = artworkPath.split("/");
-                    ArtworkName= tempArtwork.slice(-1)[0];
-                        $.ajax({
-                            url: "../favyesorno/" + ArtworkName,
-                            success: function(result){
-                                if (result == 'yes'){
-                                    document.getElementById("favheart").classList.remove('far');
-                                    document.getElementById("favheart").classList.add('fas');
-                                    onclickdata = 'favourite("fas")';
-                                    document.getElementById("favheartmain").setAttribute( "onClick",  onclickdata);
-                                }else if (result == 'no'){
-                                    document.getElementById("favheart").classList.remove('fas');
-                                    document.getElementById("favheart").classList.add('far');
-                                    onclickdata = 'favourite("far")';
-                                    document.getElementById("favheartmain").setAttribute( "onClick",  onclickdata);
-                                }
-                            }
-                        });
+                    
 
               }
             });
@@ -1294,32 +883,6 @@ function menu(x, y) {
           }
 
           return false;
-=======
-    function signin()
-{
-  var username = document.getElementById("username").value;
-  var password = document.getElementById("password").value;
-  if(username && password)
-  {
-    $.ajax
-    ({
-      type: 'post',
-      url: '../signindata',
-      data:
-      {
-         username:username,
-		 password:password,
-		 csrfmiddlewaretoken: '{{ csrf_token }}'
-      },
-      success: function (response)
-      {
-	    $("#displayInMainContent").html(response);
-      }
-    });
-  }
-
-  return false;
->>>>>>> c6c3608c04083eb61ee07b458030c3652f5d1362
 }
 </script>
 
@@ -1362,10 +925,7 @@ function menu(x, y) {
       success: function (response)
       {
 	    $("#displayInMainContent").html(response);
-<<<<<<< HEAD
 
-=======
->>>>>>> c6c3608c04083eb61ee07b458030c3652f5d1362
       }
     });
   }
@@ -1405,12 +965,8 @@ function menu(x, y) {
 <script type="text/javascript">
     $(function(){
         $('#search').keyup(function(){
-<<<<<<< HEAD
         var search_data = $('#search').val()
         console.log(search_data)
-=======
-
->>>>>>> c6c3608c04083eb61ee07b458030c3652f5d1362
             $.ajax({
                 type:"POST",
                 url: "/search_data",
@@ -1440,7 +996,6 @@ function menu(x, y) {
         });
     });
 
-<<<<<<< HEAD
 </script>
 
 <!--clearing searches on x-->
@@ -1506,46 +1061,12 @@ function menu(x, y) {
     }
 </script>
 
-<!--for favourite-->
-<script>
-    function favourite(favclick){
-    var artworkPath = document.getElementById("ControlArtwork").src;
-    tempArtwork = artworkPath.split("/");
-    ArtworkName= tempArtwork.slice(-1)[0]
 
-        $.ajax({
-            url: "../favourite/" + ArtworkName,
-            success: function(result){
-            console.log(result)
-                if (result=="Added to favourite"){
-                    document.getElementById("favheart").classList.remove('far');
-                    document.getElementById("favheart").classList.add('fas');
-                    onclickdata = 'favourite("fas")';
-                    document.getElementById("favheartmain").setAttribute( "onClick",  onclickdata);
-                 }else if (result=="Removed from favourite"){
-                    document.getElementById("favheart").classList.remove('fas');
-                    document.getElementById("favheart").classList.add('far');
-                    onclickdata = 'favourite("far")';
-                    document.getElementById("favheartmain").setAttribute( "onClick",  onclickdata);
-                 }
-                 else{
-                     $("#displayInMainContent").html(result);
-                 }
-             }
-         });
-    }
-
-</script>
 
 <!--  go to playlist view-->
 
 
 
-=======
-
-</script>
-
->>>>>>> c6c3608c04083eb61ee07b458030c3652f5d1362
 
   </body>
 </html>
