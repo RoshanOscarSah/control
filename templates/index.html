@@ -23,7 +23,6 @@
           <img id="sidebarCollapse" src="{% static 'img/logo.png'%}" alt="Control" class="img-fluid logo" height="75px" width="220px" >
         </div>
         <div class="col-8 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-
           <div class="row">
              <div class="col-12 col-sm-10 col-md-9 col-lg-10 col-xl-10">
                 <form method="post" id="searchedByForm" class="searchsm" autocomplete="off">
@@ -42,7 +41,6 @@
 
 
           </div>
-
 
         </div>
 
@@ -90,7 +88,7 @@
     <section class="mainContent">
         <div id="displayInMainContent">
             {% include "home.html" %}
-    </div>
+        </div>
     </section>
 
 <!-- audio control-->
@@ -106,10 +104,10 @@
                     <div class="col-6 songDiscription">
                         <div class="row">
                             <div class="col-12 songTitle">
-                                <a href="#" id="songTitle"><p>A Head Full of Dreams </p></a>
+                                <div id="songTitle"><p>A Head Full of Dreams </p></div>
                             </div>
                             <div class="col-12 songArtist">
-                                <a href="#" id="songArtist" ><p>Coldplay</p></a>
+                                <a href="#" id="songArtist" onclick='ArtistView("Coldplay")'><p>Coldplay</p></a>
                             </div>
                         </div>
                     </div>
@@ -127,13 +125,13 @@
                                 <i class="fas fa-random controlColor"></i>
                             </div>
                             <div class="col-1">
-                                  <i class="fas fa-step-backward controlColor" onclick="pre()"></i>
+                                  <i class="fas fa-step-backward controlColor" id="previous" onclick="pre()"></i>
                             </div>
                             <div class="col-2 playPause" onclick="playOrPauseSong()">
                                 <i class="fas fa-play controlColor" id="playpau"></i>
                             </div>
                             <div class="col-1">
-                                 <i class="fas fa-step-forward controlColor" onclick="next()"></i>
+                                 <i class="fas fa-step-forward controlColor" id="next" onclick="next()"></i>
                             </div>
                             <div class="col-1">
                                  <i class="fas fa-retweet controlColor"></i>
@@ -142,7 +140,7 @@
                         </div></div>
                     <div class="col-12">
                         <div class="row">
-                            <div class="col-2 seekTime "><p id="timer">0:19</p></div>
+                            <div class="col-2 seekTime "><p id="timer">0:00</p></div>
                             <div class="col-8 mt-2" id="seek-bar">
                                 <input type="range" oninput="setPos(this.value)" id="seek" value="0" max="">
                                 <div id="fill"> </div>
@@ -159,13 +157,35 @@
                                 <input type="range" id="volume" oninput="setVolume(this.value)" min="0" max="1" step="0.01" value="1">
                                 </div>
                             </div>
-                            <div class="col-2"><i class="fas fa-plus controlColor"></i></div>
-                            <div class="col-2"><i class="fas fa-share controlColor"></i></div>
+                            <div class="col-2">
+                                <i onclick='AddToLibView()' class="fas fa-plus controlColor popup">
+                                    <span class="popuptext" id="myPopup"></span>
+                                </i>
+                            </div>
+                            <div class="col-2"><i onclick='share()' class="fas fa-share controlColor"></i></div>
                             <div class="col-2"><a href="#" id="queue"><i class="fas fa-list controlColor" id="changeColor"></i></a> </div>
                 </div>
             </div>
         </div>
     </footer>
+
+<!-- The Modal  write inside Modal content class-->
+<div id="myModal" class="modal">
+  <div class="modal-content">
+      <div class="row">
+          <div class="col-10"></div>
+          <div class="col-2"><span class="close">&times;</span></div>
+
+      </div>
+      <div class="row" >
+          <div class="col-12" id="change">
+<!--              popup data comes here-->
+          </div>
+       </div>
+  </div>
+</div>
+
+
 
 <!--for right click / menu  -->
 <div id="menu">
@@ -183,6 +203,7 @@
     <i class="fa fa-flag"></i> Report <span>Ctrl + R</span>
   </a>
 </div>
+
 
 
 
@@ -212,6 +233,15 @@
     var song = new Audio();
     var currentSong = 0; // it point to current song
 
+    //adding artist name to onclick event of id songArtist
+            d1="ArtistView(";
+            d2='"';
+            d3= artistName[currentSong];
+            d4='"';
+            d5=")";
+            data =d1.concat(d2,d3,d4,d5);
+            document.getElementById("songArtist").setAttribute( "onClick",  data);
+
     $("#CtrlImage img").attr("src",'static/thumbnails/'+artwork_name[currentSong]);
     window.onload = playPause();  // it will call the function playSong when window is load
 
@@ -219,7 +249,7 @@
         song.src = file[currentSong]; //set the source of 0th song
             songTitle.textContent = songName[currentSong]; //sets the title of song
             songArtist.textContent = artistName[currentSong]; //sets the title of song
-
+            songLength.textContent = totalLength[currentSong];
         song.pause(); // play the song
     }
 
@@ -257,12 +287,13 @@
         } else {
             song.volume = 0;
             muted = true;
-            document.getElementById('mute').innerHTML = '<i class="fa fa-volume-off"></i>';
+            document.getElementById('mute').innerHTML = '<i class="fa fa-volume-mute"></i>';
         }
     }
     function setVolume(volume) {
         song.volume = volume;
         vol = volume;
+        document.getElementById('mute').innerHTML = '<i class="fa fa-volume-up"></i>';
     }
 
     song.addEventListener('timeupdate', function(){
@@ -291,6 +322,7 @@
     });
 
     function next(){
+    console.log("aaa");
         currentSong++;
         if(currentSong >= 4){  // here 4 is total songs change it later to loop out total song
             currentSong = 0;
@@ -299,6 +331,15 @@
         document.getElementById("playpau").classList.remove('fa-play');
         document.getElementById("playpau").classList.add('fa-pause');
         $("#CtrlImage img").attr("src",'static/thumbnails/'+artwork_name[currentSong]);
+
+        //adding artist name to onclick event of id songArtist
+            d1="ArtistView(";
+            d2='"';
+            d3= artistName[currentSong];
+            d4='"';
+            d5=")";
+            data =d1.concat(d2,d3,d4,d5) ;
+            document.getElementById("songArtist").setAttribute( "onClick",  data);
 
         favouriteView(currentSong)
     }
@@ -313,6 +354,15 @@
         document.getElementById("playpau").classList.remove('fa-play');
         document.getElementById("playpau").classList.add('fa-pause');
         $("#CtrlImage img").attr("src",'static/thumbnails/'+artwork_name[currentSong]);
+
+        //adding artist name to onclick event of id songArtist
+            d1="ArtistView(";
+            d2='"';
+            d3= artistName[currentSong];
+            d4='"';
+            d5=")";
+            data =d1.concat(d2,d3,d4,d5) ;
+            document.getElementById("songArtist").setAttribute( "onClick",  data);
 
          favouriteView(currentSong)
     }
@@ -348,19 +398,29 @@
      //clear searches
   document.getElementById('search').value = '';
 
-
             var clickedSongDataSplit = clickedSongData.split(",,");
 
             var file = ['static/musics/'+clickedSongDataSplit[0]];
             var artwork_name =  ['static/thumbnails/'+clickedSongDataSplit[1]]
             var songName = [clickedSongDataSplit[2]];
             var artistName = [clickedSongDataSplit[3]];
+            var totalLength = [clickedSongDataSplit[4]];
+
+            //adding artist name to onclick event of id songArtist
+            d1="ArtistView(";
+            d2='"';
+            d3= artistName;
+            d4='"';
+            d5=")";
+            data =d1.concat(d2,d3,d4,d5) ;
+            document.getElementById("songArtist").setAttribute( "onClick",  data);
 
             $("#CtrlImage img").attr("src",artwork_name[currentSong]);
 
             song.src = file[currentSong]; //set the source of 0th song
             songTitle.textContent = songName[currentSong]; //sets the title of song
             songArtist.textContent = artistName[currentSong]; //sets the title of song
+            songLength.textContent = totalLength[currentSong];
 
             document.getElementById("playpau").classList.remove('fa-play');
             document.getElementById("playpau").classList.add('fa-pause');
@@ -388,20 +448,28 @@
             }
         });
 
+        recentANDcount(ArtworkName)
+
     }
 </script>
 
 
 <!--for click to play Album song-->
 <script type="text/javascript">
-    function albumSongPlay(clickedAlbumData){
-    var totsong =Object.keys(clickedAlbumData).length;
+function albumSongPlay(clickedAlbumData){
+    //clear searches
+    document.getElementById('search').value = '';
+
 
     var file=[];  //all file here
     var artwork_name=[];  //all artwork_name here
     var songName=[];  //all songName here
     var artistName=[];  //all artistName here
     var totalLength=[];  //all totalLength here
+    var artwork_nameUnique = []; //easy for spliting
+    var fileUnique = []; //easy for spliting
+
+    var totsong =Object.keys(clickedAlbumData).length;
     for (i = 0; i < totsong; i++) {
         var filedest = ["static/musics/"+clickedAlbumData[i][1]] ;
         file.push(filedest);
@@ -414,39 +482,67 @@
         var totalLengthdest = [clickedAlbumData[i][4]];
         totalLength.push(totalLengthdest);
 
+        if (i == totsong-1){
+            var lastadd = "";
+        }else{
+            var lastadd = '//'
+        }
+        var artwork_nameUniquedest = ['static/thumbnails/'+clickedAlbumData[i][3]+lastadd];
+        artwork_nameUnique.push(artwork_nameUniquedest);
+        var fileUniquedest = ['static/musics/'+clickedAlbumData[i][1]+lastadd];
+        fileUnique.push(fileUniquedest);
+
     }
-    console.log(file[0][0]);
-    console.log(artwork_name);
-    console.log(songName);
-    console.log(artistName);
-    console.log(totalLength);
-<!--copied-->
+
     var songTitle = document.getElementById("songTitle");
     var fillBar = document.getElementById("fill");
     var muted = false;
     var vol = 1;
-    var song = new Audio();
+
+
     var currentSong = 0; // it point to current song
 
+    //adding artist name to onclick event of id songArtist
+            d1="ArtistView(";
+            d2='"';
+            d3= artistName[currentSong];
+            d4='"';
+            d5=")";
+            data =d1.concat(d2,d3,d4,d5);
+            document.getElementById("songArtist").setAttribute( "onClick",  data);
+     // setting previous next as album pre next button
+
+            document.getElementById("next").setAttribute( "onClick",  "nextAlbum(" + totsong + ",`" + fileUnique + "`,`" + songName + "`,`" + artistName + "`,`" + totalLength + "`,`" + artwork_nameUnique + "`);");
+            document.getElementById("previous").setAttribute( "onClick",  "preAlbum(" + totsong + ",`" + fileUnique + "`,`" + songName + "`,`" + artistName + "`,`" + totalLength + "`,`" + artwork_nameUnique + "`);");
+
+
     $("#CtrlImage img").attr("src",artwork_name[currentSong]);
-    window.onload = playPause();  // it will call the function playSong when window is load
+    window.onload = playSongAlbum();  // it will call the function playSong when window is load
 
-    function playPause(){
-        song.pause();
-        song.src = file[currentSong]; //set the source of 0th song
-            songTitle.textContent = songName[currentSong]; //sets the title of song
-            songArtist.textContent = artistName[currentSong]; //sets the title of song
+    function playPauseAlbum(){
+        song.src = file[currentSong][0]; //set the source of 0th song
+            songTitle.textContent = songName[currentSong][0]; //sets the title of song
+            songArtist.textContent = artistName[currentSong][0]; //sets the title of song
+            songLength.textContent = totalLength[currentSong][0];
 
+            document.getElementById("playpau").classList.remove('fa-play');
+            document.getElementById("playpau").classList.add('fa-pause');
         song.play(); // play the song
+
+        favouriteView(currentSong)
     }
 
-    function playSong(){
-        song.src = file[currentSong]; //set the source of 0th song
-            songTitle.textContent = songName[currentSong]; //sets the title of song
-            songArtist.textContent = artistName[currentSong]; //sets the title of song
-            songLength.textContent = totalLength[currentSong];
+    function playSongAlbum(){
+        song.src = file[currentSong][0]; //set the source of 0th song
+            songTitle.textContent = songName[currentSong][0]; //sets the title of song
+            songArtist.textContent = artistName[currentSong][0]; //sets the title of song
+            songLength.textContent = totalLength[currentSong][0];
 
+            document.getElementById("playpau").classList.remove('fa-play');
+            document.getElementById("playpau").classList.add('fa-pause');
         song.play(); // play the song
+
+        favouriteView(currentSong)
     }
     function playOrPauseSong(){
         if(song.paused){
@@ -506,27 +602,54 @@
               timer.textContent = t;
     });
 
-    function next(){
+    function nextAlbum(){
+
         currentSong++;
-        if(currentSong >= 4){  // here 4 is total songs change it later to loop out total song
+        if(currentSong >= totsong){  // here 4 is total songs change it later to loop out total song
             currentSong = 0;
         }
-        playSong();
+        playSongAlbum();
         document.getElementById("playpau").classList.remove('fa-play');
         document.getElementById("playpau").classList.add('fa-pause');
         $("#CtrlImage img").attr("src",artwork_name[currentSong]);
     }
 
-    function pre(){
+    function preAlbum(){
         currentSong--;
         if(currentSong < 0){
-            currentSong = 3; //  =4-1 here 4 is total songs change it later to loop out total song
+            currentSong = totsong - 1; //  =4-1 here 4 is total songs change it later to loop out total song
         }
-        playSong();
+        playSongAlbum();
         document.getElementById("playpau").classList.remove('fa-play');
         document.getElementById("playpau").classList.add('fa-pause');
         $("#CtrlImage img").attr("src",artwork_name[currentSong]);
     }
+
+
+
+        function favouriteView(currentSong){
+        artworkPath = artwork_name[currentSong][0]
+        tempArtwork = artworkPath.split("/");
+        ArtworkName= tempArtwork.slice(-1)[0]
+        $.ajax({
+            url: "../favyesorno/" + ArtworkName,
+            success: function(result){
+                if (result == 'yes'){
+                    document.getElementById("favheart").classList.remove('far');
+                    document.getElementById("favheart").classList.add('fas');
+                    onclickdata = 'favourite("fas")';
+                    document.getElementById("favheartmain").setAttribute( "onClick",  onclickdata);
+                }else if (result == 'no'){
+                    document.getElementById("favheart").classList.remove('fas');
+                    document.getElementById("favheart").classList.add('far');
+                    onclickdata = 'favourite("far")';
+                    document.getElementById("favheartmain").setAttribute( "onClick",  onclickdata);
+                }
+            }
+        });
+    }
+
+
 
 
 
@@ -552,6 +675,74 @@
 <!--        song.play(); // play the song-->
 
     }
+
+    function nextAlbum(totsong,fileUnique,songName,artistName,totalLength,artwork_nameUnique){
+        currentSong++;
+        if(currentSong >= totsong){  // here total songs change it later to loop out total song
+            currentSong = 0;
+        }
+        Fil = fileUnique.split('//,');
+        son = songName.split(',');
+        arti = artistName.split(',');
+        totLen = totalLength.split(',');
+        artWrk = artwork_nameUnique.split('//,');
+        playSongAlbum(Fil,son,arti,totLen,artWrk);
+        document.getElementById("playpau").classList.remove('fa-play');
+        document.getElementById("playpau").classList.add('fa-pause');
+    }
+
+    function preAlbum(totsong,fileUnique,songName,artistName,totalLength,artwork_nameUnique){
+        currentSong--;
+        if(currentSong < 0){
+            currentSong = totsong - 1; //  =4-1 here 4 is total songs change it later to loop out total song
+        }
+        Fil = fileUnique.split('//,');
+        son = songName.split(',');
+        arti = artistName.split(',');
+        totLen = totalLength.split(',');
+        artWrk = artwork_nameUnique.split('//,');
+        playSongAlbum(Fil,son,arti,totLen,artWrk);
+        document.getElementById("playpau").classList.remove('fa-play');
+        document.getElementById("playpau").classList.add('fa-pause');
+
+    }
+
+
+    function playSongAlbum(file,songName,artistName,totalLength,artwork_name){
+        song.src = file[currentSong]; //set the source of 0th song
+            songTitle.textContent = songName[currentSong]; //sets the title of song
+            songArtist.textContent = artistName[currentSong]; //sets the title of song
+            songLength.textContent = totalLength[currentSong];
+
+            $("#CtrlImage img").attr("src",artwork_name[currentSong]);
+
+            document.getElementById("playpau").classList.remove('fa-play');
+            document.getElementById("playpau").classList.add('fa-pause');
+        song.play(); // play the song
+
+
+        artworkPath = artwork_name[currentSong]
+        tempArtwork = artworkPath.split("/");
+        ArtworkName= tempArtwork.slice(-1)[0]
+        $.ajax({
+            url: "../favyesorno/" + ArtworkName,
+            success: function(result){
+                if (result == 'yes'){
+                    document.getElementById("favheart").classList.remove('far');
+                    document.getElementById("favheart").classList.add('fas');
+                    onclickdata = 'favourite("fas")';
+                    document.getElementById("favheartmain").setAttribute( "onClick",  onclickdata);
+                }else if (result == 'no'){
+                    document.getElementById("favheart").classList.remove('fas');
+                    document.getElementById("favheart").classList.add('far');
+                    onclickdata = 'favourite("far")';
+                    document.getElementById("favheartmain").setAttribute( "onClick",  onclickdata);
+                }
+            }
+        });
+    }
+
+
 </script>
 
 
@@ -769,7 +960,7 @@ $(document).ready(function(){
       });
   </script>
 
-<!--for log-->
+<!--for log in or out-->
 <script type="text/javascript">
     function loguser(){
         sign = document.getElementById("replace").textContent;
@@ -865,16 +1056,9 @@ function menu(x, y) {
 }
   </script>
 
-
-<!--  for sign in-->
-<script type="text/javascript">
-
-
-    function signin(){
-          var username = document.getElementById("username").value;
-          var password = document.getElementById("password").value;
-
-          function getCookie(name) {
+<!--for csrf token-->
+<script>
+function getCookie(name) {
             let cookieValue = null;
             if (document.cookie && document.cookie !== '') {
                 const cookies = document.cookie.split(';');
@@ -889,6 +1073,17 @@ function menu(x, y) {
             }
             return cookieValue;
         }
+</script>
+
+<!--  for sign in-->
+<script type="text/javascript">
+
+
+    function signin(){
+          var username = document.getElementById("username").value;
+          var password = document.getElementById("password").value;
+
+
         const_csrftoken = getCookie('csrftoken');
 
 
@@ -942,8 +1137,24 @@ function menu(x, y) {
 }
 </script>
 
+<!--  for sign up-->
+<script type="text/javascript">
+    function signup()
+{
+  var username = document.getElementById("username").value;
+  var password = document.getElementById("password").value;
+  var email = document.getElementById("email").value;
+  var fname = document.getElementById("fname").value;
+  var lname = document.getElementById("lname").value;
+  var bday = document.getElementById("bday").value;
 
-
+  if (document.getElementById('male').checked) {
+      gender = document.getElementById('male').value;
+    }else if (document.getElementById('female').checked) {
+      gender = document.getElementById('female').value;
+    }else{
+      gender = document.getElementById('other').value;
+    }
 
   if(username && password && email && fname && lname && bday && gender)
   {
@@ -979,6 +1190,7 @@ function menu(x, y) {
     function forgetsendmail()
 {
   var email = document.getElementById("email").value;
+  const_csrftoken = getCookie('csrftoken');
   if(email)
   {
     $.ajax
@@ -988,7 +1200,7 @@ function menu(x, y) {
       data:
       {
 		 email:email,
-		 csrfmiddlewaretoken: '{{ csrf_token }}'
+		 csrfmiddlewaretoken: const_csrftoken
       },
       success: function (response)
       {
@@ -1001,19 +1213,18 @@ function menu(x, y) {
 }
 </script>
 
-
 <!--  for searches-->
 <script type="text/javascript">
     $(function(){
         $('#search').keyup(function(){
         var search_data = $('#search').val()
-        console.log(search_data)
+        const_csrftoken = getCookie('csrftoken');
             $.ajax({
                 type:"POST",
                 url: "/search_data",
                 data:{
                     'search_text' : $('#search').val(),
-                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    'csrfmiddlewaretoken': const_csrftoken,
                 },
                 success: function (response){
                     $("#displayInMainContent").html(response);
@@ -1082,7 +1293,7 @@ function menu(x, y) {
             url: "../artist/" + topic,
             success: function(result){
                 $("#displayInMainContent").html(result);
-                }
+            }
          });
     }
 
@@ -1102,12 +1313,298 @@ function menu(x, y) {
     }
 </script>
 
+<!--for favourite-->
+<script>
+    function favourite(favclick){
+    var artworkPath = document.getElementById("ControlArtwork").src;
+    tempArtwork = artworkPath.split("/");
+    ArtworkName= tempArtwork.slice(-1)[0]
+
+        $.ajax({
+            url: "../favourite/" + ArtworkName,
+            success: function(result){
+                if (result=="Added to favourite"){
+                    document.getElementById("favheart").classList.remove('far');
+                    document.getElementById("favheart").classList.add('fas');
+                    onclickdata = 'favourite("fas")';
+                    document.getElementById("favheartmain").setAttribute( "onClick",  onclickdata);
+                 }else if (result=="Removed from favourite"){
+                    document.getElementById("favheart").classList.remove('fas');
+                    document.getElementById("favheart").classList.add('far');
+                    onclickdata = 'favourite("far")';
+                    document.getElementById("favheartmain").setAttribute( "onClick",  onclickdata);
+                 }
+                 else{
+                     $("#displayInMainContent").html(result);
+                 }
+             }
+         });
+    }
+
+</script>
+
+<!--share function-->
+<script>
+    function share(){
+        var songname = document.getElementById("songTitle").textContent;
+        var artistname = document.getElementById("songArtist").textContent;
+        Text = "I am listening to " + songname + " by " + artistname + "\n" + "- Control";
+        var copyText = $("<textarea>").val(Text).appendTo('body').select();
+        document.execCommand('copy')
+        $.growl.notice ({ message: "Copied to Clipboard"});
+        copyText.remove();
+
+    }
+
+</script>
+
+<!-- popup while click in add + sign -->
+<script>
+// When the user clicks on div, open the popup
+function AddToLibView() {
+  var artworkPath = document.getElementById("ControlArtwork").src;
+  tempArtwork = artworkPath.split("/");
+  ArtworkName= tempArtwork.slice(-1)[0]
+  $('.ReloadRemove').remove();
+
+  $.ajax({
+    url: "../addlibview/" + ArtworkName,
+    success: function(result){
+
+        if (result == "please sign in first"){
+            $.growl.warning ({ message: "please sign in first"});
+        }else{
+        var popup = document.getElementById("myPopup");
+        popup.classList.toggle("show");
+        $("#myPopup").append("<div class='row ReloadRemove'><div class='col-1 ml-2'><i class='fas fa-plus'></i></div><div class='col-6 text-left'>Create playlist</div><div class='col-1 mr-2'><i class='fas fa-globe-asia'></i></div></div>");
+           for (var key in result) {
+            if (key == "Library" && result[key] == 1){
+               $("#myPopup").append("<hr class='m-2 ReloadRemove'><div class='row ReloadRemove' onclick='AddToLib(`" + key + "`)'><div class='col-1 ml-2'><i class='fas fa-check-square'></i></div><div class='col-6 text-left'>" + key + "</div><div class='col-1 mr-2'><i class='fas fa-lock'></i></div></div>");
+            }else if (key == "Library" && result[key] == 0){
+               $("#myPopup").append("<hr class='m-2 ReloadRemove'><div class='row ReloadRemove' onclick='AddToLib(`" + key + "`)'><div class='col-1 ml-2'><i class='fas fa-square'></i></div><div class='col-6 text-left'>" + key + "</div><div class='col-1 mr-2'><i class='fas fa-lock'></i></div></div>");
+            }else if (result[key] == 1){
+               $("#myPopup").append("<hr class='m-2 ReloadRemove'><div class='row ReloadRemove' onclick='AddToLib(`" + key + "`)'><div class='col-1 ml-2'><i class='fas fa-check-square'></i></div><div class='col-6 text-left'>" + key + "</div><div class='col-1 mr-2'><i class='fas fa-globe-asia'></i></div></div>");
+            }else{
+               $("#myPopup").append("<hr class='m-2 ReloadRemove'><div class='row ReloadRemove' onclick='AddToLib(`" + key + "`)'><div class='col-1 ml-2'><i class='fas fa-square'></i></div><div class='col-6 text-left'>" + key + "</div><div class='col-1 mr-2'><i class='fas fa-globe-asia'></i></div></div>");
+            }
+           }
+       }
+    }
+  });
+
+}
+</script>
+
+<!--  adding to library or playlist-->
+<script>
+    function AddToLib(PlaylistName){
+        var artworkPath = document.getElementById("ControlArtwork").src;
+          tempArtwork = artworkPath.split("/");
+          ArtworkName= tempArtwork.slice(-1)[0]
+        $.ajax({
+            url: "../addlib/" + PlaylistName + "/" + ArtworkName,
+            success: function(result){
+                if (result == "Removed"){
+                    $.growl.warning ({ message: "Removed"});
+                }else{
+                    $.growl.notice ({ message: "Added"});
+                }
+                var popup = document.getElementById("myPopup");
+                popup.classList.toggle("hide");
+            }
+         });
+    }
+</script>
 
 
-<!--  go to playlist view-->
+  <!-- popup while click in details ... FAVOURITE sign -->
+<script>
+function favouriteOption(number) {
+    var data = document.getElementById(number);
+    var id = data.getAttribute('value');
+    $.ajax({
+            url: "../favouriteOption/" + id,
+            success: function(result){
+                 if (result=="Added to favourite"){
+                    document.getElementById(number).children[0].children[0].children[2].classList.remove('far');
+                    document.getElementById(number).children[0].children[0].children[2].classList.add('fas');
+                 }else if (result=="Removed from favourite"){
+                    document.getElementById(number).children[0].children[0].children[2].classList.add('far');
+                    document.getElementById(number).children[0].children[0].children[2].classList.remove('fas');
+                 }
+                 else{
+                     $("#displayInMainContent").html(result);
+                 }
+            }
+     })
+}
+</script>
 
 
+   <!-- popup while click in details ... ADD sign -->
+<script>
+function addOption(number) {
+    $('.addRemove').remove();
+    var data = document.getElementById(number);
+    var id = data.getAttribute('value');
+    $.ajax({
+            url: "../addOption/" + id,
+            success: function(result){
+                if (result == "please sign in first"){
+                $.growl.warning ({ message: "please sign in first"});
+                }else{
+                    modal.style.display = "block";
+                    $("#change").append("<div class='row addRemove'><div class='col-1'><i class='fas fa-plus'></i></div><div class='col-8 text-left'>Create playlist</div><div class='col-1'><i class='fas fa-globe-asia'></i></div></div>");
 
+                    for (var key in result) {
+                        if (key == "Library" && result[key] == 1){
+                           $("#change").append("<hr class='m-2 addRemove'><div class='row addRemove' onclick='AddLibFrmDetails(`" + key +",,"+ id + "`)'><div class='col-1'><i class='fas fa-check-square'></i></div><div class='col-8 text-left'>" + key + "</div><div class='col-1'><i class='fas fa-lock'></i></div></div>");
+                        }else if (key == "Library" && result[key] == 0){
+                           $("#change").append("<hr class='m-2 addRemove'><div class='row addRemove' onclick='AddLibFrmDetails(`" + key+",,"+id + "`)'><div class='col-1'><i class='fas fa-square'></i></div><div class='col-8 text-left'>" + key + "</div><div class='col-1'><i class='fas fa-lock'></i></div></div>");
+                        }else if (result[key] == 1){
+                           $("#change").append("<hr class='m-2 addRemove'><div class='row addRemove' onclick='AddLibFrmDetails(`" + key+",,"+id + "`)'><div class='col-1'><i class='fas fa-check-square'></i></div><div class='col-8 text-left'>" + key + "</div><div class='col-1'><i class='fas fa-globe-asia'></i></div></div>");
+                        }else{
+                           $("#change").append("<hr class='m-2 addRemove'><div class='row addRemove' onclick='AddLibFrmDetails(`" + key+",,"+id + "`)'><div class='col-1'><i class='fas fa-square'></i></div><div class='col-8 text-left'>" + key + "</div><div class='col-1'><i class='fas fa-globe-asia'></i></div></div>");
+                        }
+                     }
+                }
+            }
+    })
+}
+</script>
+
+<!--  adding to library or playlist from details-->
+<script>
+function AddLibFrmDetails(value){
+       var clickedSongDataSplit = value.split(",,");
+       var PlaylistName = clickedSongDataSplit[0]
+       var id = clickedSongDataSplit[1]
+       $.ajax({
+            url: "../AddLibFrmDetails/" + PlaylistName + "/" + id,
+            success: function(result){
+                modal.style.display = "none";
+                if (result == "Removed"){
+                    $.growl.warning ({ message: "Removed"});
+                }else{
+                    $.growl.notice ({ message: "Added"});
+                }
+            }
+         });
+}
+</script>
+
+
+<!-- popup while click in details ... sign -->
+<script>
+function option(number){
+    var data = document.getElementById(number);
+    var id = data.getAttribute('value');
+    $.ajax({
+    url: "../option/" + id,
+    success: function(result){
+        if (data.classList.contains("show")) {
+            document.getElementById(number).classList.remove('show');
+         }else {
+            document.getElementById(number).classList.add('show');
+            if (result == "yes"){
+                document.getElementById(number).children[0].children[0].children[2].classList.remove('far');
+                document.getElementById(number).children[0].children[0].children[2].classList.add('fas');
+            }else{
+                document.getElementById(number).children[0].children[0].children[2].classList.add('far');
+                document.getElementById(number).children[0].children[0].children[2].classList.remove('fas');
+                // onclickdata = 'favouriteOption("far")';
+                // document.getElementById(number).children[0].children[0].children[2].setAttribute( "onClick",  onclickdata);
+            }
+         }
+        }
+    });
+}
+
+</script>
+
+  <!--creating popup for add in details-->
+<script>
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal
+//btn.onclick = function() {
+//  modal.style.display = "block";
+//
+//}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+
+</script>
+
+<!--remove song from library - popup in details-->
+<script>
+function removeOption(optionNo){
+    var data = document.getElementById(optionNo);
+    var id = data.getAttribute('value');
+    $.ajax({
+        url: "../removeFromLib/" + id,
+        success: function(result){
+            if (result == "please sign in first"){
+                $.growl.warning ({ message: "please sign in first"});
+            }else{
+                $.growl.warning ({ message: "Removed from Library"});
+                $("#displayInMainContent1").html(result);
+            }
+        }
+    })
+}
+</script>
+
+<!--remove song from playlist - popup in details-->
+<script>
+function removeOptionPlst(value){
+    var clickedSongDataSplit = value.split(",,");
+    var optionNo = clickedSongDataSplit[0];
+    var data = document.getElementById(optionNo);
+    var id = data.getAttribute('value');
+    var platlistName = clickedSongDataSplit[1];
+    $.ajax({
+        url: "../removeFromPlst/" + platlistName + "/" + id,
+        success: function(result){
+            if (result == "please sign in first"){
+                $.growl.warning ({ message: "please sign in first"});
+            }else{
+                $.growl.warning ({ message: "Removed from Playlist"});
+                $("#displayInMainContent1").html(result);
+            }
+        }
+    })
+}
+</script>
+
+<!--  add to recent and count function called-->
+<script>
+function recentANDcount(ArtworkName){
+    $.ajax({
+            url: "../recentANDcount/" + ArtworkName,
+
+    })
+}
+</script>
 
   </body>
 </html>
