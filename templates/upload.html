@@ -1,0 +1,65 @@
+<!doctype html>
+{%load static%}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="icon" href="{% static 'img/favicon.png'%}" type="image/png" sizes="16x16">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/jquery.growl.css'%}">
+    <link rel="stylesheet" href="{% static 'fonts/fontawesome-free-5.13.0-web/css/all.min.css'%}">
+    <link rel="stylesheet" href="{% static 'fonts/cooljazz.css'%}">
+
+    <title>Control</title>
+  </head>
+<body>
+   <!-- The Modal -->
+
+                            <div class="container mt-5 ">
+                                <form action="uploadmusic" method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-12 col-lg-4">
+                                            <input type="file" accept=" .mp3, .m4a, .flac, .wav, .aac" id="uploadFile" name="uploadFile[]" multiple required/>
+                                        </div>
+                                        <div class="col-12 col-lg-4">&nbsp;</div>
+                                        <div class="col-12 col-lg-4">
+                                            <input type="submit" class="btn btn-success" name='submitImage' value="Upload Music" />
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="{% static 'js/jquery-3.4.1.min.js'%}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="{% static 'js/jquery.growl.js'%}"></script>
+    <script src="{% static 'js/bootstrap.min.js'%}"></script>
+
+   <!--for notification type error notice warning-->
+  <script type="text/javascript">
+  {% if messages %}
+  {% for message in messages %}
+   {% if notitype %}
+    $.growl.{{notitype}} ({ message: " {{message}}  "});
+    {% else %}
+
+    $.growl.notice ({ message: " {{message}}  "});
+    {% endif %}
+  {% endfor %}
+  {% endif %}
+</script>
+
+<!--for upload image-->
+
+    <script type="text/javascript">
+        $( 'form' ).ajaxForm( function () {
+            alert( "Uploaded SuccessFully" );
+        } );
+    </script>
+
+</body>
+</html>

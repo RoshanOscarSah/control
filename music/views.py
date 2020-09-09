@@ -1,3 +1,4 @@
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 # for login
 from django.contrib.auth.models import User,auth
@@ -11,7 +12,7 @@ from django.conf import settings
 # for random
 import random
 # for importing models
-from music.models import profiles, metadata, recovery_keys, albums, artist, artist_search, library, recent , playlist
+from music.models import profiles, metadata, recovery_keys, albums, artist, artist_search, library, recent , playlist, favourite
 # for extraction of metadata. In terminal hit this command
 # pip install tinytag
 from tinytag import TinyTag
@@ -34,6 +35,9 @@ import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import sys
 from pprint import pprint
+# for sensing json format
+import json
+
 
 
 
@@ -58,36 +62,161 @@ def index(request):
             albumdatasub[j] = [albumdataa[j]['title'],albumdataa[j]['file'],albumdataa[j]['contributing_artists'],albumdataa[j]['artwork_name'],albumdataa[j]['length']]
         albumsongsname[i] = albumdatasub
 
+    popularplaylists = playlist.objects.order_by('-total_played').values('playlist_name','total_played').distinct()
+    popularplaylistsCounter = popularplaylists.count()
+    playlist_count_dict =dict()
+    for i in range(popularplaylistsCounter):
+        tempPlaylistName = popularplaylists[i]['playlist_name']
+        total_song = playlist.objects.filter(playlist_name=tempPlaylistName).count()
+
+        art = playlist.objects.filter(playlist_name=tempPlaylistName).values('metadata_id')
+        artCounter = art.count()
+        photo_dict = dict()
+        for j in range(artCounter):
+            tempArtFile = art[j]['metadata_id']
+            artwork_name = metadata.objects.get(id=tempArtFile).artwork_name
+            photo_dict[j] = artwork_name
+        playlist_count_dict[i] = photo_dict
+
     # data1 = artist.objects.order_by('-id')[:1].get()
     # albumdata = albums.objects.filter(album_artist= data1).count()  # kept just for example
     return render(request, 'index.html', {'newandtrending': newandtrending, 'youmightalsolike': youmightalsolike,
-                                         'bestofartists': bestofartists, 'albumsongsname':albumsongsname,})
+                                         'bestofartists': bestofartists, 'albumsongsname':albumsongsname,'popularplaylists':popularplaylists,
+                                          'playlist_count_dict':playlist_count_dict})
 
 def show_home(request):
     newandtrending = albums.objects.order_by('-year')
     youmightalsolike = metadata.objects.order_by('genre')
     bestofartists = artist.objects.order_by('-total_played')
+    # for sending album data
+    totalnewandtrending = albums.objects.order_by('-year').count()
+    counter = 0
+    albumsongsname = dict()
+    for i in range(totalnewandtrending):
+        counter = counter + 1
+        data1 = albums.objects.order_by('-year')[i:counter].get()
+        albumdata = metadata.objects.filter(album=data1)
+        albumdataa = albumdata.values()
+        songcount = albumdata.count()
+        albumdatasub = dict()
+        for j in range(songcount):
+            albumdatasub[j] = [albumdataa[j]['title'], albumdataa[j]['file'], albumdataa[j]['contributing_artists'],
+                               albumdataa[j]['artwork_name'], albumdataa[j]['length']]
+        albumsongsname[i] = albumdatasub
+
+    popularplaylists = playlist.objects.order_by('-total_played').values('playlist_name', 'total_played').distinct()
+    popularplaylistsCounter = popularplaylists.count()
+    playlist_count_dict = dict()
+    for i in range(popularplaylistsCounter):
+        tempPlaylistName = popularplaylists[i]['playlist_name']
+        total_song = playlist.objects.filter(playlist_name=tempPlaylistName).count()
+
+        art = playlist.objects.filter(playlist_name=tempPlaylistName).values('metadata_id')
+        artCounter = art.count()
+        photo_dict = dict()
+        for j in range(artCounter):
+            tempArtFile = art[j]['metadata_id']
+            artwork_name = metadata.objects.get(id=tempArtFile).artwork_name
+            photo_dict[j] = artwork_name
+        playlist_count_dict[i] = photo_dict
+
     return render(request, 'home.html', {'newandtrending': newandtrending, 'youmightalsolike': youmightalsolike,
-                                          'bestofartists': bestofartists})
+                                          'bestofartists': bestofartists,'albumsongsname':albumsongsname,'popularplaylists':popularplaylists,
+                                          'playlist_count_dict':playlist_count_dict})
 
 def show_top(request):
     topsong = metadata.objects.order_by('-total_played')
     topalbum = albums.objects.order_by('-total_played')
-    return render(request, 'top.html', {'topsong':topsong,'topalbum':topalbum})
+    # for albumsong play
+    totaltopalbum = albums.objects.order_by('-total_played').count()
+    counter = 0
+    albumsongsname = dict()
+    for i in range(totaltopalbum):
+        counter = counter + 1
+        data1 = albums.objects.order_by('-total_played')[i:counter].get()
+        albumdata = metadata.objects.filter(album=data1)
+        albumdataa = albumdata.values()
+        songcount = albumdata.count()
+        albumdatasub = dict()
+        for j in range(songcount):
+            albumdatasub[j] = [albumdataa[j]['title'], albumdataa[j]['file'], albumdataa[j]['contributing_artists'],
+                               albumdataa[j]['artwork_name'], albumdataa[j]['length']]
+        albumsongsname[i] = albumdatasub
+
+
+    return render(request, 'top.html', {'topsong':topsong,'topalbum':topalbum,'albumsongsname':albumsongsname})
 
 def show_new(request):
     newandtrending = albums.objects.order_by('-year')
     newalbumsandsingles = albums.objects.order_by('date_modified')
-    return render(request, 'new.html',{'newandtrending': newandtrending, 'newalbumsandsingles':newalbumsandsingles})
+
+    # for albumsong play
+    totalnewandtrending = albums.objects.order_by('-year').count()
+    counter = 0
+    albumsongsname = dict()
+    for i in range(totalnewandtrending):
+        counter = counter + 1
+        data1 = albums.objects.order_by('-year')[i:counter].get()
+        albumdata = metadata.objects.filter(album=data1)
+        albumdataa = albumdata.values()
+        songcount = albumdata.count()
+        albumdatasub = dict()
+        for j in range(songcount):
+            albumdatasub[j] = [albumdataa[j]['title'], albumdataa[j]['file'], albumdataa[j]['contributing_artists'],
+                               albumdataa[j]['artwork_name'], albumdataa[j]['length']]
+
+        albumsongsname[i] = albumdatasub
+
+    totalnewalbumsandsingles = albums.objects.order_by('date_modified').count()
+    counter1 = 0
+    albumsongsname1 = dict()
+    for i in range(totalnewalbumsandsingles):
+        counter1 = counter1 + 1
+        data2 = albums.objects.order_by('date_modified')[i:counter1].get()
+        albumdata1 = metadata.objects.filter(album=data2)
+        albumdataa1 = albumdata1.values()
+        songcount1 = albumdata1.count()
+        albumdatasub1 = dict()
+        for j in range(songcount1):
+            albumdatasub1[j] = [albumdataa1[j]['title'], albumdataa1[j]['file'], albumdataa1[j]['contributing_artists'],
+                               albumdataa1[j]['artwork_name'], albumdataa1[j]['length']]
+        # print(albumdatasub)
+        albumsongsname1[i] = albumdatasub1
+    print(albumsongsname)
+    return render(request, 'new.html',{'newandtrending': newandtrending, 'newalbumsandsingles':newalbumsandsingles,
+                                       'albumsongsname':albumsongsname, 'albumsongsname1':albumsongsname1})
 
 def show_recent(request):
     if request.user.is_authenticated:
         username = request.user.username
         user_id = profiles.objects.get(Username=username)
-        recentdata = recent.objects.filter(profiles_id=user_id.id)
-        return render(request, 'recent.html', {'recentdata' :recentdata})
+        recentdata = recent.objects.filter(profiles_id=user_id.id).order_by('-id')
+        # for albumsong play
+        counter = 0
+        albumsongsname = dict()
+        for i in range(12):
+            counter = counter + 1
+            data1 = recent.objects.filter(profiles_id=user_id.id).order_by('-id').values('albums_id')[i:counter].get()
+            # print(data1)
+            albumdataname = albums.objects.filter(id=data1['albums_id']).values('album')[0]['album']
+            # print(albumdataname)
+            albumdata = metadata.objects.filter(album=albumdataname)
+            albumdataa = albumdata.values()
+            # print(albumdata)
+            # print(albumdataname)
+            songcount = albumdata.count()
+            albumdatasub = dict()
+            for j in range(songcount):
+                albumdatasub[j] = [albumdataa[j]['title'], albumdataa[j]['file'], albumdataa[j]['contributing_artists'],
+                                   albumdataa[j]['artwork_name'], albumdataa[j]['length']]
+            # print(albumdatasub)
+            albumsongsname[i] = albumdatasub
+        # print(albumsongsname)
+        return render(request, 'recent.html', {'data':zip(recentdata,albumsongsname), 'recentdata':recentdata, 'albumsongsname':albumsongsname})
     else:
-        return render(request, 'signin.html')
+        notitype = "warning"
+        messages.info(request, ("Please sign in to use this feature"))
+        return render(request, 'signin.html', {'notitype': notitype})
 
 def show_library(request):
     if request.user.is_authenticated:
@@ -96,7 +225,9 @@ def show_library(request):
         mysongs = library.objects.filter(profiles_id=user_id.id)
         return render(request, 'library.html', {'mysongs':mysongs})
     else:
-        return render(request, 'signin.html')
+        notitype = "warning"
+        messages.info(request, ("Please sign in to use this feature"))
+        return render(request, 'signin.html', {'notitype': notitype})
 
 def show_queue(request):
     return render(request, 'queue.html')
@@ -120,14 +251,94 @@ def show_albums(request):
         username = request.user.username
         user_id = profiles.objects.get(Username=username)
         mysongs = library.objects.filter(profiles_id=user_id.id)
-    return render(request, 'libraryalbums.html', {'mysongs': mysongs, })
+
+        # for albumsong play
+        totalalbum = mysongs.count()
+        counter = 0
+        albumsongsname = dict()
+        for i in range(totalalbum):
+            counter = counter + 1
+            dat = library.objects.filter(profiles_id=user_id.id).values('albums_id')[i:counter].get()
+            data1 = albums.objects.filter(id=dat['albums_id']).values('album')[0]['album']
+            albumdata = metadata.objects.filter(album=data1)
+            albumdataa = albumdata.values()
+            songcount = albumdata.count()
+            albumdatasub = dict()
+            for j in range(songcount):
+                albumdatasub[j] = [albumdataa[j]['title'], albumdataa[j]['file'], albumdataa[j]['contributing_artists'],
+                                   albumdataa[j]['artwork_name'], albumdataa[j]['length']]
+            albumsongsname[i] = albumdatasub
+
+        print(mysongs)
+        print(albumsongsname)
+    return render(request, 'libraryalbums.html', {'data':zip(mysongs,albumsongsname),'mysongs': mysongs, 'albumsongsname':albumsongsname })
 
 def show_playlists(request):
     if request.user.is_authenticated:
         username = request.user.username
         user_id = profiles.objects.get(Username=username)
         mysongs = playlist.objects.filter(profiles_id=user_id.id).order_by('playlist_name').values('playlist_name').distinct()
-    return render(request, 'libraryplaylists.html', {'mysongs': mysongs, })
+        playlist_count = mysongs.count()
+        playlist_count_dict = dict()
+
+        for i in range(playlist_count):
+            tempPlaylistName = mysongs[i]['playlist_name']
+            total_song = playlist.objects.filter(playlist_name=tempPlaylistName).count()
+
+
+            art = playlist.objects.filter(playlist_name=tempPlaylistName).values('metadata_id')
+            artCounter = art.count()
+            photo_dict = dict()
+            for j in range(artCounter):
+                tempArtFile = art[j]['metadata_id']
+                artwork_name = metadata.objects.get(id=tempArtFile).artwork_name
+                photo_dict[j] = artwork_name
+            playlist_count_dict[tempPlaylistName] = total_song, photo_dict
+
+        lastadded = playlist.objects.filter(profiles_id=user_id.id).order_by('date_created')[:4].values()
+        lastaddedCounter= lastadded.count()
+        lastadded_photo_dict = dict()
+        for i in range(lastaddedCounter):
+            tempArtFile = lastadded[i]["metadata_id"]
+            artwork_name = metadata.objects.get(id=tempArtFile).artwork_name
+            lastadded_photo_dict[i] = artwork_name
+
+        related_music_dict = dict()
+        related_music_Artwork_dict = dict()
+        related_music = recent.objects.filter(profiles_id=user_id).values('metadata_id')
+        related_musicCount = related_music.count()
+        for i in range(related_musicCount):
+            tempID = related_music[i]['metadata_id']
+            tempGenre = metadata.objects.filter(id=tempID).values_list('genre', flat=True)
+            genr= tempGenre[0]
+            getsimilar = metadata.objects.filter(genre=genr).values_list('id', flat=True)
+
+
+            for j in range(getsimilar.count()):
+                metadataID = getsimilar[j]
+                title = metadata.objects.filter(id=metadataID).values_list('title', flat=True)
+                tempArtwork = metadata.objects.filter(id=metadataID).values_list('artwork_name', flat=True)
+                related_music_Artwork_dict[tempArtwork[0]] = "relatedImage"
+                related_music_dict[title[0]]= "related"
+
+        related_music_Artwork_dict_LIST = list(related_music_Artwork_dict)
+
+
+        favourites = favourite.objects.filter(profiles_id=user_id.id).order_by('date_added')[:4].values()
+        favouritesCounter= favourites.count()
+        favourites_photo_dict = dict()
+        for i in range(favouritesCounter):
+            tempArtFile = favourites[i]["metadata_id"]
+            artwork_name = metadata.objects.get(id=tempArtFile).artwork_name
+            favourites_photo_dict[i] = artwork_name
+        TotalFav = favourite.objects.filter(profiles_id=user_id.id).count()
+
+
+    return render(request, 'libraryplaylists.html', {'mysongs': mysongs, 'playlist_count_dict':playlist_count_dict,
+                     'lastadded':lastadded, 'lastadded_photo_dict':lastadded_photo_dict,
+                    'related_music_dict':related_music_dict, 'related_music_Artwork_dict':related_music_Artwork_dict,
+                    'related_music_Artwork_dict_LIST':related_music_Artwork_dict_LIST, 'favourites_photo_dict':favourites_photo_dict,
+                    'TotalFav':TotalFav})
 
 def show_signin(request):
     return render(request, 'signin.html')
@@ -151,7 +362,8 @@ def signindata(request):
             messages.info(request,("Password does not match"))
             return render(request, 'signin.html',{'fgtpass':fgtpass, 'notitype':notitype})
         else:
-            return render(request, 'signup.html',{'username': username, 'password': password})
+            value = 'signup'
+            return render(request, 'signup.html',{'username': username, 'password': password, 'value':value})
 
     else:
         return render(request, "sign.html")
@@ -160,7 +372,7 @@ def signout(request):
     logout(request)
     notitype = "warning"
     messages.info(request, ("logged out successfully"))
-    return redirect('/show_home', {'notitype': notitype})
+    return redirect('../home', {'notitype': notitype})
 
 
 def signupdata(request):
@@ -210,14 +422,6 @@ def forgotpasswordwerifyemail(request):
             token= str(random.randrange(1, 99999999, 3))
             form = recovery_keys(email=email,token=token)
             form.save()
-
-            # subject = "NepaliGallery: Password Recovery Instruction"
-            # html_message = render_to_string('email.html', {'context': 'values'})
-            # plain_message = strip_tags(html_message)
-            # message = "https://nepaligallery.com/newpassword/"+token
-            # send_mail( subject, plain_message,settings.EMAIL_HOST_USER,[email],html_message=html_message,fail_silently=False)
-            # messages.info(request, ("Password reset request send to mail. If not found please check on spam."))
-            # return render(request, "resetpwd.html")
 
             subject = "Control : Password Recovery Instruction"
             message = "Hi there,You have requested for your password recovery. Click link to reset your password. http://127.0.0.1:8000/newpassword/"+email+"/"+token
@@ -459,7 +663,9 @@ def createplaylist(request):
         recentdata = recent.objects.filter(profiles_id=user_id.id)
         return render(request, 'createplaylist.html', {'recentdata': recentdata})
     else:
-        return render(request, 'signin.html')
+        notitype = "warning"
+        messages.info(request, ("Please sign in to use this feature"))
+        return render(request, 'signin.html', {'notitype': notitype})
 
 def createplaylistdata(request):
     if request.user.is_authenticated:
@@ -530,7 +736,9 @@ def createplaylistdata(request):
 
         return redirect('/library')
     else:
-        return render(request, 'signin.html')
+        notitype = "warning"
+        messages.info(request, ("Please sign in to use this feature"))
+        return render(request, 'signin.html', {'notitype': notitype})
 
 def search_data(request):
     if request.method == 'POST':
@@ -543,22 +751,340 @@ def search_data(request):
     Searched_song = metadata.objects.filter(title__icontains=search_text)
     Searched_album = metadata.objects.filter(album__icontains=search_text)
     Searched_artist = artist.objects.filter(artist_name__icontains=search_text)
+    Searched_playlist = playlist.objects.filter(playlist_name__icontains=search_text).values('playlist_name').distinct()
+
+    plstNameTot = dict()
+    searched_photo_dict = dict()
+    if Searched_playlist:
+        counteri = Searched_playlist.count()
+        for i in range(counteri):
+            playlistName = Searched_playlist[i]['playlist_name']
+            total_song = playlist.objects.filter(playlist_name=playlistName).count()
+            plstNameTot[playlistName]= total_song
+            metadataID = playlist.objects.filter(playlist_name=playlistName).values('metadata_id')
+            counterj = metadataID.count()
+            for j in range(counterj):
+                metadataID1 = metadataID[j]['metadata_id']
+                artwork_name = metadata.objects.get(id=metadataID1).artwork_name
+                searched_photo_dict[j] = artwork_name
+    print(searched_photo_dict)
 
     return render(request, 'searches.html', {'Searched_song': Searched_song, 'Searched_album': Searched_album,
-                                             'Searched_artist' : Searched_artist})
+                'Searched_artist' : Searched_artist, 'Searched_playlist':Searched_playlist,
+                'searched_photo_dict': searched_photo_dict, 'plstNameTot':plstNameTot})
 
 
 def findSongbyalbum (request):
     return redirect('/top')
 
+def viewplaylist(request,PlaylistName):
+    if request.user.is_authenticated:
+        username = request.user.username
+        user_id = profiles.objects.get(Username=username)
+        plstdata = playlist.objects.filter(profiles_id=user_id.id , playlist_name=PlaylistName)
+        return render(request, 'playlistview.html', {'PlaylistName':PlaylistName,'plstdata':plstdata})
+    else:
+        notitype = "warning"
+        messages.info(request, ("Please sign in to use this feature"))
+        return render(request, 'signin.html', {'notitype': notitype})
+
+def autoviewplaylist(request,PlaylistName):
+    if request.user.is_authenticated:
+        username = request.user.username
+        user_id = profiles.objects.get(Username=username)
+        if PlaylistName == "Last Added":
+            plstdata = playlist.objects.filter(profiles_id=user_id.id).order_by('date_created')
+            return render(request, 'playlistview.html', {'PlaylistName':PlaylistName,'plstdata':plstdata})
+
+        if PlaylistName == 'Favourite':
+            plstdata = favourite.objects.filter(profiles_id=user_id.id).order_by('date_added')
+            return render(request, 'playlistview.html', {'PlaylistName': PlaylistName, 'plstdata': plstdata})
+
+        if PlaylistName == "Related Musics":
+            All_related_music_dict = dict()
+            related_music_dict = dict()
+            related_music_Artwork_dict = dict()
+            related_music = recent.objects.filter(profiles_id=user_id).values('metadata_id')
+            related_musicCount = related_music.count()
+            for i in range(related_musicCount):
+                tempID = related_music[i]['metadata_id']
+                tempGenre = metadata.objects.filter(id=tempID).values_list('genre', flat=True)
+                genr = tempGenre[0]
+                getsimilar = metadata.objects.filter(genre=genr).values_list('id', flat=True)
+
+                for j in range(getsimilar.count()):
+                    metadataID = getsimilar[j]
+                    allData = metadata.objects.filter(id=metadataID)
+                    All_related_music_dict[allData[0]] = "allData"
+
+            return render(request, 'playlistview.html', {'PlaylistName': PlaylistName,
+                                                         'All_related_music_dict':All_related_music_dict})
+    else:
+        notitype = "warning"
+        messages.info(request, ("Please sign in to use this feature"))
+        return render(request, 'signin.html', {'notitype': notitype})
+
+def GoToView(request,topic):
+    if topic == 'Weekly Top 15':
+        topsong = metadata.objects.order_by('-total_played')
+        return render(request, 'view.html', {'topic': topic, 'topsong': topsong})
+    else:
+        albumview= metadata.objects.filter(album=topic).order_by('track_no')
+        return render(request, 'view.html', {'topic': topic,'albumview': albumview})
 
 
+def artistview(request,topic):
+    artistdata = artist.objects.filter(artist_name=topic).order_by('-total_played')
+    albumdata = albums.objects.filter(album_artist=topic).order_by('-year')
+    meta = metadata.objects.filter(album_artist=topic).order_by('-year')
+    return render(request, 'artistview.html', {'topic': topic, 'artistdata':artistdata, 'albumdata':albumdata, 'meta':meta })
 
 
+def viewPublicplaylist(request,PlaylistName):
+    plstdata = playlist.objects.filter(playlist_name=PlaylistName)
+    public = "public"
+    return render(request, 'playlistview.html', {'PlaylistName':PlaylistName,'plstdata':plstdata, 'public':public})
 
+def favourited(request,ArtworkName):
+    if request.user.is_authenticated:
+        username = request.user.username
+        getProfiles_id = profiles.objects.filter(Username= username).values('id')
+        Profiles_id = getProfiles_id[0]['id']
+        getMetadataId = metadata.objects.filter(artwork_name=ArtworkName).values('id')
+        MetadataId = getMetadataId[0]['id']
+        # if exist then delete else insert and message removed from fav
+        checkifexist = favourite.objects.filter(profiles_id=Profiles_id,metadata_id=MetadataId)
+        if not checkifexist:
+            form = favourite( profiles_id=Profiles_id, metadata_id=MetadataId,)
+            form.save()
+            return HttpResponse("Added to favourite")
+        else:
+            form = favourite.objects.get( profiles_id=Profiles_id, metadata_id=MetadataId,)
+            form.delete()
+            return HttpResponse("Removed from favourite")
+    else:
+        notitype = "warning"
+        messages.info(request, ("Please sign in to use this feature"))
+        return render(request, 'signin.html', {'notitype': notitype})
 
+def favyesorno(request,ArtworkName):
+    if request.user.is_authenticated:
+        username = request.user.username
+        getProfiles_id = profiles.objects.filter(Username=username).values('id')
+        Profiles_id = getProfiles_id[0]['id']
+        getMetadataId = metadata.objects.filter(artwork_name=ArtworkName).values('id')
+        MetadataId = getMetadataId[0]['id']
 
+        # fav yes or no
+        checkifexist = favourite.objects.filter(profiles_id=Profiles_id, metadata_id=MetadataId)
+        if not checkifexist:
+            return HttpResponse("no")
+        else:
+            return HttpResponse("yes")
+    else:
+        return redirect("/")
+    
+def addlibview(request,ArtworkName):
+    if request.user.is_authenticated:
+        username = request.user.username
+        getProfiles_id = profiles.objects.filter(Username=username).values('id')
+        Profiles_id = getProfiles_id[0]['id']
+        myplaylist = playlist.objects.filter(profiles_id=Profiles_id).order_by('playlist_name').values_list('playlist_name', flat=True).distinct()
 
+        getMetadataId = metadata.objects.filter(artwork_name=ArtworkName).values('id')
+        MetadataId = getMetadataId[0]['id']
+        check = playlist.objects.filter(profiles_id=Profiles_id,metadata_id=MetadataId).values_list('playlist_name', flat=True).distinct()
 
+        json_dict = dict()
+        for i in range(myplaylist.count()):
+            json_dict[myplaylist[i]] = 0
+            for j in range(check.count()):
+                if myplaylist[i] == check[j]:
+                    json_dict[myplaylist[i]] = 1
 
+        checkLib = library.objects.filter(profiles_id=Profiles_id, metadata_id=MetadataId)
+        if not checkLib:
+            oneORzero = 0
+        else:
+            oneORzero = 1
+        json_dict["Library"] = oneORzero
+        return HttpResponse(json.dumps(json_dict), content_type='application/json')
+    else:
+        return HttpResponse("please sign in first")
 
+def addlib(request,PlaylistName,ArtworkName):
+    if request.user.is_authenticated:
+        username = request.user.username
+        getProfiles_id = profiles.objects.filter(Username=username).values('id')
+        Profiles_id = getProfiles_id[0]['id']
+        getMetadataId = metadata.objects.filter(artwork_name=ArtworkName).values('id')
+        MetadataId = getMetadataId[0]['id']
+        ArtistName = metadata.objects.filter(artwork_name=ArtworkName).values('album_artist')[0]['album_artist']
+        ArtistId = artist.objects.filter(artist_name=ArtistName).values('id')[0]['id']
+        AlbumName =  metadata.objects.filter(artwork_name=ArtworkName).values('album')[0]['album']
+        AlbumsId = albums.objects.filter(album=AlbumName).values('id')[0]['id']
+        if PlaylistName == "Library":
+            checkifexist = library.objects.filter(profiles_id=Profiles_id, metadata_id=MetadataId, artist_id=ArtistId, albums_id=AlbumsId,)
+            if not checkifexist:
+                form = library(profiles_id=Profiles_id, metadata_id=MetadataId, artist_id=ArtistId, albums_id=AlbumsId)
+                form.save()
+                return HttpResponse("Added")
+            else:
+                form = library.objects.get(profiles_id=Profiles_id, metadata_id=MetadataId, artist_id=ArtistId, albums_id=AlbumsId)
+                form.delete()
+                return HttpResponse("Removed")
+        else:
+            checkifexist = playlist.objects.filter(profiles_id=Profiles_id, metadata_id=MetadataId, artist_id=ArtistId, albums_id=AlbumsId, playlist_name=PlaylistName)
+            if not checkifexist:
+                form = playlist(profiles_id=Profiles_id, metadata_id=MetadataId, artist_id=ArtistId, albums_id=AlbumsId, playlist_name=PlaylistName)
+                form.save()
+                return HttpResponse("Added")
+            else:
+                form = playlist.objects.get(profiles_id=Profiles_id, metadata_id=MetadataId, artist_id=ArtistId, albums_id=AlbumsId, playlist_name=PlaylistName)
+                form.delete()
+                return HttpResponse("Removed")
+    else:
+        return redirect("/")
+
+def option(request,id):
+    if request.user.is_authenticated:
+        username = request.user.username
+        getProfiles_id = profiles.objects.filter(Username=username).values('id')
+        Profiles_id = getProfiles_id[0]['id']
+        checkifexist = favourite.objects.filter(profiles_id=Profiles_id, metadata_id=id)
+        if not checkifexist:
+            return HttpResponse("no")
+        else:
+            return HttpResponse("yes")
+    else:
+        return HttpResponse("no")
+
+def favouriteOption(request,id):
+    if request.user.is_authenticated:
+        username = request.user.username
+        getProfiles_id = profiles.objects.filter(Username= username).values('id')
+        Profiles_id = getProfiles_id[0]['id']
+        # if exist then delete else insert and message removed from fav
+        checkifexist = favourite.objects.filter(profiles_id=Profiles_id,metadata_id=id)
+        if not checkifexist:
+            form = favourite( profiles_id=Profiles_id, metadata_id=id,)
+            form.save()
+            return HttpResponse("Added to favourite")
+        else:
+            form = favourite.objects.get( profiles_id=Profiles_id, metadata_id=id,)
+            form.delete()
+            return HttpResponse("Removed from favourite")
+    else:
+        notitype = "warning"
+        messages.info(request, ("Please sign in to use this feature"))
+        return render(request, 'signin.html', {'notitype':notitype})
+
+def addOption(request,id):
+    if request.user.is_authenticated:
+        username = request.user.username
+        getProfiles_id = profiles.objects.filter(Username= username).values('id')
+        Profiles_id = getProfiles_id[0]['id']
+        myplaylist = playlist.objects.filter(profiles_id=Profiles_id).order_by('playlist_name').values_list(
+            'playlist_name', flat=True).distinct()
+        check = playlist.objects.filter(profiles_id=Profiles_id, metadata_id=id).values_list('playlist_name',
+                                                                                                     flat=True).distinct()
+        json_dict = dict()
+        for i in range(myplaylist.count()):
+            json_dict[myplaylist[i]] = 0
+            for j in range(check.count()):
+                if myplaylist[i] == check[j]:
+                    json_dict[myplaylist[i]] = 1
+
+        checkLib = library.objects.filter(profiles_id=Profiles_id, metadata_id=id)
+        if not checkLib:
+            oneORzero = 0
+        else:
+            oneORzero = 1
+        json_dict["Library"] = oneORzero
+        return HttpResponse(json.dumps(json_dict), content_type='application/json')
+    else:
+        return HttpResponse("please sign in first")
+
+def AddLibFrmDetails(request,PlaylistName,id):
+    if request.user.is_authenticated:
+        username = request.user.username
+        getProfiles_id = profiles.objects.filter(Username=username).values('id')
+        Profiles_id = getProfiles_id[0]['id']
+        MetadataId = id
+        ArtistName = metadata.objects.filter(id=id).values('album_artist')[0]['album_artist']
+        ArtistId = artist.objects.filter(artist_name=ArtistName).values('id')[0]['id']
+        AlbumName =  metadata.objects.filter(id=id).values('album')[0]['album']
+        AlbumsId = albums.objects.filter(album=AlbumName).values('id')[0]['id']
+        if PlaylistName == "Library":
+            checkifexist = library.objects.filter(profiles_id=Profiles_id, metadata_id=MetadataId, artist_id=ArtistId, albums_id=AlbumsId,)
+            if not checkifexist:
+                form = library(profiles_id=Profiles_id, metadata_id=MetadataId, artist_id=ArtistId, albums_id=AlbumsId)
+                form.save()
+                return HttpResponse("Added")
+            else:
+                form = library.objects.get(profiles_id=Profiles_id, metadata_id=MetadataId, artist_id=ArtistId, albums_id=AlbumsId)
+                form.delete()
+                return HttpResponse("Removed")
+        else:
+            checkifexist = playlist.objects.filter(profiles_id=Profiles_id, metadata_id=MetadataId, artist_id=ArtistId, albums_id=AlbumsId, playlist_name=PlaylistName)
+            if not checkifexist:
+                form = playlist(profiles_id=Profiles_id, metadata_id=MetadataId, artist_id=ArtistId, albums_id=AlbumsId, playlist_name=PlaylistName)
+                form.save()
+                return HttpResponse("Added")
+            else:
+                form = playlist.objects.get(profiles_id=Profiles_id, metadata_id=MetadataId, artist_id=ArtistId, albums_id=AlbumsId, playlist_name=PlaylistName)
+                form.delete()
+                return HttpResponse("Removed")
+    else:
+        return redirect("/")
+
+def removeFromLib(request,id):
+    if request.user.is_authenticated:
+        username = request.user.username
+        getProfiles_id = profiles.objects.filter(Username= username).values('id')
+        Profiles_id = getProfiles_id[0]['id']
+        form = library.objects.get(profiles_id=Profiles_id, metadata_id=id)
+        form.delete()
+        return redirect('/songs')
+    else:
+        return HttpResponse("please sign in first")
+
+def removeFromPlst(request,playlistName,id):
+    if request.user.is_authenticated:
+        username = request.user.username
+        getProfiles_id = profiles.objects.filter(Username= username).values('id')
+        Profiles_id = getProfiles_id[0]['id']
+        form = playlist.objects.get(profiles_id=Profiles_id, metadata_id=id,playlist_name=playlistName)
+        form.delete()
+        return redirect('/playlists')
+    else:
+        return HttpResponse("please sign in first")
+
+def recentANDcount(request,ArtworkName):
+    getMetadataId = metadata.objects.filter(artwork_name=ArtworkName).values('id')
+    MetadataId = getMetadataId[0]['id']
+    getAlbumsName = metadata.objects.filter(id=MetadataId).values('album')[0]['album']
+    getAlbumsId = albums.objects.filter(album=getAlbumsName).values('id')
+    AlbumsId = getAlbumsId[0]['id']
+    getArtistName = metadata.objects.filter(id=MetadataId).values('album_artist')[0]['album_artist']
+    getArtistId = artist.objects.filter(artist_name=getArtistName).values('id')
+    ArtistId = getArtistId[0]['id']
+    # add total played count metadata, artist, album
+    getMetadataTot = metadata.objects.filter(id=MetadataId).values('total_played')[0]['total_played']
+    if getMetadataTot is None:
+        getMetadataTot = 0
+    added = getMetadataTot + 1
+    forma = metadata.objects.get(id=MetadataId)
+    forma.total_played=added
+    forma.save()
+
+    if request.user.is_authenticated:
+        username = request.user.username
+        getProfiles_id = profiles.objects.filter(Username=username).values('id')
+        Profiles_id = getProfiles_id[0]['id']
+        # to add in recent
+        form = recent(profiles_id=Profiles_id, metadata_id=MetadataId, artist_id=ArtistId, albums_id=AlbumsId, )
+        form.save()
+        return HttpResponse("Done")
+    else:
+        return HttpResponse("please sign in first")

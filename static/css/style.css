@@ -36,7 +36,7 @@ body {
     margin-top:15px;
 	min-height: 60px;
 	padding-left: 20px;
-	border-radius: 10px 0px 0px 10px;
+	border-radius: 10px 10px 10px 10px;
 	background-color: transparent ;
 	font-size: 14px;
 	text-align: left;
@@ -46,7 +46,6 @@ body {
 	letter-spacing: 1px;
 	min-width: 340px;
 	float:right;
-	border-right:none;
 }
 
 ::-webkit-input-placeholder { /* Edge */
@@ -115,14 +114,15 @@ input[type="search"]::-webkit-search-cancel-button {
   -webkit-appearance: none;
   /*Your new styles */
    height: 14px;
-   width: 14px;
+   width: 15px;
    display: block;
+   cursor:pointer;
    background-image: url(data:../img/bg_texture.png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAn0lEQVR42u3UMQrDMBBEUZ9WfQqDmm22EaTyjRMHAlM5K+Y7lb0wnUZPIKHlnutOa+25Z4D++MRBX98MD1V/trSppLKHqj9TTBWKcoUqffbUcbBBEhTjBOV4ja4l4OIAZThEOV6jHO8ARXD+gPPvKMABinGOrnu6gTNUawrcQKNCAQ7QeTxORzle3+sDfjJpPCqhJh7GixZq4rHcc9l5A9qZ+WeBhgEuAAAAAElFTkSuQmCC);
   /* setup all the background tweaks for our custom icon */
   background-repeat: no-repeat;
 
   /* icon size */
-  background-size: 14px;
+  background-size: 16px;
 }
 
 .btnLogin{
@@ -132,7 +132,10 @@ input[type="search"]::-webkit-search-cancel-button {
 	background-color: transparent ;
 	float:right;
 	width: 110px;
-	font-size: 24px;
+	font-size: 20px;
+}
+.btnLogin:hover{
+    background-color:rgba(0,0,0,0.25);
 }
 
 .btnLogin:active{
@@ -143,14 +146,14 @@ input[type="search"]::-webkit-search-cancel-button {
     .btnLogin{
         min-height: 45px;
         border-radius: 7.5px;
-        width: 82.7px;
+        width: 85.7px;
         font-size: 18px;
     }
 
     .searchbox{
         min-height: 45px;
         padding-left: 15px;
-        border-radius: 7.5px 0px 0px 7.5px;
+        border-radius: 7.5px 7.5px 7.5px 7.5px;
         font-size: 10px;
         min-width: 256px;
     }
@@ -171,14 +174,14 @@ input[type="search"]::-webkit-search-cancel-button {
     .btnLogin{
         min-height: 30px;
         border-radius: 5px;
-        width: 55px;
+        width: 63px;
         font-size: 12px;
     }
 
     .searchbox{
         min-height: 30px;
         padding-left: 10px;
-        border-radius: 5px 0px 0px 5px;
+        border-radius: 5px 5px 5px 5px;
         font-size:10px;
         min-width: 170px;
     }
@@ -196,7 +199,7 @@ input[type="search"]::-webkit-search-cancel-button {
     .searchbox{
         min-height: 30px;
         padding-left: 10px;
-        border-radius: 5px 0px 0px 5px;
+        border-radius: 5px 5px 5px 5px;
         font-size:10px;
         min-width: 170px;
     }
@@ -207,7 +210,7 @@ input[type="search"]::-webkit-search-cancel-button {
     .searchbox{
         min-height: 25px;
         padding-left: 10px;
-        border-radius: 5px 0px 0px 5px;
+        border-radius: 5px 5px 5px 5px;
         font-size:10px;
         min-width: 140px;
     }
@@ -796,9 +799,6 @@ input::-webkit-slider-thumb {
     font-size: 12px;
 }
 
-.artistsAlbum:hover, .artistsName:hover{
-    color: #fff;
-}
 
 .imageHeight{
     height: 60px;
@@ -1164,6 +1164,9 @@ input::-webkit-slider-thumb {
 	width: 100%;
 	text-align:center;
 }
+.btnLogin1:hover{
+    background-color:rgba(0,0,0,0.25);
+}
 
 .btnLogin1:active{
     transform : scale(0.97);
@@ -1214,11 +1217,103 @@ input[type=checkbox]
   padding: 10px;
 }
 
+/* ADD TO LIBRARY POP UP */
+.popup{
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* The actual popup */
+.popup .popuptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+  visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
+
+.popup.show .popuptext {
+	 visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+    z-index: 3;
+}
 
 
 
+/* Popup box BEGIN while click in details ... sign */
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 3; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
 
+/* Modal Content */
+.modal-content {
+  background-color: #555;
+  margin: auto;
+  padding: 0px 20px 20px 20px;
+  border: 1px solid #888;
+  width: 250px;
+  cursor:pointer;
+  color: #e5e5e5;
+}
 
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  padding-bottom: 10px;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
 
 
 

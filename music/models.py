@@ -95,3 +95,9 @@ class playlist(models.Model):
     artist = models.ForeignKey(artist, on_delete=models.CASCADE)
     albums = models.ForeignKey(albums, on_delete=models.CASCADE)
     date_created = models.DateField(("Date"), default=datetime.date.today)
+    total_played = models.IntegerField(null=True, default=0)
+
+class favourite(models.Model):
+    profiles = models.ForeignKey(profiles, on_delete=models.CASCADE)
+    metadata = models.ForeignKey(metadata, on_delete=models.CASCADE)
+    date_added = models.DateField(("Date"), default=datetime.date.today)

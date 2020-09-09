@@ -20,18 +20,28 @@
                 <div class="row ">
                     <div class="col-1 d-xs-none col-sm-1 col-md-1 col-lg-1 col-xl-1 songNo hideOnXS">{{ forloop.counter }}</div>
                     <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-1 " >
-                        <div class="imageHover1"><a href="#" onclick='singleSongPlay("{{recentdata.metadata.file}},,{{recentdata.metadata.artwork_name}},,{{recentdata.metadata.title}},,{{recentdata.metadata.album_artist}}")' >
+                        <div class="imageHover1"><a href="#" onclick='singleSongPlay("{{recentdata.metadata.file}},,{{recentdata.metadata.artwork_name}},,{{recentdata.metadata.title}},,{{recentdata.metadata.album_artist}},,{{recentdata.metadata.length}}")' >
                             <div class="imageHoverPlay1"><i class="far fa-play-circle"></i></div>
                             <img src="static/thumbnails/{{recentdata.metadata.artwork_name}}" alt="Playlist by Control" class="img-fluid  box-shadow imageHeight"></a>
                         </div>
                     </div>
                     <div class="col-7 col-sm-7 col-md-6 col-lg-6 col-xl-8 marginLeftXS">
                         <div class="row">
-                            <div class="col-12 "><a href="#" class="songName" onclick='singleSongPlay("{{recentdata.metadata.file}},,{{recentdata.metadata.artwork_name}},,{{recentdata.metadata.title}},,{{recentdata.metadata.album_artist}}")'>{{recentdata.metadata.title}}</a> </div>
+                            <div class="col-12 "><a href="#" class="songName" onclick='singleSongPlay("{{recentdata.metadata.file}},,{{recentdata.metadata.artwork_name}},,{{recentdata.metadata.title}},,{{recentdata.metadata.album_artist}},,{{recentdata.metadata.length}}")'>{{recentdata.metadata.title}}</a> </div>
                             <div class="col-12 "><a href="#" class="artistsName" onclick='ArtistView("{{recentdata.metadata.album_artist}}")'>{{recentdata.metadata.album_artist}}</a>  · <a href="#" class="artistsAlbum" onclick='GoToView("{{recentdata.metadata.album}}")'>{{recentdata.metadata.album}}</a> </div>
                         </div>
                     </div>
-                    <div class="col-1 col-sm-1 col-md-2 col-lg-2 col-xl-1 text-right songOption"><a href="#"> <i class="fas fa-ellipsis-h float-left mt-1 optionOnXS"></i> </a>
+                    <div class="col-1 col-sm-1 col-md-2 col-lg-2 col-xl-1 text-right songOption">
+                        <a href="#">
+                        <i class="fas fa-ellipsis-h float-left mt-1 optionOnXS popup popup1"  id="option{{forloop.counter0}}" onclick='option("option{{forloop.counter0}}")' value="{{recentdata.metadata.id}}">
+                            <span class="popuptext">
+                                <div class="row>">
+                                    <i class="fas fa-tasks m-1"></i>
+                                    <i class="fas fa-plus m-1" onclick='addOption("option{{forloop.counter0}}")'></i>
+                                    <i class="far fa-heart m-1" onclick='favouriteOption("option{{forloop.counter0}}")'></i>
+                                </div>
+                            </span>
+                        </i> </a>
                     {% if recentdata.metadata.explicit == 'True' %}🅴{% else %}{% endif %}</div>
                     <div class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 songLength hideOnMD">{{recentdata.metadata.length}}</div>
                 </div>
@@ -55,20 +65,167 @@
         </div>
         </div>
         <div class="row">
-{% for recentdata in recentdata|slice:":12" %}
+
+
         <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
             <div class="row pb-4">
                 <div class="col-12">
-                    <div class="imageHover"><a href="#" >
+                    <div class="imageHover"><a href="#" onclick='albumSongPlay({{albumsongsname.0}})'>
                         <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
-                            <img src="static/thumbnails/{{recentdata.metadata.artwork_name}}" alt="Playlist by Control" class="img-fluid image box-shadow"></a>
+                            <img src="static/thumbnails/{{recentdata.0.metadata.artwork_name}}" alt="Playlist by Control" class="img-fluid image box-shadow"></a>
                     </div>
                 </div>
-                <div class="col-12 songName" onclick='GoToView("{{recentdata.metadata.album}}")'><a href="#" >{{recentdata.metadata.album}}</a></div>
-                <div class="col-12 artistName" onclick='ArtistView("{{recentdata.metadata.album_artist}}")'><a href="#" >{{recentdata.metadata.album_artist}}</a></div>
+                <div class="col-12 songName" onclick='GoToView("{{recentdata.0.metadata.album}}")'><a href="#" >{{recentdata.0.metadata.album}}</a></div>
+                <div class="col-12 artistName" onclick='ArtistView("{{recentdata.0.metadata.album_artist}}")'><a href="#" >{{recentdata.0.metadata.album_artist}}</a></div>
             </div>
         </div>
-{% endfor %}
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row pb-4">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#" onclick='albumSongPlay({{albumsongsname.1}})'>
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                            <img src="static/thumbnails/{{recentdata.1.metadata.artwork_name}}" alt="Playlist by Control" class="img-fluid image box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName" onclick='GoToView("{{recentdata.1.metadata.album}}")'><a href="#" >{{recentdata.1.metadata.album}}</a></div>
+                <div class="col-12 artistName" onclick='ArtistView("{{recentdata.1.metadata.album_artist}}")'><a href="#" >{{recentdata.1.metadata.album_artist}}</a></div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row pb-4">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#" onclick='albumSongPlay({{albumsongsname.2}})'>
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                            <img src="static/thumbnails/{{recentdata.2.metadata.artwork_name}}" alt="Playlist by Control" class="img-fluid image box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName" onclick='GoToView("{{recentdata.2.metadata.album}}")'><a href="#" >{{recentdata.2.metadata.album}}</a></div>
+                <div class="col-12 artistName" onclick='ArtistView("{{recentdata.2.metadata.album_artist}}")'><a href="#" >{{recentdata.2.metadata.album_artist}}</a></div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row pb-4">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#" onclick='albumSongPlay({{albumsongsname.3}})'>
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                            <img src="static/thumbnails/{{recentdata.3.metadata.artwork_name}}" alt="Playlist by Control" class="img-fluid image box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName" onclick='GoToView("{{recentdata.3.metadata.album}}")'><a href="#" >{{recentdata.3.metadata.album}}</a></div>
+                <div class="col-12 artistName" onclick='ArtistView("{{recentdata.3.metadata.album_artist}}")'><a href="#" >{{recentdata.3.metadata.album_artist}}</a></div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row pb-4">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#" onclick='albumSongPlay({{albumsongsname.4}})'>
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                            <img src="static/thumbnails/{{recentdata.4.metadata.artwork_name}}" alt="Playlist by Control" class="img-fluid image box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName" onclick='GoToView("{{recentdata.4.metadata.album}}")'><a href="#" >{{recentdata.4.metadata.album}}</a></div>
+                <div class="col-12 artistName" onclick='ArtistView("{{recentdata.4.metadata.album_artist}}")'><a href="#" >{{recentdata.4.metadata.album_artist}}</a></div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row pb-4">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#" onclick='albumSongPlay({{albumsongsname.5}})'>
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                            <img src="static/thumbnails/{{recentdata.5.metadata.artwork_name}}" alt="Playlist by Control" class="img-fluid image box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName" onclick='GoToView("{{recentdata.5.metadata.album}}")'><a href="#" >{{recentdata.5.metadata.album}}</a></div>
+                <div class="col-12 artistName" onclick='ArtistView("{{recentdata.5.metadata.album_artist}}")'><a href="#" >{{recentdata.5.metadata.album_artist}}</a></div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row pb-4">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#" onclick='albumSongPlay({{albumsongsname.6}})'>
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                            <img src="static/thumbnails/{{recentdata.6.metadata.artwork_name}}" alt="Playlist by Control" class="img-fluid image box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName" onclick='GoToView("{{recentdata.6.metadata.album}}")'><a href="#" >{{recentdata.6.metadata.album}}</a></div>
+                <div class="col-12 artistName" onclick='ArtistView("{{recentdata.6.metadata.album_artist}}")'><a href="#" >{{recentdata.6.metadata.album_artist}}</a></div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row pb-4">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#" onclick='albumSongPlay({{albumsongsname.7}})'>
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                            <img src="static/thumbnails/{{recentdata.7.metadata.artwork_name}}" alt="Playlist by Control" class="img-fluid image box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName" onclick='GoToView("{{recentdata.7.metadata.album}}")'><a href="#" >{{recentdata.7.metadata.album}}</a></div>
+                <div class="col-12 artistName" onclick='ArtistView("{{recentdata.7.metadata.album_artist}}")'><a href="#" >{{recentdata.7.metadata.album_artist}}</a></div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row pb-4">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#" onclick='albumSongPlay({{albumsongsname.8}})'>
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                            <img src="static/thumbnails/{{recentdata.8.metadata.artwork_name}}" alt="Playlist by Control" class="img-fluid image box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName" onclick='GoToView("{{recentdata.8.metadata.album}}")'><a href="#" >{{recentdata.8.metadata.album}}</a></div>
+                <div class="col-12 artistName" onclick='ArtistView("{{recentdata.8.metadata.album_artist}}")'><a href="#" >{{recentdata.8.metadata.album_artist}}</a></div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row pb-4">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#" onclick='albumSongPlay({{albumsongsname.9}})'>
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                            <img src="static/thumbnails/{{recentdata.9.metadata.artwork_name}}" alt="Playlist by Control" class="img-fluid image box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName" onclick='GoToView("{{recentdata.9.metadata.album}}")'><a href="#" >{{recentdata.9.metadata.album}}</a></div>
+                <div class="col-12 artistName" onclick='ArtistView("{{recentdata.9.metadata.album_artist}}")'><a href="#" >{{recentdata.9.metadata.album_artist}}</a></div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row pb-4">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#" onclick='albumSongPlay({{albumsongsname.10}})'>
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                            <img src="static/thumbnails/{{recentdata.10.metadata.artwork_name}}" alt="Playlist by Control" class="img-fluid image box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName" onclick='GoToView("{{recentdata.10.metadata.album}}")'><a href="#" >{{recentdata.10.metadata.album}}</a></div>
+                <div class="col-12 artistName" onclick='ArtistView("{{recentdata.10.metadata.album_artist}}")'><a href="#" >{{recentdata.10.metadata.album_artist}}</a></div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row pb-4">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#" onclick='albumSongPlay({{albumsongsname.11}})'>
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                            <img src="static/thumbnails/{{recentdata.11.metadata.artwork_name}}" alt="Playlist by Control" class="img-fluid image box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName" onclick='GoToView("{{recentdata.11.metadata.album}}")'><a href="#" >{{recentdata.11.metadata.album}}</a></div>
+                <div class="col-12 artistName" onclick='ArtistView("{{recentdata.11.metadata.album_artist}}")'><a href="#" >{{recentdata.11.metadata.album_artist}}</a></div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         </div>
 
