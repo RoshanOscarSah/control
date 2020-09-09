@@ -6,18 +6,29 @@
                 <div class="row ">
                     <div class="col-1 d-xs-none col-sm-1 col-md-1 col-lg-1 col-xl-1 songNo hideOnXS">{{ forloop.counter }}</div>
                     <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-1 " >
-                        <div class="imageHover1"><a href="#" onclick='singleSongPlay("{{library.metadata.file}},,{{library.metadata.artwork_name}},,{{library.metadata.title}},,{{library.metadata.album_artist}}")'>
+                        <div class="imageHover1"><a href="#" onclick='singleSongPlay("{{library.metadata.file}},,{{library.metadata.artwork_name}},,{{library.metadata.title}},,{{library.metadata.album_artist}},,{{library.metadata.length}}")'>
                             <div class="imageHoverPlay1"><i class="far fa-play-circle"></i></div>
                             <img src="static/thumbnails/{{library.metadata.artwork_name}}" alt="Playlist by Control" class="img-fluid  box-shadow imageHeight"></a>
                         </div>
                     </div>
                     <div class="col-7 col-sm-7 col-md-6 col-lg-6 col-xl-8 marginLeftXS">
                         <div class="row">
-                            <div class="col-12 "><a href="#" class="songName" onclick='singleSongPlay("{{library.metadata.file}},,{{library.metadata.artwork_name}},,{{library.metadata.title}},,{{library.metadata.album_artist}}")'>{{library.metadata.title}}</a> </div>
+                            <div class="col-12 "><a href="#" class="songName" onclick='singleSongPlay("{{library.metadata.file}},,{{library.metadata.artwork_name}},,{{library.metadata.title}},,{{library.metadata.album_artist}},,{{library.metadata.length}}")'>{{library.metadata.title}}</a> </div>
                             <div class="col-12 "><a href="#" class="artistsName" onclick='ArtistView("{{library.metadata.album_artist}}")'>{{library.metadata.album_artist}}</a>  · <a href="#" class="artistsAlbum"  onclick='GoToView("{{library.metadata.album}}")'>{{library.metadata.album}}</a> </div>
                         </div>
                     </div>
-                    <div class="col-1 col-sm-1 col-md-2 col-lg-2 col-xl-1 text-right songOption"><a href="#"> <i class="fas fa-ellipsis-h float-left mt-1 optionOnXS"></i> </a>
+                    <div class="col-1 col-sm-1 col-md-2 col-lg-2 col-xl-1 text-right songOption">
+                         <a href="#">
+                        <i class="fas fa-ellipsis-h float-left mt-1 optionOnXS popup popup1"  id="option{{forloop.counter0}}" onclick='option("option{{forloop.counter0}}")' value="{{library.metadata.id}}">
+                            <span class="popuptext">
+                                <div class="row>">
+                                    <i class="fas fa-tasks m-1"></i>
+                                    <i class="fas fa-plus m-1" onclick='addOption("option{{forloop.counter0}}")'></i>
+                                    <i class="far fa-heart m-1" onclick='favouriteOption("option{{forloop.counter0}}")'></i>
+                                    <i class="fas fa-trash ml-1" onclick='removeOption("option{{forloop.counter0}}")'></i>
+                                </div>
+                            </span>
+                        </i> </a>
                     {% if library.metadata.explicit == 'True' %}🅴{% else %}{% endif %}</div>
                     <div class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 songLength hideOnMD">{{library.metadata.length}}</div>
                 </div>

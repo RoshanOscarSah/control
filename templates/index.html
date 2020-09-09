@@ -23,7 +23,6 @@
           <img id="sidebarCollapse" src="{% static 'img/logo.png'%}" alt="Control" class="img-fluid logo" height="75px" width="220px" >
         </div>
         <div class="col-8 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-
           <div class="row">
              <div class="col-12 col-sm-10 col-md-9 col-lg-10 col-xl-10">
                 <form method="post" id="searchedByForm" class="searchsm" autocomplete="off">
@@ -42,7 +41,6 @@
 
 
           </div>
-
 
         </div>
 
@@ -334,7 +332,6 @@
         document.getElementById("playpau").classList.add('fa-pause');
         $("#CtrlImage img").attr("src",'static/thumbnails/'+artwork_name[currentSong]);
 
-
         //adding artist name to onclick event of id songArtist
             d1="ArtistView(";
             d2='"';
@@ -343,7 +340,6 @@
             d5=")";
             data =d1.concat(d2,d3,d4,d5) ;
             document.getElementById("songArtist").setAttribute( "onClick",  data);
-
 
         favouriteView(currentSong)
     }
@@ -359,7 +355,6 @@
         document.getElementById("playpau").classList.add('fa-pause');
         $("#CtrlImage img").attr("src",'static/thumbnails/'+artwork_name[currentSong]);
 
-
         //adding artist name to onclick event of id songArtist
             d1="ArtistView(";
             d2='"';
@@ -368,7 +363,6 @@
             d5=")";
             data =d1.concat(d2,d3,d4,d5) ;
             document.getElementById("songArtist").setAttribute( "onClick",  data);
-
 
          favouriteView(currentSong)
     }
@@ -453,7 +447,6 @@
                 }
             }
         });
-
 
         recentANDcount(ArtworkName)
 
@@ -634,7 +627,6 @@ function albumSongPlay(clickedAlbumData){
 
 
 
-
         function favouriteView(currentSong){
         artworkPath = artwork_name[currentSong][0]
         tempArtwork = artworkPath.split("/");
@@ -669,6 +661,7 @@ function albumSongPlay(clickedAlbumData){
 
 
 
+
 <!-- till here   -->
 <!--            $("#CtrlImage img").attr("src",artwork_name[currentSong]);-->
 
@@ -682,7 +675,6 @@ function albumSongPlay(clickedAlbumData){
 <!--        song.play(); // play the song-->
 
     }
-
 
     function nextAlbum(totsong,fileUnique,songName,artistName,totalLength,artwork_nameUnique){
         currentSong++;
@@ -968,10 +960,7 @@ $(document).ready(function(){
       });
   </script>
 
-
-
 <!--for log in or out-->
-
 <script type="text/javascript">
     function loguser(){
         sign = document.getElementById("replace").textContent;
@@ -1067,7 +1056,6 @@ function menu(x, y) {
 }
   </script>
 
-
 <!--for csrf token-->
 <script>
 function getCookie(name) {
@@ -1149,8 +1137,24 @@ function getCookie(name) {
 }
 </script>
 
+<!--  for sign up-->
+<script type="text/javascript">
+    function signup()
+{
+  var username = document.getElementById("username").value;
+  var password = document.getElementById("password").value;
+  var email = document.getElementById("email").value;
+  var fname = document.getElementById("fname").value;
+  var lname = document.getElementById("lname").value;
+  var bday = document.getElementById("bday").value;
 
-
+  if (document.getElementById('male').checked) {
+      gender = document.getElementById('male').value;
+    }else if (document.getElementById('female').checked) {
+      gender = document.getElementById('female').value;
+    }else{
+      gender = document.getElementById('other').value;
+    }
 
   if(username && password && email && fname && lname && bday && gender)
   {
@@ -1209,15 +1213,12 @@ function getCookie(name) {
 }
 </script>
 
-
 <!--  for searches-->
 <script type="text/javascript">
     $(function(){
         $('#search').keyup(function(){
         var search_data = $('#search').val()
-
         const_csrftoken = getCookie('csrftoken');
-
             $.ajax({
                 type:"POST",
                 url: "/search_data",
@@ -1312,7 +1313,6 @@ function getCookie(name) {
     }
 </script>
 
-
 <!--for favourite-->
 <script>
     function favourite(favclick){
@@ -1341,7 +1341,7 @@ function getCookie(name) {
          });
     }
 
-
+</script>
 
 <!--share function-->
 <script>
@@ -1553,7 +1553,6 @@ window.onclick = function(event) {
 }
 
 
-
 </script>
 
 <!--remove song from library - popup in details-->
@@ -1606,7 +1605,6 @@ function recentANDcount(ArtworkName){
     })
 }
 </script>
-
 
   </body>
 </html>

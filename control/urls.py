@@ -47,6 +47,22 @@ urlpatterns = [
     path('createplaylistdata', views.createplaylistdata),
     path('search_data', views.search_data),
     path('findSongbyalbum', views.findSongbyalbum),
+    path('playlistview/<PlaylistName>', views.viewplaylist),
+    path('autoplaylistview/<PlaylistName>', views.autoviewplaylist),
+    path('view/<topic>', views.GoToView),
+    path('artist/<topic>', views.artistview),
+    path('public_playlist/<PlaylistName>', views.viewPublicplaylist),
+    path('favourite/<ArtworkName>', views.favourited),
+    path('favyesorno/<ArtworkName>', views.favyesorno),
+    path('addlibview/<ArtworkName>', views.addlibview),
+    path('addlib/<PlaylistName>/<ArtworkName>', views.addlib),
+    path('option/<id>', views.option),
+    path('favouriteOption/<id>', views.favouriteOption),
+    path('addOption/<id>', views.addOption),
+    path('AddLibFrmDetails/<PlaylistName>/<id>', views.AddLibFrmDetails),
+    path('removeFromLib/<id>', views.removeFromLib),
+    path('removeFromPlst/<playlistName>/<id>', views.removeFromPlst),
+    path('recentANDcount/<ArtworkName>', views.recentANDcount),
 
 ]
 

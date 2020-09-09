@@ -1,0 +1,122 @@
+{% if public is empty %}
+<div class="library">
+    {% endif %}
+        <div class="col-12 songName" id="PlaylistName">{{PlaylistName}}</div>
+
+<!--    for related musics-->
+    {% for plstdata in All_related_music_dict %}
+        <div class="row bgOnHover">
+            <div class="col-12 ">
+                <div class="row ">
+                    <div class="col-1 d-xs-none col-sm-1 col-md-1 col-lg-1 col-xl-1 songNo hideOnXS">{{ forloop.counter }}</div>
+                    <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-1 " >
+                        <div class="imageHover1"><a href="#" onclick='singleSongPlay("{{plstdata.file}},,{{plstdata.artwork_name}},,{{plstdata.title}},,{{plstdata.album_artist}},,{{plstdata.length}}")' >
+                            <div class="imageHoverPlay1"><i class="far fa-play-circle"></i></div>
+                            <img src="static/thumbnails/{{plstdata.artwork_name}}" alt="Playlist by Control" class="img-fluid  box-shadow imageHeight"></a>
+                        </div>
+                    </div>
+                    <div class="col-7 col-sm-7 col-md-6 col-lg-6 col-xl-8 marginLeftXS">
+                        <div class="row">
+                            <div class="col-12 "><a href="#" class="songName" onclick='singleSongPlay("{{plstdata.file}},,{{plstdata.artwork_name}},,{{plstdata.title}},,{{plstdata.album_artist}},,{{plstdata.length}}")'>{{plstdata.title}}</a> </div>
+                            <div class="col-12 "><a href="#" class="artistsName" onclick='ArtistView("{{plstdata.album_artist}}")'>{{plstdata.album_artist}}</a>  · <a href="#" class="artistsAlbum" onclick='GoToView("{{plstdata.album}}")'>{{plstdata.album}}</a> </div>
+                        </div>
+                    </div>
+                    <div class="col-1 col-sm-1 col-md-2 col-lg-2 col-xl-1 text-right songOption">
+                        <a href="#">
+                        <i class="fas fa-ellipsis-h float-left mt-1 optionOnXS popup popup1"  id="option{{forloop.counter0}}" onclick='option("option{{forloop.counter0}}")' value="{{plstdata.id}}">
+                            <span class="popuptext">
+                                <div class="row>">
+                                    <i class="fas fa-tasks mr-3"></i>
+                                    <i class="fas fa-plus" onclick='addOption("option{{forloop.counter0}}")'></i>
+                                    <i class="far fa-heart ml-3" onclick='favouriteOption("option{{forloop.counter0}}")'></i>
+                                </div>
+                            </span>
+                        </i> </a>
+                    {% if plstdata.explicit == 'True' %}🅴{% else %}{% endif %}</div>
+                    <div class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 songLength hideOnMD">{{plstdata.length}}</div>
+                </div>
+            </div>
+            <div class="col-12 m-0 p-0">
+                <div class="row m-0 p-0">
+                    <div class="col-2 m-0 p-0"></div>
+                    <div class="col-10 m-0 p-0"><hr></div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+<!--    for last added-->
+                {% for plstdata in plstdata %}
+        <div class="row bgOnHover">
+            <div class="col-12 ">
+                <div class="row ">
+                    <div class="col-1 d-xs-none col-sm-1 col-md-1 col-lg-1 col-xl-1 songNo hideOnXS">{{ forloop.counter }}</div>
+                    <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-1 " >
+                        <div class="imageHover1"><a href="#" onclick='singleSongPlay("{{plstdata.metadata.file}},,{{plstdata.metadata.artwork_name}},,{{plstdata.metadata.title}},,{{plstdata.metadata.album_artist}},,{{plstdata.metadata.length}}")' >
+                            <div class="imageHoverPlay1"><i class="far fa-play-circle"></i></div>
+                            <img src="static/thumbnails/{{plstdata.metadata.artwork_name}}" alt="Playlist by Control" class="img-fluid  box-shadow imageHeight"></a>
+                        </div>
+                    </div>
+                    <div class="col-7 col-sm-7 col-md-6 col-lg-6 col-xl-8 marginLeftXS">
+                        <div class="row">
+                            <div class="col-12 "><a href="#" class="songName" onclick='singleSongPlay("{{plstdata.metadata.file}},,{{plstdata.metadata.artwork_name}},,{{plstdata.metadata.title}},,{{plstdata.metadata.album_artist}},,{{plstdata.metadata.length}}")'>{{plstdata.metadata.title}}</a> </div>
+                            <div class="col-12 "><a href="#" class="artistsName" onclick='ArtistView("{{plstdata.metadata.album_artist}}")'>{{plstdata.metadata.album_artist}}</a>  · <a href="#" class="artistsAlbum"  onclick='GoToView("{{plstdata.metadata.album}}")'>{{plstdata.metadata.album}}</a> </div>
+                        </div>
+                    </div>
+                    <div class="col-1 col-sm-1 col-md-2 col-lg-2 col-xl-1 text-right songOption">
+                        <a href="#">
+<!--                            this below id is correct since only one id prints -->
+                        <i class="fas fa-ellipsis-h float-left mt-1 optionOnXS popup popup1"  id="option{{forloop.counter0}}" onclick='option("option{{forloop.counter0}}")' value="{{plstdata.metadata.id}}">
+                            <span class="popuptext">
+                                <div class="row>">
+                                    <i class="fas fa-tasks m-1"></i>
+                                    <i class="fas fa-plus m-1" onclick='addOption("option{{forloop.counter0}}")'></i>
+                                    <i class="far fa-heart m-1" onclick='favouriteOption("option{{forloop.counter0}}")'></i>
+                                     {% if  PlaylistName != 'Last Added' and PlaylistName != 'Favourite' %}
+                                    <i class="fas fa-trash ml-1" onclick='removeOptionPlst("option{{forloop.counter0}},,{{PlaylistName}}")'></i>
+                                    {% endif %}
+                                </div>
+                            </span>
+                        </i> </a>
+                    {% if plstdata.metadata.explicit == 'True' %}🅴{% else %}{% endif %}</div>
+                    <div class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 songLength hideOnMD">{{plstdata.metadata.length}}</div>
+                </div>
+            </div>
+            <div class="col-12 m-0 p-0">
+                <div class="row m-0 p-0">
+                    <div class="col-2 m-0 p-0"></div>
+                    <div class="col-10 m-0 p-0"><hr></div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    {% if public is empty %}
+</div>
+{% endif %}
+
+
+<script>
+$(document).ready(function(){
+        $("#PlaylistName").click(function(){
+        document.getElementById("home").classList.remove('deactivated');
+        document.getElementById("home").classList.add('activated');
+        document.getElementById("top").classList.remove('activated');
+        document.getElementById("top").classList.add('deactivated');
+        document.getElementById("new").classList.remove('activated');
+        document.getElementById("new").classList.add('deactivated');
+        document.getElementById("recent").classList.remove('activated');
+        document.getElementById("recent").classList.add('deactivated');
+        document.getElementById("library").classList.remove('activated');
+        document.getElementById("library").classList.add('deactivated');
+        document.getElementById("changeColor").classList.remove('colorWhite');
+        document.getElementById("changeColor").classList.add('controlColor');
+           $.ajax({
+            url: "../home",
+            success: function(result){
+                $("#displayInMainContent").html(result);
+                }
+            });
+        });
+    });
+</script>

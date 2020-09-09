@@ -1,0 +1,207 @@
+ <Section class="mainDiv container-fluid"> <!-- DO NOT REMOVE THIS Section -->
+<!--     SEARCHES BY SONG ALBUMS AND ARTISTS-->
+
+         <div class="feature">
+<!--        for songs-->
+        <div class="row">
+        <div class="col-8">
+            <h1 class="titleHome float-left">Songs</h1>
+        </div>
+        <div class="col-4">
+            <h1 class="titleHomeMore float-right">SEE ALL</h1>
+        </div>
+        </div>
+{% if Searched_song.count > 0 %}
+{% for Searched_song in Searched_song %}
+        <div class="row bgOnHover">
+            <div class="col-12 ">
+                <div class="row ">
+                    <div class="col-1 d-xs-none col-sm-1 col-md-1 col-lg-1 col-xl-1 songNo hideOnXS">{{ forloop.counter }}</div>
+                    <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-1 " >
+                        <div class="imageHover1"><a href="#"  onclick='singleSongPlay("{{Searched_song.file}},,{{Searched_song.artwork_name}},,{{Searched_song.title}},,{{Searched_song.album_artist}},,{{Searched_song.length}}")'>
+                            <div class="imageHoverPlay1"><i class="far fa-play-circle"></i></div>
+                            <img src="static/thumbnails/{{Searched_song.artwork_name}}" alt="Playlist by Control" class="img-fluid  box-shadow imageHeight"></a>
+                        </div>
+                    </div>
+                    <div class="col-7 col-sm-7 col-md-6 col-lg-6 col-xl-8 marginLeftXS">
+                        <div class="row">
+                            <div class="col-12 "><a href="#" class="songName" onclick='singleSongPlay("{{Searched_song.file}},,{{Searched_song.artwork_name}},,{{Searched_song.title}},,{{Searched_song.album_artist}},,{{Searched_song.length}}")'>{{Searched_song.title}}</a> </div>
+                            <div class="col-12 "><a href="#" class="artistsName" onclick='ArtistView("{{Searched_song.album_artist}}")'>{{Searched_song.album_artist}}</a>  · <a href="#" class="artistsAlbum" onclick='GoToView("{{Searched_song.album}}")'>{{Searched_song.album}}</a> </div>
+                        </div>
+                    </div>
+                    <div class="col-1 col-sm-1 col-md-2 col-lg-2 col-xl-1 text-right songOption">
+                        <a href="#">
+                        <i class="fas fa-ellipsis-h float-left mt-1 optionOnXS popup popup1"  id="option{{forloop.counter0}}" onclick='option("option{{forloop.counter0}}")' value="{{Searched_song.id}}">
+                            <span class="popuptext">
+                                <div class="row>">
+                                    <i class="fas fa-tasks m-1"></i>
+                                    <i class="fas fa-plus m-1" onclick='addOption("option{{forloop.counter0}}")'></i>
+                                    <i class="far fa-heart m-1" onclick='favouriteOption("option{{forloop.counter0}}")'></i>
+                                </div>
+                            </span>
+                        </i> </a>
+                    {% if Searched_song.explicit == 'True' %}🅴{% else %}{% endif %}</div>
+                    <div class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 songLength hideOnMD">{{Searched_song.length}}</div>
+                </div>
+            </div>
+            <div class="col-12 m-0 p-0">
+                <div class="row m-0 p-0">
+                    <div class="col-2 m-0 p-0"></div>
+                    <div class="col-10 m-0 p-0"><hr></div>
+                </div>
+            </div>
+
+
+        </div>
+{% endfor %}
+
+{% else %}
+    <p style="color: #5e5e5e;">Nothing to Show</p>
+{% endif %}
+
+
+<!--for albums-->
+        <div class="row">
+        <div class="col-8">
+            <h1 class="titleHome float-left">Albums</h1>
+        </div>
+        <div class="col-4">
+            <h1 class="titleHomeMore float-right">SEE ALL</h1>
+        </div>
+        </div>
+
+     {% if Searched_album.count > 0 %}
+ <div class="row">
+     {% for Searched_album in Searched_album %}
+
+         <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row pb-4">
+                <div class="col-12">
+                    <div class="imageHover"><a href="#" >
+                        <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                            <img src="static/thumbnails/{{Searched_album.artwork_name}}" alt="Playlist by Control" class="img-fluid image box-shadow"></a>
+                    </div>
+                </div>
+                <div class="col-12 songName" onclick='GoToView("{{Searched_album.album}}")'><a href="#" >{{Searched_album.album}}</a></div>
+                <div class="col-12 artistName" onclick='ArtistView("{{Searched_album.album_artist}}")'><a href="#" >{{Searched_album.album_artist}}</a></div>
+            </div>
+        </div>
+
+     {% endfor %}
+  </div>
+{% else %}
+    <p style="color: #5e5e5e;">Nothing to Show</p>
+{% endif %}
+
+
+     <!--        for artists-->
+         <div class="row">
+        <div class="col-8">
+            <h1 class="titleHome float-left">Artists</h1>
+        </div>
+        <div class="col-4">
+            <h1 class="titleHomeMore float-right">SEE ALL</h1>
+        </div>
+        </div>
+        <div class="row">
+        {% if Searched_artist.count > 0 %}
+        {% for Searched_artist in Searched_artist %}
+            <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+                <div class="row pb-4">
+                    <div class="col-12">
+                        <div class="imageHover"><a href="#" >
+                            <div class="imageHoverPlay"><i class="far fa-play-circle"></i></div>
+                                <img src="static/artist_image/{{Searched_artist.artist_img_original}}" alt="Playlist by Control" class="img-fluid image box-shadow"></a>
+                        </div>
+                    </div>
+                    <div class="col-12 songName" onclick='ArtistView("{{Searched_artist.artist_name}}")'><a href="#" >{{Searched_artist.artist_name}}</a></div>
+                    <div class="col-12 artistName">{{Searched_artist.total_album}} Albums</div>
+                </div>
+            </div>
+        {% endfor %}
+
+        </div>
+{% else %}
+    <p style="color: #5e5e5e;">  Nothing to Show</p>
+     {% endif %}
+
+
+         </div>
+
+
+
+
+     <!--        for playlists-->
+         <div class="row">
+        <div class="col-8">
+            <h1 class="titleHome float-left">Playlist</h1>
+        </div>
+        <div class="col-4">
+            <h1 class="titleHomeMore float-right">SEE ALL</h1>
+        </div>
+        </div>
+        <div class="row">
+            {% if Searched_playlist.count > 0 %}
+        {% for key,value in plstNameTot.items %}
+            <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row pb-4">
+                <div class="col-12 ">
+                                    <div class="imageHover hoverMargin" id="playlist{{ forloop.counter }}"><a href="#" >
+                                    <div class="imageHoverPlay"><i class ="far fa-play-circle"></i></div>
+                        <div class="row">
+                            <div class="col-12">
+
+                                <div class="row">
+                                    {% if searched_photo_dict.0 is empty %}
+                                        <div class="col-6  pr-0"><img src="static/img/thumbnails/control_thumb.png" alt="Playlist by Control" class="img-fluid "></div>
+                                    {% else %}
+                                        <div class="col-6  pr-0"><img src="static/thumbnails/{{searched_photo_dict.0}}" alt="Playlist by Control" class="img-fluid "></div>
+                                    {% endif %}
+
+                                    {% if searched_photo_dict.1 is empty %}
+                                        <div class="col-6  pl-0"><img src="static/img/thumbnails/control_thumb.png" alt="Playlist by Control" class="img-fluid "></div>
+                                    {% else %}
+                                        <div class="col-6  pl-0"><img src="static/thumbnails/{{searched_photo_dict.1}}" alt="Playlist by Control" class="img-fluid "></div>
+                                    {% endif %}
+                                </div>
+
+
+                                <div class="row">
+                                    {% if searched_photo_dict.2 is empty %}
+                                        <div class="col-6  pr-0"><img src="static/img/thumbnails/control_thumb.png" alt="Playlist by Control" class="img-fluid "></div>
+                                    {% else %}
+                                        <div class="col-6  pr-0"><img src="static/thumbnails/{{searched_photo_dict.2}}" alt="Playlist by Control" class="img-fluid "></div>
+                                    {% endif %}
+
+                                    {% if searched_photo_dict.3 is empty %}
+                                        <div class="col-6  pl-0"><img src="static/img/thumbnails/control_thumb.png" alt="Playlist by Control" class="img-fluid "></div>
+                                    {% else %}
+                                        <div class="col-6  pl-0"><img src="static/thumbnails/{{searched_photo_dict.3}}" alt="Playlist by Control" class="img-fluid "></div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                                </a>
+                    </div>
+                </div>
+                <div class="col-12 songName" onclick='public_playlist("{{key}}")' ><a href="#">{{key}}</a></div>
+                <div class="col-12 artistName" >{{value}} Total Songs</div>
+            </div>
+        </div>
+
+        {% endfor %}
+
+        </div>
+{% else %}
+    <p style="color: #5e5e5e;">  Nothing to Show</p>
+     {% endif %}
+
+
+
+         </div>
+ </Section>
+
+
+
+
+

@@ -1,0 +1,152 @@
+<div class="library">
+    <form method='post' action="" onsubmit="return playlistcreate();" autocomplete="off">
+               {% csrf_token %}
+        <div class="row"><div class="col-12"><input type="text" name="playlistname" id="playlistname" placeholder="NEW PLAYLIST NAME" class="searchbox1" required></div></div>
+
+
+    {% for recentdata in recentdata|slice:":12" %}
+        <div class="row bgOnHover">
+            <div class="col-12 ">
+                <div class="row ">
+                    <div class="col-1 d-xs-none col-sm-1 col-md-1 col-lg-1 col-xl-1 songNo hideOnXS">{{ forloop.counter }}</div>
+                    <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-1 " >
+                        <div class="imageHover1"><a href="#" >
+                            <div class="imageHoverPlay1"><i class="far fa-play-circle"></i></div>
+                            <img src="static/thumbnails/{{recentdata.metadata.artwork_name}}" alt="Playlist by Control" class="img-fluid  box-shadow imageHeight"></a>
+                        </div>
+                    </div>
+                    <div class="col-7 col-sm-7 col-md-6 col-lg-6 col-xl-8 marginLeftXS">
+                        <div class="row">
+                            <div class="col-12 "><a href="#" class="songName">{{recentdata.metadata.title}}</a> </div>
+                            <div class="col-12 "><a href="#" class="artistsName">{{recentdata.metadata.album_artist}}</a>  · <a href="#" class="artistsAlbum">{{recentdata.metadata.album}}</a> </div>
+                        </div>
+                    </div>
+                    <div class="col-1 col-sm-1 col-md-2 col-lg-2 col-xl-1 text-right songOption"><input type="checkbox" id="checkbox{{ forloop.counter }}" name="counter" value={{recentdata.id}} class="css-checkbox" ></div>
+                    <div class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 songLength hideOnMD">{{recentdata.metadata.length}}</div>
+                </div>
+            </div>
+            <div class="col-12 m-0 p-0">
+                <div class="row m-0 p-0">
+                    <div class="col-2 m-0 p-0"></div>
+                    <div class="col-10 m-0 p-0"><hr></div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+        <div class="row"><div class="col-12"><button type="submit" class="btnLogin1" id="create">create</button></div></div>
+    </form>
+</div>
+
+<!--  for creating playlists-->
+<script type="text/javascript">
+    function playlistcreate()
+{
+var playlistname = document.getElementById("playlistname").value;
+  if ($('#checkbox1').is(":checked")){
+    var c1 = document.getElementById("checkbox1").value;
+  }else{
+    var c1 = 0
+   }
+  if ($('#checkbox2').is(":checked"))
+        {
+          var c2 = document.getElementById("checkbox2").value;
+        }else{
+    var c2 = 0
+   }
+  if ($('#checkbox3').is(":checked"))
+        {
+          var c3 = document.getElementById("checkbox3").value;
+        }else{
+    var c3 = 0
+   }
+  if ($('#checkbox4').is(":checked"))
+        {
+          var c4 = document.getElementById("checkbox4").value;
+        }else{
+    var c4 = 0
+   }
+  if ($('#checkbox5').is(":checked"))
+        {
+          var c5 = document.getElementById("checkbox5").value;
+        }else{
+    var c5 = 0
+   }
+  if ($('#checkbox6').is(":checked"))
+        {
+          var c6 = document.getElementById("checkbox6").value;
+        }else{
+    var c6 = 0
+   }
+  if ($('#checkbox7').is(":checked"))
+        {
+          var c7 = document.getElementById("checkbox7").value;
+        }else{
+    var c7 = 0
+   }
+  if ($('#checkbox8').is(":checked"))
+        {
+          var c8 = document.getElementById("checkbox8").value;
+        }else{
+    var c8 = 0
+   }
+  if ($('#checkbox9').is(":checked"))
+        {
+          var c9 = document.getElementById("checkbox9").value;
+        }else{
+    var c9 = 0
+   }
+  if ($('#checkbox10').is(":checked"))
+        {
+          var c10 = document.getElementById("checkbox10").value;
+        }else{
+    var c10 = 0
+   }
+  if ($('#checkbox11').is(":checked"))
+        {
+          var c11 = document.getElementById("checkbox11").value;
+        }else{
+    var c11 = 0
+   }
+  if ($('#checkbox12').is(":checked"))
+        {
+          var c12 = document.getElementById("checkbox12").value;
+
+        }else{
+    var c12 = 0
+   }
+         if(c12  === undefined){
+                var c12 = "0"; // return 0 as replace, and end function execution
+            }
+  {
+    $.ajax
+    ({
+      type: 'post',
+      url: '../createplaylistdata',
+      data:
+      {
+        playlistname:playlistname,
+         c1:c1,
+         c2:c2,
+         c3:c3,
+         c4:c4,
+         c5:c5,
+         c6:c6,
+         c7:c7,
+         c8:c8,
+         c9:c9,
+         c10:c10,
+         c11:c11,
+         c12:c12,
+		 csrfmiddlewaretoken: '{{ csrf_token }}'
+      },
+      success: function (response)
+      {
+	    $("#displayInMainContent").html(response);
+      }
+    });
+  }
+
+  return false;
+}
+</script>
