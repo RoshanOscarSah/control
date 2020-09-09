@@ -1,0 +1,55 @@
+<Section class="mainDiv container-fluid"> <!-- DO NOT REMOVE THIS Section -->
+
+    <!-- Signup -->
+   <div class="row signinDiv mb-5 ">
+       <div class="col-3 d-sm-none d-md-none d-lg-block d-xl-block hideOnXS"></div>
+
+       <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+           <form method='post' onsubmit="return signup();" autocomplete="off">
+                {% csrf_token %}
+               <div class="row"><div class="col-12"><H1 class="text-center"> Sign Up For Free</H1></div></div>
+               <div class="row"><div class="col-12"><input type="email" name="email" id="email" placeholder="EMAIL" class="searchbox1" required></div></div>
+               <div class="row">
+                   <div class="col-6"><input type="text" name="fname" id="fname" placeholder="FIRST NAME" class="searchbox1" required></div>
+                   <div class="col-6"><input type="text" name="lname" id="lname" placeholder="LAST NAME" class="searchbox1" required></div>
+               </div>
+               <div class="row"><div class="col-12"><input type="text" name="username" id="username" value="{{username}}" placeholder="USERNAME" class="searchbox1" required></div></div>
+               <div class="row"><div class="col-12"><input type="password" name="password" id="password" value="{{password}}" placeholder="PASSWORD" class="searchbox1" required></div></div>
+               <div class="row searchbox1">
+                   <div class="col-3"><H4 class="text-center mt-3">Birthday</H4></div>
+                   <div class="col-9"><input type="date" name="bday" id="bday" placeholder="DATE" class="searchbox1 m-0" required></div>
+               </div>
+               <div class="row mt-3">
+                   <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"><input type='radio' value="male" id='male' checked='checked' name='gender' class="searchbox1"><label for='male' >Male</label></div>
+                   <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"><input type='radio' value="female" id='female' name='gender'><label for='female'>Female</label></div>
+                   <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"><input type='radio' value="other" id='other' name='gender' ><label for='other'>Other</label></div>
+
+               </div>
+
+
+
+               <div class="row">
+                   <div class="col-12"><button type="submit" id="submit" class="btnLogin1">Sign Up</button></div>
+               </div>
+           </form>
+       </div>
+
+
+       <div class="col-3 d-sm-none d-md-none d-lg-block d-xl-block hideOnXS"></div>
+   </div>
+
+
+</Section>
+<!--for notification-->
+  <script type="text/javascript">
+  {% for message in messages %}
+    $.growl.{{notitype}} ({ message: " {{message}}  "});
+  {% endfor %}
+</script>
+
+<!--making signout to signin-->
+<script>
+$(document).ready(function(){
+    document.getElementById("replace").textContent = "Sign In";
+});
+</script>
